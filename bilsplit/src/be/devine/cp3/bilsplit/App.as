@@ -7,16 +7,21 @@
  */
 package be.devine.cp3.bilsplit
 {
-import starling.display.Quad;
+import be.devine.cp3.bilsplit.model.Appmodel;
+import be.devine.cp3.bilsplit.view.BillSplit;
+
 import starling.display.Sprite;
 
 public class App extends Sprite
 {
+    private var appmodel:Appmodel;
+    private var billSplit:BillSplit;
+
     public function App()
     {
-        var testQuad:Quad = new Quad(100,100,0xAA0000);
-        testQuad.x = testQuad.y = 50;
-        addChild(testQuad);
+        appmodel = new Appmodel();
+        billSplit = new BillSplit(appmodel);
+        addChild(billSplit);
     }
 }
 }

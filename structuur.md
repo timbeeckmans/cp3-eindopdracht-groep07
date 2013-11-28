@@ -5,6 +5,8 @@ structuur
    - Menu
    - Billsplit
      - Personen
+       - Persoon
+       - Item
      - ICanBeSplit
      - EvenSplit
      - AbsoluteSplit
