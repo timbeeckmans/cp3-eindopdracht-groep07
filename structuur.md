@@ -1,0 +1,12 @@
+structuur
+-----------
+ - Appmodel
+ - View
+   - Menu
+   - Billsplit
+     - Personen
+     - ICanBeSplit
+     - EvenSplit
+     - AbsoluteSplit
+     - ProcentueleSplit
+   - Button
