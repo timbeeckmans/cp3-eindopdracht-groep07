@@ -15,7 +15,7 @@ import feathers.data.ListCollection;
 import starling.display.Sprite;
 import starling.events.Event;
 
-public class StartScreen extends Sprite implements ICanBeViewed
+public class StartScherm extends Sprite
 {
     private var _buttons:ButtonGroup;
     private var _appmodel:Appmodel;
@@ -24,7 +24,7 @@ public class StartScreen extends Sprite implements ICanBeViewed
     static const OUD_CLICKED:String = "oudClicked";
     static const INSTRUCTIE_CLICKED:String = "instructieClicked";
 
-    public function StartScreen(appmodel:Appmodel)
+    public function StartScherm(appmodel:Appmodel)
     {
         _appmodel = appmodel;
 
@@ -35,26 +35,34 @@ public class StartScreen extends Sprite implements ICanBeViewed
                     { label: "Oude rekening laden", triggered: oud_clickhandler},
                     { label: "Instructies", triggered: instructie_clickhandler}
                 ]);
+        _appmodel.addEventListener(Appmodel.STAGE_RESIZED_EVENT, draw);
         draw();
     }
 
     public function draw():void{
+        //zou moeten centraal staan, maar _buttons.width geeft 0 terug...
+        //_buttons.x = _appmodel.stageWidth/2 - _buttons.width / 2;
+
+        //voorlopig:
+        _buttons.y = 500;
+        _buttons.x = 24;
         this.addChild(_buttons);
+
     }
 
     function nieuw_clickhandler( event:Event ):void
     {
-        dispatchEvent(new Event(NIEUW_CLICKED));
+        _appmodel.huidigScherm = "deelMethode";
     }
 
     function oud_clickhandler( event:Event ):void
     {
-        dispatchEvent(new Event(OUD_CLICKED));
+        //_appmodel.huidigScherm =
     }
 
     function instructie_clickhandler( event:Event ):void
     {
-        dispatchEvent(new Event(INSTRUCTIE_CLICKED));
+        //_appmodel.huidigScherm =
     }
 }
 }

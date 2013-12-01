@@ -13,6 +13,8 @@ import be.devine.cp3.bilsplit.view.BillSplit;
 import feathers.themes.MinimalMobileTheme;
 
 import starling.display.Sprite;
+import starling.events.Event;
+import starling.events.ResizeEvent;
 
 public class App extends Sprite
 {
@@ -22,10 +24,22 @@ public class App extends Sprite
     public function App()
     {
         new MinimalMobileTheme();
+        this.addEventListener(Event.ADDED_TO_STAGE, init);
+    }
+
+    private function init(event:Event):void
+    {
         appmodel = new Appmodel();
+        stage.addEventListener(ResizeEvent.RESIZE, stage_resizeHandler);
+        stage_resizeHandler();
+
         billSplit = new BillSplit(appmodel);
         addChild(billSplit);
     }
 
+    private function stage_resizeHandler(event:ResizeEvent = null):void
+    {
+        appmodel.resize(stage.stageWidth, stage.stageHeight);
+    }
 }
 }
