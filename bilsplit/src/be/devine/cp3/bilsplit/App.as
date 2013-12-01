@@ -10,6 +10,8 @@ package be.devine.cp3.bilsplit
 import be.devine.cp3.bilsplit.model.Appmodel;
 import be.devine.cp3.bilsplit.view.BillSplit;
 
+import feathers.themes.MinimalMobileTheme;
+
 import starling.display.Sprite;
 
 public class App extends Sprite
@@ -19,9 +21,11 @@ public class App extends Sprite
 
     public function App()
     {
+        new MinimalMobileTheme();
         appmodel = new Appmodel();
         billSplit = new BillSplit(appmodel);
         addChild(billSplit);
     }
+
 }
 }

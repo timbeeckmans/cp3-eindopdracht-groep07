@@ -14,10 +14,14 @@ import starling.display.Sprite;
 public class BillSplit extends Sprite
 {
     private var _appmodel:Appmodel;
+    private var _startscreen:StartScreen;
 
     public function BillSplit(appmodel:Appmodel)
     {
         _appmodel = appmodel;
+        _startscreen = new StartScreen(_appmodel);
+        _appmodel.huidigScherm = _startscreen;
+        addChild(_startscreen);
     }
 }
 }

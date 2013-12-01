@@ -7,17 +7,24 @@
  */
 package be.devine.cp3.bilsplit.model
 {
+import be.devine.cp3.bilsplit.view.ICanBeViewed;
+
 import flash.events.Event;
 import flash.events.EventDispatcher;
 
 public class Appmodel extends EventDispatcher
 {
+    private var _stageWidth:Number;
+    private var _stageHeight:Number;
+
     private var _personen:Array;
     private var _voorwerpen:Array;
     private var _totaalBedrag:Number;
+    private var _huidigScherm:ICanBeViewed;
     public static const PERSONEN_CHANGED_EVENT:String = "personenChanged";
     public static const VOORWERPEN_CHANGED_EVENT:String = "voorwerpenChanged";
     public static const TOTAALBEDRAG_CHANGED_EVENT:String = "totaalBedragChanged";
+    public static const HUIDIGSCHERM_CHANGED_EVENT:String = "huidigSchermChanged";
 
     public function Appmodel(){
         _personen = [];
@@ -62,6 +69,19 @@ public class Appmodel extends EventDispatcher
         if (_totaalBedrag == value) return;
         _totaalBedrag = value;
         dispatchEvent(new Event(TOTAALBEDRAG_CHANGED_EVENT));
+    }
+
+    [Bindable(event="huidigSchermChanged")]
+    public function get huidigScherm():ICanBeViewed
+    {
+        return _huidigScherm;
+    }
+
+    public function set huidigScherm(value:ICanBeViewed):void
+    {
+        if (_huidigScherm == value) return;
+        _huidigScherm = value;
+        dispatchEvent(new Event(HUIDIGSCHERM_CHANGED_EVENT));
     }
 }
 }
