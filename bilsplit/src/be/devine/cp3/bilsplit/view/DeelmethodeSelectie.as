@@ -28,8 +28,8 @@ public class DeelmethodeSelectie extends Sprite implements IcanBeViewed
         _buttons.dataProvider = new ListCollection(
                 [
                     { label: "Gelijk verdeeld", triggered: GelijkMethode_clickhandler},
-                    { label: "Procentueel verdeeld", triggered: _clickhandler},
-                    { label: "Proportioneel verdeeld", triggered: _clickhandler}
+                    { label: "Procentueel verdeeld", triggered: ProcentueelMethode_clickhandler},
+                    { label: "Proportioneel verdeeld", triggered: ProportioneelMethode_clickhandler}
                 ]);
 
 
@@ -51,6 +51,16 @@ public class DeelmethodeSelectie extends Sprite implements IcanBeViewed
     function GelijkMethode_clickhandler( event:Event ):void
     {
         _appmodel.huidigScherm = "gelijkMethode";
+    }
+
+    function ProcentueelMethode_clickhandler( event:Event ):void
+    {
+        _appmodel.huidigScherm = "procentueelMethode";
+    }
+
+    function ProportioneelMethode_clickhandler( event:Event ):void
+    {
+        _appmodel.huidigScherm = "proportioneelMethode";
     }
 
     private function buttonCreatedHandler(event:starling.events.Event):void
