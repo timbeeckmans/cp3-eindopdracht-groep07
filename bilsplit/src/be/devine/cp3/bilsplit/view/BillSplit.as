@@ -67,6 +67,8 @@ public class BillSplit extends Sprite
         _navigator.showScreen(_appmodel.huidigScherm);
         addChild(_navigator);
         trace("yolo123");
+
+
     }
     
 }

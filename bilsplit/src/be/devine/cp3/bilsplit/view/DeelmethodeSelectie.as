@@ -5,6 +5,7 @@ package be.devine.cp3.bilsplit.view
 import be.devine.cp3.bilsplit.model.Appmodel;
 
 import feathers.controls.ButtonGroup;
+import feathers.controls.NumericStepper;
 import feathers.data.ListCollection;
 
 import starling.display.Sprite;
@@ -15,6 +16,7 @@ public class DeelmethodeSelectie extends Sprite
 
     private var _appmodel:Appmodel;
     private var _buttons:ButtonGroup;
+    var stepper:NumericStepper;
 
     public function DeelmethodeSelectie()
     {
@@ -39,9 +41,6 @@ public class DeelmethodeSelectie extends Sprite
         _buttons.y = 500;
         _buttons.x = 24;
         this.addChild(_buttons);
-
-
-
 
     }
 
