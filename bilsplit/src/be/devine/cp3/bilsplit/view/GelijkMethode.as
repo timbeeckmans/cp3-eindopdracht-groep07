@@ -1,18 +1,11 @@
 package be.devine.cp3.bilsplit.view {
 import be.devine.cp3.bilsplit.model.Appmodel;
 
-import feathers.controls.Button;
-
 import feathers.controls.ButtonGroup;
 import feathers.data.ListCollection;
 
-import flash.events.Event;
-import flash.text.Font;
-import flash.text.TextField;
-
 import starling.display.Sprite;
 import starling.events.Event;
-import starling.text.TextField;
 
 public class GelijkMethode extends Sprite implements IcanBeViewed{
 
@@ -36,8 +29,6 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
 
         addChild(_buttons);
 
-
-
     }
 
     private function addPerson(event:starling.events.Event):void {
@@ -46,7 +37,9 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
         _appmodel.personen.push("person");
         trace(_appmodel.personen);
 
-        _appmodel.personen.length
+        trace(_appmodel.personen.length);
+
+
 
     }
 
@@ -54,29 +47,18 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
 
         trace('[gelijkmethode] delete person');
 
-    }
+        _appmodel.personen.pop();
+        trace(_appmodel.personen);
 
-
-
-    /*private function _clickhandlerAddPerson():void {
-
-        trace("add person");
-
-
+        trace(_appmodel.personen.length);
 
     }
 
-    private function _clickhandlerDeletePerson():void {
-
-        trace("add person");
-
+    public function setSize(w:Number, h:Number):void{
 
     }
 
-    public function setSize(w:Number, h:Number):void {
-        this.addChild(_buttons);
-    }
-     */
+
 
 }
 }
