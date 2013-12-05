@@ -93,7 +93,7 @@ public class Appmodel extends EventDispatcher
         if (_huidigScherm == value) return;
         _huidigScherm = value;
         dispatchEvent(new Event(HUIDIGSCHERM_CHANGED_EVENT));
-        trace(_huidigScherm);
+        trace("[Appmodel] huidigscherm:", _huidigScherm);
     }
 
     public function get schermen():Array

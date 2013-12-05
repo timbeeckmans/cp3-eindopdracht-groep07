@@ -10,8 +10,10 @@ package be.devine.cp3.bilsplit.view
 import be.devine.cp3.bilsplit.model.Appmodel;
 
 import feathers.controls.ButtonGroup;
+import feathers.controls.LayoutGroup;
 import feathers.data.ListCollection;
 import feathers.events.FeathersEventType;
+
 import starling.display.Sprite;
 import starling.events.Event;
 
@@ -20,13 +22,13 @@ public class StartScherm extends Sprite implements IcanBeViewed
     private var w:Number;
     private var h:Number;
 
+    private var _layout:LayoutGroup;
     private var _buttons:ButtonGroup;
     private var _appmodel:Appmodel;
 
     public function StartScherm()
     {
         _appmodel = Appmodel.getInstance();
-
         _buttons = new ButtonGroup();
         _buttons.dataProvider = new ListCollection(
                 [
@@ -34,6 +36,7 @@ public class StartScherm extends Sprite implements IcanBeViewed
                     { label: "Oude rekening laden", triggered: oud_clickhandler},
                     { label: "Instructies", triggered: instructie_clickhandler}
                 ]);
+
     }
 
     private function buttonCreatedHandler(event:Event):void
@@ -48,8 +51,9 @@ public class StartScherm extends Sprite implements IcanBeViewed
         this.w = w;
         this.h = h;
         _buttons.addEventListener(FeathersEventType.CREATION_COMPLETE, buttonCreatedHandler);
-        this.addChild(_buttons);
-        trace("[startscherm] setSize");
+
+        addChild(_buttons);
+
     }
 
     function nieuw_clickhandler( event:Event ):void

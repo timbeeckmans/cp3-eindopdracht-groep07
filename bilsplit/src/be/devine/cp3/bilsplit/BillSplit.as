@@ -10,9 +10,13 @@ package be.devine.cp3.bilsplit
 import be.devine.cp3.bilsplit.view.*;
 import be.devine.cp3.bilsplit.model.Appmodel;
 
+import feathers.controls.LayoutGroup;
+
 import feathers.controls.ScreenNavigator;
 import feathers.controls.ScreenNavigatorItem;
 import feathers.themes.MinimalMobileTheme;
+
+import flash.events.MouseEvent;
 
 import starling.display.Sprite;
 
@@ -26,6 +30,7 @@ public class BillSplit extends Sprite
     private var _appmodel:Appmodel;
     private var _navigator:ScreenNavigator;
     private var _schermen:Array;
+    private var _hoofdMenu:Menu;
 
     public function BillSplit()
     {
@@ -34,20 +39,15 @@ public class BillSplit extends Sprite
 
     private function prepareNavigator():void
     {
-
-
-
-
         _navigator = new ScreenNavigator();
-
+        _hoofdMenu = new Menu();
         _schermen = [
 
-                ["start", new ScreenNavigatorItem(new StartScherm())],
-                ["deelMethode", new ScreenNavigatorItem(new DeelmethodeSelectie())],
-                ["gelijkMethode", new ScreenNavigatorItem(new GelijkMethode())],
-                ["procentueelMethode", new ScreenNavigatorItem(new ProcentueelMethode())],
-                ["proportioneelMethode", new ScreenNavigatorItem(new ProportioneelMethode())]
-
+                ["start", new ScreenNavigatorItem(StartScherm)],
+                ["deelMethode", new ScreenNavigatorItem(DeelmethodeSelectie)],
+                ["gelijkMethode", new ScreenNavigatorItem(GelijkMethode)],
+                ["procentueelMethode", new ScreenNavigatorItem(ProcentueelMethode)],
+                ["proportioneelMethode", new ScreenNavigatorItem(ProportioneelMethode)]
 
                 //["naam"], new ScreenNavigator(new Klassenaam),
 
@@ -65,10 +65,10 @@ public class BillSplit extends Sprite
 
     private function nieuwSchermHandler(event:flash.events.Event):void
     {
-        trace("[BillSplit] nieuwschermhandler");
         _navigator.showScreen(_appmodel.huidigScherm);
         resizeHandler();
         addChild(_navigator);
+
     }
 
     private function init(event:starling.events.Event):void
@@ -77,6 +77,7 @@ public class BillSplit extends Sprite
         new MinimalMobileTheme();
         _appmodel = Appmodel.getInstance();
         prepareNavigator();
+        addChild(_hoofdMenu);
         _appmodel.addEventListener(Appmodel.HUIDIGSCHERM_CHANGED_EVENT, nieuwSchermHandler);
         _appmodel.huidigScherm = "start";
         stage.addEventListener(ResizeEvent.RESIZE, resizeHandler);
@@ -84,8 +85,11 @@ public class BillSplit extends Sprite
 
     private function resizeHandler(event:starling.events.Event = null):void
     {
+        var w:Number = stage.stageWidth;
+        var h:Number = stage.stageHeight;
         var huidigScherm:IcanBeViewed = _navigator.activeScreen as IcanBeViewed;
-        huidigScherm.setSize(stage.stageWidth, stage.stageHeight);
+        huidigScherm.setSize(w,h);
+        _hoofdMenu.setSize(w, h);
     }
 }
 }
