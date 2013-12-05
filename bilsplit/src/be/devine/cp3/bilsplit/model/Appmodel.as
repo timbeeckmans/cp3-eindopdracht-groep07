@@ -14,6 +14,7 @@ import flash.events.EventDispatcher;
 public class Appmodel extends EventDispatcher
 {
     private var _personen:Array;
+    private var _aantalPersonen:uint;
     private var _voorwerpen:Array;
     private var _totaalBedrag:Number;
     private var _huidigScherm:String;
@@ -39,6 +40,7 @@ public class Appmodel extends EventDispatcher
         }
 
         _personen = [];
+        _aantalPersonen = 0;
         _voorwerpen = [];
         _totaalBedrag = 0;
     }
@@ -104,6 +106,16 @@ public class Appmodel extends EventDispatcher
     public function set schermen(value:Array):void
     {
         _schermen = value;
+    }
+
+    public function get aantalPersonen():uint
+    {
+        return _aantalPersonen;
+    }
+
+    public function set aantalPersonen(value:uint):void
+    {
+        _aantalPersonen = value;
     }
 }
 }

@@ -25,7 +25,6 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
     private var _explicitHeight:Number = 0;
     //private var _infoLabel:Label;
     private var _personenlabel:Label;
-    private var _aantalpersonen:uint = 1;
     private var stepper:NumericStepper;
 
 
@@ -33,6 +32,7 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
         _appmodel = Appmodel.getInstance();
 
         _appmodel.totaalBedrag = 50;
+        _appmodel.aantalPersonen = 1;
 
         trace('[gelijkmethode]');
 
@@ -78,8 +78,9 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
 
     private function stepper_changeHandler(event:starling.events.Event):void {
         var stepper:NumericStepper = NumericStepper( event.currentTarget );
-        _aantalpersonen = stepper.value;
-        trace("[gelijkmethode]" + _aantalpersonen);
+        _appmodel.aantalPersonen = stepper.value;
+        trace("[gelijkmethode]" + _appmodel.aantalPersonen + " personen,", berekenPerPersoon() + "euro per persoon");
+
 
     }
 
@@ -91,6 +92,14 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
         //_buttonGroup.x = Math.round((_explicitWidth - _buttonGroup.width) * .5);
 
 
+    }
+
+    private function berekenPerPersoon():Number{
+
+        //geeft een getal terug met 2 decimalen
+        //Totaal kan enkele centen verschillen met de som per personen
+
+        return Math.round(100 * _appmodel.totaalBedrag / _appmodel.aantalPersonen) / 100;
     }
 
     /*private function addPersonHandler(event:Event):void {
@@ -123,10 +132,6 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
 
         trace(_appmodel.personen.length, berekenPerPersoon());
 
-    }
-
-    private function berekenPerPersoon():Number{
-        return _appmodel.totaalBedrag / _appmodel.personen.length;
     }
 
     private function buttonGroupCreationCompleteHandler(event:Event):void {

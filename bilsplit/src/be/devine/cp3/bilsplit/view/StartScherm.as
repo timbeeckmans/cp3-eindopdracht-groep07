@@ -22,7 +22,6 @@ public class StartScherm extends Sprite implements IcanBeViewed
     private var w:Number;
     private var h:Number;
 
-    private var _layout:LayoutGroup;
     private var _buttons:ButtonGroup;
     private var _appmodel:Appmodel;
 
