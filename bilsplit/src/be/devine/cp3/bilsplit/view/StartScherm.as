@@ -15,10 +15,11 @@ import feathers.events.FeathersEventType;
 import starling.display.Sprite;
 import starling.events.Event;
 
-import flash.events.Event;
-
-public class StartScherm extends Sprite
+public class StartScherm extends Sprite implements IcanBeViewed
 {
+    private var w:Number;
+    private var h:Number;
+
     private var _buttons:ButtonGroup;
     private var _appmodel:Appmodel;
 
@@ -33,34 +34,35 @@ public class StartScherm extends Sprite
                     { label: "Oude rekening laden", triggered: oud_clickhandler},
                     { label: "Instructies", triggered: instructie_clickhandler}
                 ]);
-        _appmodel.addEventListener(Appmodel.STAGE_RESIZED_EVENT, draw);
-        draw();
     }
 
-    public function draw(event:flash.events.Event = null):void{
-        _buttons.addEventListener(FeathersEventType.CREATION_COMPLETE, buttonCreatedHandler);
-        this.addChild(_buttons);
-    }
-
-    private function buttonCreatedHandler(event:starling.events.Event):void
+    private function buttonCreatedHandler(event:Event):void
     {
         _buttons.removeEventListener(FeathersEventType.CREATION_COMPLETE, buttonCreatedHandler);
-        _buttons.x = _appmodel.stageWidth/2 - _buttons.width / 2;
-        _buttons.y = 500;
+        _buttons.x = w/2 - _buttons.width / 2;
+        _buttons.y = h - (_buttons.height + 50);
 
     }
 
-    function nieuw_clickhandler( event:starling.events.Event ):void
+    public function setSize(w:Number, h:Number):void{
+        this.w = w;
+        this.h = h;
+        _buttons.addEventListener(FeathersEventType.CREATION_COMPLETE, buttonCreatedHandler);
+        this.addChild(_buttons);
+        trace("[startscherm] setSize");
+    }
+
+    function nieuw_clickhandler( event:Event ):void
     {
         _appmodel.huidigScherm = "deelMethode";
     }
 
-    function oud_clickhandler( event:starling.events.Event ):void
+    function oud_clickhandler( event:Event ):void
     {
         //_appmodel.huidigScherm =
     }
 
-    function instructie_clickhandler( event:starling.events.Event ):void
+    function instructie_clickhandler( event:Event ):void
     {
         //_appmodel.huidigScherm =
     }

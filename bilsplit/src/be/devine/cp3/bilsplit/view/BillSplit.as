@@ -11,9 +11,13 @@ import be.devine.cp3.bilsplit.model.Appmodel;
 
 import feathers.controls.ScreenNavigator;
 import feathers.controls.ScreenNavigatorItem;
+import feathers.themes.MinimalMobileTheme;
+
 import starling.display.Sprite;
 
 import flash.events.Event;
+
+import starling.events.Event;
 
 public class BillSplit extends Sprite
 {
@@ -23,12 +27,7 @@ public class BillSplit extends Sprite
 
     public function BillSplit()
     {
-        _appmodel = Appmodel.getInstance();
-        _appmodel.addEventListener(Appmodel.HUIDIGSCHERM_CHANGED_EVENT, nieuwSchermHandler);
-
-        prepareNavigator();
-        _navigator.showScreen("start");
-        addChild(_navigator);
+        this.addEventListener(starling.events.Event.ADDED_TO_STAGE, init);
     }
 
     private function prepareNavigator():void
@@ -56,14 +55,23 @@ public class BillSplit extends Sprite
         _appmodel.schermen = schermen;
     }
 
-    private function nieuwSchermHandler(event:Event):void
+    private function nieuwSchermHandler(event:flash.events.Event):void
     {
+        trace("[BillSplit] nieuwschermhandler");
         _navigator.showScreen(_appmodel.huidigScherm);
+        var huidigScherm:IcanBeViewed = _navigator.activeScreen as IcanBeViewed;
+        huidigScherm.setSize(stage.stageWidth, stage.stageHeight);
         addChild(_navigator);
-        trace("yolo123");
-
-
     }
-    
+
+    private function init(event:starling.events.Event):void
+    {
+        this.removeEventListener(starling.events.Event.ADDED_TO_STAGE, init);
+        new MinimalMobileTheme();
+        _appmodel = Appmodel.getInstance();
+        prepareNavigator();
+        _appmodel.addEventListener(Appmodel.HUIDIGSCHERM_CHANGED_EVENT, nieuwSchermHandler);
+        _appmodel.huidigScherm = "start";
+    }
 }
 }

@@ -23,8 +23,6 @@ public class App extends Sprite
 
     public function App()
     {
-        _appmodel = Appmodel.getInstance();
-        new MinimalMobileTheme();
         this.addEventListener(Event.ADDED_TO_STAGE, init);
     }
 
@@ -39,7 +37,8 @@ public class App extends Sprite
 
     private function stage_resizeHandler(event:ResizeEvent = null):void
     {
-        _appmodel.resize(stage.stageWidth, stage.stageHeight);
+        //_appmodel.resize(stage.stageWidth, stage.stageHeight);
+        //billSplit.set
     }
 }
 }

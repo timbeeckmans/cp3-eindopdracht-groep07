@@ -13,8 +13,10 @@ import feathers.events.FeathersEventType;
 import starling.display.Sprite;
 import starling.events.Event;
 
-public class DeelmethodeSelectie extends Sprite
+public class DeelmethodeSelectie extends Sprite implements IcanBeViewed
 {
+    private var w:Number;
+    private var h:Number;
 
     private var _appmodel:Appmodel;
     private var _buttons:ButtonGroup;
@@ -30,11 +32,13 @@ public class DeelmethodeSelectie extends Sprite
                     { label: "Proportioneel verdeeld", triggered: _clickhandler}
                 ]);
 
-        _appmodel.addEventListener(Appmodel.STAGE_RESIZED_EVENT, draw);
-        draw();
+
     }
 
-    public function draw():void{
+    public function setSize(w:Number, h:Number):void{
+        this.h = h;
+        this.w = w;
+
         _buttons.addEventListener(FeathersEventType.CREATION_COMPLETE, buttonCreatedHandler);
         this.addChild(_buttons);
     }
@@ -52,8 +56,8 @@ public class DeelmethodeSelectie extends Sprite
     private function buttonCreatedHandler(event:starling.events.Event):void
     {
         _buttons.removeEventListener(FeathersEventType.CREATION_COMPLETE, buttonCreatedHandler);
-        _buttons.x = _appmodel.stageWidth/2 - _buttons.width / 2;
-        _buttons.y = 500;
+        _buttons.x = w/2 - _buttons.width / 2;
+        _buttons.y = h - (_buttons.height + 50);
 
     }
 

@@ -13,16 +13,12 @@ import flash.events.EventDispatcher;
 
 public class Appmodel extends EventDispatcher
 {
-    private var _stageWidth:Number;
-    private var _stageHeight:Number;
-
     private var _personen:Array;
     private var _voorwerpen:Array;
     private var _totaalBedrag:Number;
     private var _huidigScherm:String;
     private var _schermen:Array;
 
-    public static const STAGE_RESIZED_EVENT:String = "stageResized";
     public static const PERSONEN_CHANGED_EVENT:String = "personenChanged";
     public static const VOORWERPEN_CHANGED_EVENT:String = "voorwerpenChanged";
     public static const TOTAALBEDRAG_CHANGED_EVENT:String = "totaalBedragChanged";
@@ -45,22 +41,6 @@ public class Appmodel extends EventDispatcher
         _personen = [];
         _voorwerpen = [];
         _totaalBedrag = 0;
-    }
-
-    public function resize(width:Number, height:Number):void{
-        _stageWidth = width;
-        _stageHeight = height;
-        dispatchEvent(new Event(STAGE_RESIZED_EVENT));
-    }
-
-    public function get stageWidth():Number
-    {
-        return _stageWidth;
-    }
-
-    public function get stageHeight():Number
-    {
-        return _stageHeight;
     }
 
     [Bindable(event="personenChanged")]

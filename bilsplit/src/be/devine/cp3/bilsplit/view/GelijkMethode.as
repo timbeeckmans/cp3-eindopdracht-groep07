@@ -6,7 +6,7 @@ import feathers.data.ListCollection;
 
 import starling.display.Sprite;
 
-public class GelijkMethode extends Sprite {
+public class GelijkMethode extends Sprite implements IcanBeViewed{
 
     private var _appmodel:Appmodel;
     private var _buttons:ButtonGroup;
@@ -21,9 +21,6 @@ public class GelijkMethode extends Sprite {
                 [
                     { label: "Add person", triggered: _clickhandler}
                 ]);
-        _appmodel.addEventListener(Appmodel.STAGE_RESIZED_EVENT, draw);
-        draw();
-
     }
 
     private function _clickhandler():void {
@@ -33,12 +30,9 @@ public class GelijkMethode extends Sprite {
 
     }
 
-    public function draw():void{
-
+    public function setSize(w:Number, h:Number):void {
         this.addChild(_buttons);
-
     }
-
 
 }
 }
