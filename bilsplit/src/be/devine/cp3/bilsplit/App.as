@@ -18,11 +18,12 @@ import starling.events.ResizeEvent;
 
 public class App extends Sprite
 {
-    private var appmodel:Appmodel;
+    private var _appmodel:Appmodel;
     private var billSplit:BillSplit;
 
     public function App()
     {
+        _appmodel = Appmodel.getInstance();
         new MinimalMobileTheme();
         this.addEventListener(Event.ADDED_TO_STAGE, init);
     }
@@ -38,7 +39,7 @@ public class App extends Sprite
 
     private function stage_resizeHandler(event:ResizeEvent = null):void
     {
-        appmodel.resize(stage.stageWidth, stage.stageHeight);
+        _appmodel.resize(stage.stageWidth, stage.stageHeight);
     }
 }
 }
