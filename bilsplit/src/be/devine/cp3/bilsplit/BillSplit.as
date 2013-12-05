@@ -19,6 +19,7 @@ import starling.display.Sprite;
 import flash.events.Event;
 
 import starling.events.Event;
+import starling.events.ResizeEvent;
 
 public class BillSplit extends Sprite
 {
@@ -33,6 +34,10 @@ public class BillSplit extends Sprite
 
     private function prepareNavigator():void
     {
+
+
+
+
         _navigator = new ScreenNavigator();
 
         _schermen = [
@@ -62,8 +67,7 @@ public class BillSplit extends Sprite
     {
         trace("[BillSplit] nieuwschermhandler");
         _navigator.showScreen(_appmodel.huidigScherm);
-        var huidigScherm:IcanBeViewed = _navigator.activeScreen as IcanBeViewed;
-        huidigScherm.setSize(stage.stageWidth, stage.stageHeight);
+        resizeHandler();
         addChild(_navigator);
     }
 
@@ -75,6 +79,13 @@ public class BillSplit extends Sprite
         prepareNavigator();
         _appmodel.addEventListener(Appmodel.HUIDIGSCHERM_CHANGED_EVENT, nieuwSchermHandler);
         _appmodel.huidigScherm = "start";
+        stage.addEventListener(ResizeEvent.RESIZE, resizeHandler);
+    }
+
+    private function resizeHandler(event:starling.events.Event = null):void
+    {
+        var huidigScherm:IcanBeViewed = _navigator.activeScreen as IcanBeViewed;
+        huidigScherm.setSize(stage.stageWidth, stage.stageHeight);
     }
 }
 }
