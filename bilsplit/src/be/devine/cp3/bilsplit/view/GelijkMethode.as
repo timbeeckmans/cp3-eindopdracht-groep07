@@ -16,6 +16,8 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
     public function GelijkMethode() {
         _appmodel = Appmodel.getInstance();
 
+        _appmodel.totaalBedrag = 50;
+
         trace('[gelijkmethode]');
 
 
@@ -34,24 +36,24 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
     private function addPerson(event:starling.events.Event):void {
 
         trace('[gelijkmethode] add person');
+
         _appmodel.personen.push("person");
-        trace(_appmodel.personen);
 
-        trace(_appmodel.personen.length);
-
-
-
+        trace(_appmodel.personen.length, berekenPerPersoon());
     }
 
     private function deletePerson(event:starling.events.Event):void {
 
         trace('[gelijkmethode] delete person');
 
-        _appmodel.personen.pop();
-        trace(_appmodel.personen);
+        if(_appmodel.personen.length > 1)_appmodel.personen.pop();
 
-        trace(_appmodel.personen.length);
+        trace(_appmodel.personen.length, berekenPerPersoon());
 
+    }
+
+    private function berekenPerPersoon():Number{
+        return _appmodel.totaalBedrag / _appmodel.personen.length;
     }
 
     public function setSize(w:Number, h:Number):void{
