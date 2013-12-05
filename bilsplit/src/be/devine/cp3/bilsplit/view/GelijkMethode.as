@@ -6,10 +6,10 @@ import feathers.controls.Label;
 
 import feathers.controls.LayoutGroup;
 import feathers.controls.NumericStepper;
+import feathers.controls.TextInput;
 import feathers.events.FeathersEventType;
+import feathers.layout.AnchorLayoutData;
 import feathers.layout.HorizontalLayout;
-
-import flash.events.Event;
 
 import starling.display.Sprite;
 import starling.events.Event;
@@ -58,15 +58,17 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
         _addButton.addEventListener(Event.TRIGGERED, addPersonHandler);
         _deleteButton.addEventListener(Event.TRIGGERED, DeletePersonHandler);*/
 
+
         stepper = new NumericStepper();
+
         stepper.minimum = 1;
         stepper.maximum = 99;
-        stepper.value = 1;
+        stepper.value = _appmodel.aantalPersonen;
         stepper.step = 1;
+        //niet goed leesbaar... ander theme mss?
         addChild( stepper );
 
-        stepper.addEventListener( starling.events.Event.CHANGE, stepper_changeHandler );
-        stepper.buttonLayoutMode = NumericStepper.BUTTON_LAYOUT_MODE_RIGHT_SIDE_VERTICAL;
+        stepper.addEventListener( Event.CHANGE, stepper_changeHandler );
 
         _personenlabel = new Label();
         _personenlabel.nameList.add(Label.ALTERNATE_NAME_HEADING);
@@ -76,7 +78,7 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
 
     }
 
-    private function stepper_changeHandler(event:starling.events.Event):void {
+    private function stepper_changeHandler(event:Event):void {
         var stepper:NumericStepper = NumericStepper( event.currentTarget );
         _appmodel.aantalPersonen = stepper.value;
         trace("[gelijkmethode]" + _appmodel.aantalPersonen + " personen,", berekenPerPersoon() + "euro per persoon");
@@ -97,7 +99,7 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
     private function berekenPerPersoon():Number{
 
         //geeft een getal terug met 2 decimalen
-        //Totaal kan enkele centen verschillen met de som per personen
+        //Totaal kan enkele centen verschillen met de som van de personen
 
         return Math.round(100 * _appmodel.totaalBedrag / _appmodel.aantalPersonen) / 100;
     }
