@@ -1,6 +1,6 @@
 package {
 
-import be.devine.cp3.bilsplit.view.BillSplit;
+import be.devine.cp3.bilsplit.BillSplit;
 
 import flash.display.Sprite;
 import flash.display.StageAlign;
