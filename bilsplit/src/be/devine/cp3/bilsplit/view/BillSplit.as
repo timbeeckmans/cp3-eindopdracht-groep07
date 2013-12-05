@@ -48,7 +48,11 @@ public class BillSplit extends Sprite
         _schermen = [
 
                 ["start", new ScreenNavigatorItem(new StartScherm())],
-                ["deelMethode", new ScreenNavigatorItem(new DeelmethodeSelectie())]
+                ["deelMethode", new ScreenNavigatorItem(new DeelmethodeSelectie())],
+                ["gelijkMethode", new ScreenNavigatorItem(new GelijkMethode())]
+
+
+                //["naam"], new ScreenNavigator(new Klassenaam),
 
         ];
 

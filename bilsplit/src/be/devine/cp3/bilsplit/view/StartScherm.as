@@ -64,5 +64,6 @@ public class StartScherm extends Sprite
     {
         //_appmodel.huidigScherm =
     }
+
 }
 }

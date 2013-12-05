@@ -3,6 +3,7 @@ package be.devine.cp3.bilsplit.view
 
 
 import be.devine.cp3.bilsplit.model.Appmodel;
+import be.devine.cp3.bilsplit.view.GelijkMethode;
 
 import feathers.controls.ButtonGroup;
 import feathers.controls.NumericStepper;
@@ -16,7 +17,6 @@ public class DeelmethodeSelectie extends Sprite
 
     private var _appmodel:Appmodel;
     private var _buttons:ButtonGroup;
-    var stepper:NumericStepper;
 
     public function DeelmethodeSelectie()
     {
@@ -24,7 +24,7 @@ public class DeelmethodeSelectie extends Sprite
         _buttons = new ButtonGroup();
         _buttons.dataProvider = new ListCollection(
                 [
-                    { label: "Gelijk verdeeld", triggered: _clickhandler},
+                    { label: "Gelijk verdeeld", triggered: GelijkMethode_clickhandler},
                     { label: "Procentueel verdeeld", triggered: _clickhandler},
                     { label: "Proportioneel verdeeld", triggered: _clickhandler}
                 ]);
@@ -42,11 +42,18 @@ public class DeelmethodeSelectie extends Sprite
         _buttons.x = 24;
         this.addChild(_buttons);
 
+
+
+    }
+
+    function GelijkMethode_clickhandler( event:Event ):void
+    {
+        _appmodel.huidigScherm = "gelijkMethode";
     }
 
     function _clickhandler( event:Event ):void
     {
-        _appmodel.huidigScherm = "deelMethode";
     }
+
 }
 }
