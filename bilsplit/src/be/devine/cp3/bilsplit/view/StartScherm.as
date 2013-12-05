@@ -11,18 +11,16 @@ import be.devine.cp3.bilsplit.model.Appmodel;
 
 import feathers.controls.ButtonGroup;
 import feathers.data.ListCollection;
-
+import feathers.events.FeathersEventType;
 import starling.display.Sprite;
 import starling.events.Event;
+
+import flash.events.Event;
 
 public class StartScherm extends Sprite
 {
     private var _buttons:ButtonGroup;
     private var _appmodel:Appmodel;
-
-    static const NIEUW_CLICKED:String = "nieuwClicked";
-    static const OUD_CLICKED:String = "oudClicked";
-    static const INSTRUCTIE_CLICKED:String = "instructieClicked";
 
     public function StartScherm()
     {
@@ -39,28 +37,30 @@ public class StartScherm extends Sprite
         draw();
     }
 
-    public function draw():void{
-        //zou moeten centraal staan, maar _buttons.width geeft 0 terug...
-        //_buttons.x = _appmodel.stageWidth/2 - _buttons.width / 2;
-
-        //voorlopig:
-        _buttons.y = 500;
-        _buttons.x = 24;
+    public function draw(event:flash.events.Event = null):void{
+        _buttons.addEventListener(FeathersEventType.CREATION_COMPLETE, buttonCreatedHandler);
         this.addChild(_buttons);
+    }
+
+    private function buttonCreatedHandler(event:starling.events.Event):void
+    {
+        _buttons.removeEventListener(FeathersEventType.CREATION_COMPLETE, buttonCreatedHandler);
+        _buttons.x = _appmodel.stageWidth/2 - _buttons.width / 2;
+        _buttons.y = 500;
 
     }
 
-    function nieuw_clickhandler( event:Event ):void
+    function nieuw_clickhandler( event:starling.events.Event ):void
     {
         _appmodel.huidigScherm = "deelMethode";
     }
 
-    function oud_clickhandler( event:Event ):void
+    function oud_clickhandler( event:starling.events.Event ):void
     {
         //_appmodel.huidigScherm =
     }
 
-    function instructie_clickhandler( event:Event ):void
+    function instructie_clickhandler( event:starling.events.Event ):void
     {
         //_appmodel.huidigScherm =
     }

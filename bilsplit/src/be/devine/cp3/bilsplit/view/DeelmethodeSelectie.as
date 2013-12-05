@@ -8,6 +8,7 @@ import be.devine.cp3.bilsplit.view.GelijkMethode;
 import feathers.controls.ButtonGroup;
 import feathers.controls.NumericStepper;
 import feathers.data.ListCollection;
+import feathers.events.FeathersEventType;
 
 import starling.display.Sprite;
 import starling.events.Event;
@@ -34,21 +35,26 @@ public class DeelmethodeSelectie extends Sprite
     }
 
     public function draw():void{
-        //zou moeten centraal staan, maar _buttons.width geeft 0 terug...
-        //_buttons.x = _appmodel.stageWidth/2 - _buttons.width / 2;
-
-        //voorlopig:
-        _buttons.y = 500;
-        _buttons.x = 24;
+        _buttons.addEventListener(FeathersEventType.CREATION_COMPLETE, buttonCreatedHandler);
         this.addChild(_buttons);
-
-
-
     }
+
+
+
+
+
 
     function GelijkMethode_clickhandler( event:Event ):void
     {
         _appmodel.huidigScherm = "gelijkMethode";
+    }
+
+    private function buttonCreatedHandler(event:starling.events.Event):void
+    {
+        _buttons.removeEventListener(FeathersEventType.CREATION_COMPLETE, buttonCreatedHandler);
+        _buttons.x = _appmodel.stageWidth/2 - _buttons.width / 2;
+        _buttons.y = 500;
+
     }
 
     function _clickhandler( event:Event ):void

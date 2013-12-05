@@ -26,7 +26,7 @@ public class Main extends Sprite {
     }
 
     private function resizeHandler(event:Event):void {
-        trace("resize");
+        trace("[Main] resize");
         app.viewPort = new Rectangle(0, 0, stage.stageWidth, stage.stageHeight);
         app.stage.stageWidth = stage.stageWidth;
         app.stage.stageHeight = stage.stageHeight;

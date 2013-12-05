@@ -8,28 +8,18 @@
 package be.devine.cp3.bilsplit.view
 {
 import be.devine.cp3.bilsplit.model.Appmodel;
-import be.devine.cp3.bilsplit.model.Appmodel;
-
-import feathers.controls.ButtonGroup;
 
 import feathers.controls.ScreenNavigator;
 import feathers.controls.ScreenNavigatorItem;
-import feathers.data.ListCollection;
+import starling.display.Sprite;
 
 import flash.events.Event;
-
-import starling.display.DisplayObject;
-
-import starling.display.Sprite;
 
 public class BillSplit extends Sprite
 {
     private var _appmodel:Appmodel;
-    private var _startscherm:ScreenNavigatorItem;
-    private var _nieuwScherm:DisplayObject;
     private var _navigator:ScreenNavigator;
     private var _schermen:Array;
-    private var _buttons:ButtonGroup;
 
     public function BillSplit()
     {

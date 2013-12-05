@@ -21,6 +21,7 @@ public class Appmodel extends EventDispatcher
     private var _totaalBedrag:Number;
     private var _huidigScherm:String;
     private var _schermen:Array;
+
     public static const STAGE_RESIZED_EVENT:String = "stageResized";
     public static const PERSONEN_CHANGED_EVENT:String = "personenChanged";
     public static const VOORWERPEN_CHANGED_EVENT:String = "voorwerpenChanged";
