@@ -66,28 +66,7 @@ public class BillSplit extends Sprite
         _navigator.showScreen(_appmodel.huidigScherm);
         addChild(_navigator);
         trace("yolo123");
-
-
-        _buttons = new ButtonGroup();
-        _buttons.dataProvider = new ListCollection(
-                [
-                    { label: "Gelijk verdeeld"},
-                    { label: "Procentueel verdeeld"},
-                    { label: "Proportioneel verdeeld"}
-                ]);
-        _appmodel.addEventListener(Appmodel.STAGE_RESIZED_EVENT, draw);
-        draw();
-
-
-
-
     }
     
-    private function draw():void{
-        _buttons.y = 500;
-        _buttons.x = 24;
-        this.addChild(_buttons);
-
-    }
 }
 }

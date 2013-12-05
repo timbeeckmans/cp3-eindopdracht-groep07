@@ -22,10 +22,11 @@ public class DeelmethodeSelectie extends Sprite
         _buttons = new ButtonGroup();
         _buttons.dataProvider = new ListCollection(
                 [
-                    { label: "Gelijk verdelen", triggered: _clickhandler},
-                    { label: "Procentueel verdelen", triggered: _clickhandler},
-                    { label: "Absoluut verdelen", triggered: _clickhandler}
+                    { label: "Gelijk verdeeld", triggered: _clickhandler},
+                    { label: "Procentueel verdeeld", triggered: _clickhandler},
+                    { label: "Proportioneel verdeeld", triggered: _clickhandler}
                 ]);
+
         _appmodel.addEventListener(Appmodel.STAGE_RESIZED_EVENT, draw);
         draw();
     }
