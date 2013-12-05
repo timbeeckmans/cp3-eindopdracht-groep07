@@ -9,8 +9,11 @@ package be.devine.cp3.bilsplit.view
 {
 import be.devine.cp3.bilsplit.model.Appmodel;
 
+import feathers.controls.ButtonGroup;
+
 import feathers.controls.ScreenNavigator;
 import feathers.controls.ScreenNavigatorItem;
+import feathers.data.ListCollection;
 
 import flash.events.Event;
 
@@ -25,6 +28,7 @@ public class BillSplit extends Sprite
     private var _nieuwScherm:DisplayObject;
     private var _navigator:ScreenNavigator;
     private var _schermen:Array;
+    private var _buttons:ButtonGroup;
 
     public function BillSplit(appmodel:Appmodel)
     {
@@ -62,6 +66,28 @@ public class BillSplit extends Sprite
         _navigator.showScreen(_appmodel.huidigScherm);
         addChild(_navigator);
         trace("yolo123");
+
+
+        _buttons = new ButtonGroup();
+        _buttons.dataProvider = new ListCollection(
+                [
+                    { label: "Gelijk verdeeld"},
+                    { label: "Procentueel verdeeld"},
+                    { label: "Proportioneel verdeeld"}
+                ]);
+        _appmodel.addEventListener(Appmodel.STAGE_RESIZED_EVENT, draw);
+        draw();
+
+
+
+
+    }
+    
+    private function draw():void{
+        _buttons.y = 500;
+        _buttons.x = 24;
+        this.addChild(_buttons);
+
     }
 }
 }
