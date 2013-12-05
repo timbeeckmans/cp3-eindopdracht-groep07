@@ -44,7 +44,9 @@ public class BillSplit extends Sprite
 
                 ["start", new ScreenNavigatorItem(new StartScherm())],
                 ["deelMethode", new ScreenNavigatorItem(new DeelmethodeSelectie())],
-                ["gelijkMethode", new ScreenNavigatorItem(new GelijkMethode())]
+                ["gelijkMethode", new ScreenNavigatorItem(new GelijkMethode())],
+                ["procentueelMethode", new ScreenNavigatorItem(new ProcentueelMethode())],
+                ["proportioneelMethode", new ScreenNavigatorItem(new ProportioneelMethode())]
 
 
                 //["naam"], new ScreenNavigator(new Klassenaam),
