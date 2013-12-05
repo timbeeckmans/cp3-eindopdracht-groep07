@@ -24,9 +24,9 @@ public class StartScherm extends Sprite
     static const OUD_CLICKED:String = "oudClicked";
     static const INSTRUCTIE_CLICKED:String = "instructieClicked";
 
-    public function StartScherm(appmodel:Appmodel)
+    public function StartScherm()
     {
-        _appmodel = appmodel;
+        _appmodel = Appmodel.getInstance();
 
         _buttons = new ButtonGroup();
         _buttons.dataProvider = new ListCollection(

@@ -29,11 +29,10 @@ public class App extends Sprite
 
     private function init(event:Event):void
     {
-        appmodel = new Appmodel();
         stage.addEventListener(ResizeEvent.RESIZE, stage_resizeHandler);
         stage_resizeHandler();
 
-        billSplit = new BillSplit(appmodel);
+        billSplit = new BillSplit();
         addChild(billSplit);
     }
 

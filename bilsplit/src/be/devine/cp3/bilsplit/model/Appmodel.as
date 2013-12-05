@@ -27,7 +27,20 @@ public class Appmodel extends EventDispatcher
     public static const TOTAALBEDRAG_CHANGED_EVENT:String = "totaalBedragChanged";
     public static const HUIDIGSCHERM_CHANGED_EVENT:String = "huidigSchermChanged";
 
-    public function Appmodel(){
+    static private var instance:Appmodel;
+    static public function getInstance():Appmodel{
+        if (instance == null){
+            instance = new Appmodel(new Enforcer());
+        }
+        return instance;
+    }
+
+    public function Appmodel(e:Enforcer){
+
+        if(e == null){
+            throw new Error("Appmodel is a Singleton");
+        }
+
         _personen = [];
         _voorwerpen = [];
         _totaalBedrag = 0;
@@ -112,3 +125,4 @@ public class Appmodel extends EventDispatcher
     }
 }
 }
+internal class Enforcer{};

@@ -8,6 +8,7 @@
 package be.devine.cp3.bilsplit.view
 {
 import be.devine.cp3.bilsplit.model.Appmodel;
+import be.devine.cp3.bilsplit.model.Appmodel;
 
 import feathers.controls.ButtonGroup;
 
@@ -30,9 +31,9 @@ public class BillSplit extends Sprite
     private var _schermen:Array;
     private var _buttons:ButtonGroup;
 
-    public function BillSplit(appmodel:Appmodel)
+    public function BillSplit()
     {
-        _appmodel = appmodel;
+        _appmodel = Appmodel.getInstance();
         _appmodel.addEventListener(Appmodel.HUIDIGSCHERM_CHANGED_EVENT, nieuwSchermHandler);
 
         prepareNavigator();
@@ -46,8 +47,8 @@ public class BillSplit extends Sprite
 
         _schermen = [
 
-                ["start", new ScreenNavigatorItem(new StartScherm(_appmodel))],
-                ["deelMethode", new ScreenNavigatorItem(new DeelmethodeSelectie(_appmodel))]
+                ["start", new ScreenNavigatorItem(new StartScherm())],
+                ["deelMethode", new ScreenNavigatorItem(new DeelmethodeSelectie())]
 
         ];
 

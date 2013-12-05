@@ -16,9 +16,9 @@ public class DeelmethodeSelectie extends Sprite
     private var _appmodel:Appmodel;
     private var _buttons:ButtonGroup;
 
-    public function DeelmethodeSelectie(appmodel:Appmodel)
+    public function DeelmethodeSelectie()
     {
-        _appmodel = appmodel;
+        _appmodel = Appmodel.getInstance();
         _buttons = new ButtonGroup();
         _buttons.dataProvider = new ListCollection(
                 [
