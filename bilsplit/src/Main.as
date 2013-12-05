@@ -1,6 +1,6 @@
 package {
 
-import be.devine.cp3.bilsplit.App;
+import be.devine.cp3.bilsplit.BillSplit;
 
 import flash.display.Sprite;
 import flash.display.StageAlign;
@@ -19,7 +19,7 @@ public class Main extends Sprite {
         stage.scaleMode = StageScaleMode.NO_SCALE;
         stage.align = StageAlign.TOP_LEFT;
 
-        app = new Starling(App, stage);
+        app = new Starling(BillSplit, stage);
         app.start();
 
         stage.addEventListener(Event.RESIZE, resizeHandler);
