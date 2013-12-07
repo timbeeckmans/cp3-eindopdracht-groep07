@@ -58,6 +58,19 @@ public class Appmodel extends EventDispatcher
         dispatchEvent(new Event(PERSONEN_CHANGED_EVENT));
     }
 
+    public function addPersoon(value:PersoonData):void{
+        personen.push(value);
+        aantalPersonen ++;
+    }
+
+    public function removePersoon(value:PersoonData):void{
+        if(personen.length == 0) return;
+        var newarray:Array = personen;
+        newarray.splice(newarray.indexOf(value),1);
+        personen = newarray;
+        aantalPersonen --;
+    }
+
     [Bindable(event="voorwerpenChanged")]
     public function get voorwerpen():Array
     {
