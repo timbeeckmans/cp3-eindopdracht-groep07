@@ -59,7 +59,7 @@ public class ProportioneelMethode extends Sprite implements IcanBeViewed {
 
         this.addChild( _panel );
 
-        _txtInput = new TextInput();
+        _txtInput.text = "persoon " + (_appmodel.aantalPersonen + 1);
         _panel.addChild( _txtInput );
 
         var confirmButton:Button = new Button();
