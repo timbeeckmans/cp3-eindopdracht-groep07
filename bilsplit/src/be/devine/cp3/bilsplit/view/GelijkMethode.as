@@ -2,28 +2,26 @@ package be.devine.cp3.bilsplit.view {
 import be.devine.cp3.bilsplit.model.Appmodel;
 
 import feathers.controls.Button;
+
 import feathers.controls.Label;
 
 import feathers.controls.LayoutGroup;
 import feathers.controls.NumericStepper;
 import feathers.controls.TextInput;
 import feathers.events.FeathersEventType;
-import feathers.layout.AnchorLayoutData;
-import feathers.layout.HorizontalLayout;
 
 import starling.display.Sprite;
 import starling.events.Event;
-import starling.textures.TextureAtlas;
-
 public class GelijkMethode extends Sprite implements IcanBeViewed{
 
     private var _appmodel:Appmodel;
-    /*private var _buttonGroup:LayoutGroup;
-    private var _deleteButton:Button;
-    private var _addButton:Button;*/
+    private var _buttonGroup:LayoutGroup;
     private var _explicitWidth:Number = 0;
     private var _explicitHeight:Number = 0;
-    //private var _infoLabel:Label;
+    private var _totaalbedraglabel:Label;
+    private var _totaalbedragwaarde:Label;
+    private var _bedragperpersoon:Label;
+    private var _bedragperpersoonlabel:Label;
     private var _personenlabel:Label;
     private var stepper:NumericStepper;
 
@@ -36,27 +34,9 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
 
         trace('[gelijkmethode]');
 
-        /*_buttonGroup = new LayoutGroup();
+        _buttonGroup = new LayoutGroup();
         _buttonGroup.addEventListener(FeathersEventType.CREATION_COMPLETE, buttonGroupCreationCompleteHandler);
         addChild(_buttonGroup);
-
-        var layout:HorizontalLayout = new HorizontalLayout();
-        layout.gap = 50;
-        _buttonGroup.layout = layout;
-        _buttonGroup.y = 200;
-
-        _deleteButton = new Button();
-        _deleteButton.label = "Delete";
-        _deleteButton.setSize(150, 50);
-        _buttonGroup.addChild(_deleteButton);
-
-        _addButton = new Button();
-        _addButton.label = "Add";
-        _addButton.setSize(150, 50);
-        _buttonGroup.addChild(_addButton);
-
-        _addButton.addEventListener(Event.TRIGGERED, addPersonHandler);
-        _deleteButton.addEventListener(Event.TRIGGERED, DeletePersonHandler);*/
 
 
         stepper = new NumericStepper();
@@ -70,10 +50,8 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
 
         stepper.addEventListener( Event.CHANGE, stepper_changeHandler );
 
-        _personenlabel = new Label();
-        _personenlabel.nameList.add(Label.ALTERNATE_NAME_HEADING);
-        _personenlabel.text = "Aantal personen";
-        addChild(_personenlabel);
+
+
 
 
     }
@@ -84,10 +62,23 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
         trace("[gelijkmethode]" + _appmodel.aantalPersonen + " personen,", berekenPerPersoon() + "euro per persoon");
 
 
+
+        _bedragperpersoon.text = (Math.round(100 * _appmodel.totaalBedrag / _appmodel.aantalPersonen) / 100).toString();
+
     }
 
     public function setSize(w:Number, h:Number):void {
         stepper.x = w/2;
+        stepper.x = 30;
+        stepper.y = 250;
+
+        _personenlabel = new Label();
+        _personenlabel.nameList.add(Label.ALTERNATE_NAME_HEADING);
+        _personenlabel.text = "Aantal personen";
+        addChild(_personenlabel);
+
+        _personenlabel.x = 30;
+        _personenlabel.y = 200;
 
         _explicitWidth = w;
         _explicitHeight = h;
@@ -104,49 +95,48 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
         return Math.round(100 * _appmodel.totaalBedrag / _appmodel.aantalPersonen) / 100;
     }
 
-    /*private function addPersonHandler(event:Event):void {
-        trace('[gelijkmethode] add person');
-        _appmodel.personen.push("person");
-        trace(_appmodel.personen);
-
-        trace(_appmodel.personen.length);
-
-        _infoLabel.text = _appmodel.personen.length.toString();
-
-        _appmodel.personen.push("person");
-
-        trace(_appmodel.personen.length, berekenPerPersoon());
-    }
-
-    private function DeletePersonHandler(event:Event):void {
-        trace('[gelijkmethode] add person');
-        _appmodel.personen.pop();
-        trace(_appmodel.personen);
-
-        trace(_appmodel.personen.length);
-        _infoLabel.text = _appmodel.personen.length.toString();
-
-    private function deletePerson(event:starling.events.Event):void {
-
-        trace('[gelijkmethode] delete person');
-
-        if(_appmodel.personen.length > 1)_appmodel.personen.pop();
-
-        trace(_appmodel.personen.length, berekenPerPersoon());
-
-    }
 
     private function buttonGroupCreationCompleteHandler(event:Event):void {
         setSize(_explicitWidth, _explicitHeight);
-        _infoLabel = new Label();
-        _infoLabel.nameList.add(Label.ALTERNATE_NAME_HEADING);
-        addChild(_infoLabel);
 
-        _infoLabel.setSize(100,100);
-        _infoLabel.x = (stage.stageWidth/2) - (_infoLabel.width/2);
+        _totaalbedraglabel = new Label();
+        _totaalbedraglabel.nameList.add(Label.ALTERNATE_NAME_HEADING);
+        _totaalbedraglabel.text = "Totaalbedrag: € ";
+        addChild(_totaalbedraglabel);
 
+        _totaalbedraglabel.setSize(100,100);
+        _totaalbedraglabel.x = 30;
+        _totaalbedraglabel.y = 100;
 
-    }*/
+        //var myTextInput:TextInput = new TextInput();
+        //addChild(myTextInput);
+
+        _totaalbedragwaarde = new Label();
+        _totaalbedragwaarde.nameList.add(Label.ALTERNATE_NAME_HEADING);
+        _totaalbedragwaarde.text = _appmodel.totaalBedrag.toString();
+        addChild(_totaalbedragwaarde);
+
+        _totaalbedragwaarde.setSize(100,100);
+        _totaalbedragwaarde.x = 250;
+        _totaalbedragwaarde.y = 100;
+
+        _bedragperpersoonlabel = new Label();
+        _bedragperpersoonlabel.nameList.add(Label.ALTERNATE_NAME_HEADING);
+        _bedragperpersoonlabel.text = "Bedrag per persoon: € ";
+        addChild(_bedragperpersoonlabel);
+
+        _bedragperpersoonlabel.setSize(100,100);
+        _bedragperpersoonlabel.x = 30;
+        _bedragperpersoonlabel.y = 300;
+
+        _bedragperpersoon = new Label();
+        _bedragperpersoon.nameList.add(Label.ALTERNATE_NAME_HEADING);
+        addChild(_bedragperpersoon);
+
+        _bedragperpersoon.setSize(100,100);
+        _bedragperpersoon.x = 350;
+        _bedragperpersoon.y = 300;
+    }
 
 
 
