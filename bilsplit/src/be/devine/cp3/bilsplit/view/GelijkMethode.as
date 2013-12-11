@@ -51,19 +51,12 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
         stepper.addEventListener( Event.CHANGE, stepper_changeHandler );
 
 
-
-
-
     }
 
     private function stepper_changeHandler(event:Event):void {
         var stepper:NumericStepper = NumericStepper( event.currentTarget );
         _appmodel.aantalPersonen = stepper.value;
-        trace("[gelijkmethode]" + _appmodel.aantalPersonen + " personen,", berekenPerPersoon() + "euro per persoon");
-
-
-
-        _bedragperpersoon.text = (Math.round(100 * _appmodel.totaalBedrag / _appmodel.aantalPersonen) / 100).toString();
+        berekenPerPersoon();
 
     }
 
@@ -74,7 +67,7 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
 
         _personenlabel = new Label();
         _personenlabel.nameList.add(Label.ALTERNATE_NAME_HEADING);
-        _personenlabel.text = "Aantal personen";
+        _personenlabel.text = "Aantal personen: ";
         addChild(_personenlabel);
 
         _personenlabel.x = 30;
@@ -87,12 +80,12 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
 
     }
 
-    private function berekenPerPersoon():Number{
+    private function berekenPerPersoon():void{
 
         //geeft een getal terug met 2 decimalen
         //Totaal kan enkele centen verschillen met de som van de personen
 
-        return Math.round(100 * _appmodel.totaalBedrag / _appmodel.aantalPersonen) / 100;
+        _bedragperpersoon.text =  Math.round(100 * _appmodel.totaalBedrag / _appmodel.aantalPersonen) / 100 + " euro";
     }
 
 
@@ -101,7 +94,7 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
 
         _totaalbedraglabel = new Label();
         _totaalbedraglabel.nameList.add(Label.ALTERNATE_NAME_HEADING);
-        _totaalbedraglabel.text = "Totaalbedrag: € ";
+        _totaalbedraglabel.text = "Totaalbedrag: ";
         addChild(_totaalbedraglabel);
 
         _totaalbedraglabel.setSize(100,100);
@@ -113,7 +106,7 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
 
         _totaalbedragwaarde = new Label();
         _totaalbedragwaarde.nameList.add(Label.ALTERNATE_NAME_HEADING);
-        _totaalbedragwaarde.text = _appmodel.totaalBedrag.toString();
+        _totaalbedragwaarde.text = _appmodel.totaalBedrag + " euro";
         addChild(_totaalbedragwaarde);
 
         _totaalbedragwaarde.setSize(100,100);
@@ -122,7 +115,7 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
 
         _bedragperpersoonlabel = new Label();
         _bedragperpersoonlabel.nameList.add(Label.ALTERNATE_NAME_HEADING);
-        _bedragperpersoonlabel.text = "Bedrag per persoon: € ";
+        _bedragperpersoonlabel.text = "Bedrag per persoon: ";
         addChild(_bedragperpersoonlabel);
 
         _bedragperpersoonlabel.setSize(100,100);
@@ -136,6 +129,8 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
         _bedragperpersoon.setSize(100,100);
         _bedragperpersoon.x = 350;
         _bedragperpersoon.y = 300;
+
+        berekenPerPersoon();
     }
 
 

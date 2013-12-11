@@ -55,6 +55,7 @@ public class Appmodel extends EventDispatcher
     {
         if (_personen == value) return;
         _personen = value;
+        aantalPersonen = value.length;
         dispatchEvent(new Event(PERSONEN_CHANGED_EVENT));
     }
 
