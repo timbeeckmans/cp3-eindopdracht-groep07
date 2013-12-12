@@ -10,6 +10,8 @@ package be.devine.cp3.bilsplit.view
 import be.devine.cp3.bilsplit.model.Appmodel;
 import be.devine.cp3.bilsplit.model.PersoonData;
 
+import feathers.controls.Button;
+
 import feathers.controls.Label;
 import feathers.controls.LayoutGroup;
 
@@ -21,13 +23,15 @@ import starling.events.Event;
 public class PersoonView extends Sprite
 {
     public static const PROCENTUEEL:String = "procentueel";
-    public static const PROPORTIONEEL:String = "proportioneel"
+    public static const PROPORTIONEEL:String = "proportioneel";
+    public static const PERSOON_DELETED:String = "persoonDeleted";
 
     private var _data:PersoonData;
     private var _type:String;
     private var _layout:LayoutGroup;
     private var _slider:Slider;
     private var _appmodel:Appmodel;
+    private var _deleteButton:Button;
 
     public function PersoonView(data:PersoonData, type:String)
     {
@@ -55,6 +59,12 @@ public class PersoonView extends Sprite
         _slider.addEventListener( Event.CHANGE, slider_changeHandler );
         _layout.addChild( _slider );
 
+        _deleteButton = new Button();
+        _deleteButton.x = 200;
+        _deleteButton.label = "X";
+        _deleteButton.addEventListener(Event.TRIGGERED, deleteButton_triggeredHandler);
+        _layout.addChild(_deleteButton);
+
         addChild(_layout);
 
         _appmodel.addEventListener(Appmodel.TOTAALBEDRAG_CHANGED_EVENT, appmodel_totaalBedragChangedHandler);
@@ -68,6 +78,16 @@ public class PersoonView extends Sprite
     private function appmodel_totaalBedragChangedHandler(event:Event):void
     {
         if(_type == PROPORTIONEEL)_slider.maximum = _appmodel.totaalBedrag;
+    }
+
+    private function deleteButton_triggeredHandler(event:Event):void
+    {
+        dispatchEvent(new Event(PERSOON_DELETED))
+    }
+
+    public function get data():PersoonData
+    {
+        return _data;
     }
 }
 }

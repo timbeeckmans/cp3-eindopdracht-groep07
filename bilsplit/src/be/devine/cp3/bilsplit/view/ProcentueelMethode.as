@@ -8,6 +8,7 @@ import feathers.controls.Panel;
 import feathers.controls.Slider;
 import feathers.controls.TextInput;
 import feathers.layout.HorizontalLayout;
+
 import starling.display.Sprite;
 import starling.events.Event;
 
@@ -15,7 +16,6 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
 
     private var _appmodel:Appmodel;
     private var _addPersoon:Button;
-    private var _removePersoon:Button;
     private var _layout:LayoutGroup;
     private var _panel:Panel;
     private var _txtInput:TextInput;
@@ -35,10 +35,6 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
         _addPersoon.label = "voeg een persoon toe.";
         _addPersoon.addEventListener(Event.TRIGGERED, addPersoon_triggeredHandler);
 
-        _removePersoon = new Button();
-        _removePersoon.label = "verwijder een persoon.";
-        _removePersoon.addEventListener(Event.TRIGGERED, removePersoon_triggeredHandler);
-
         _sliders = createSliders();
     }
 
@@ -47,6 +43,7 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
         var array:Array = [];
         for each(var persoon:PersoonData in _appmodel.personen){
             var persoonView:PersoonView = new PersoonView(persoon, PersoonView.PROCENTUEEL);
+            persoonView.addEventListener(PersoonView.PERSOON_DELETED, removePersoon_triggeredHandler);
             array.push(persoonView);
         }
         _sliders = array;
@@ -58,13 +55,11 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
     public function setSize(w:Number, h:Number):void{
         this.w = w;
         this.h = h;
-        _removePersoon.y = 70;
-        var ypos:Number = 150;
+        var ypos:Number = 100;
 
         if(_layout)removeChild(_layout);
         _layout = new LayoutGroup();
         _layout.addChild(_addPersoon);
-        _layout.addChild(_removePersoon);
 
         for each(var persoon:PersoonView in _sliders){
             persoon.y = ypos;
@@ -100,15 +95,6 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
         _panel.addChild( confirmButton );
     }
 
-    private function removePersoon_triggeredHandler(event:Event):void
-    {
-        trace("[procentueelmethode] remove persoon");
-        var oudPersoon:PersoonData = _appmodel.personen[0];
-        //voorlopig: verwijderd de eerste persoon
-        _appmodel.removePersoon(oudPersoon);
-        createSliders();
-    }
-
     private function personConfirmed(event:Event):void
     {
         this.removeChild(_panel);
@@ -118,6 +104,16 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
         _appmodel.addPersoon(nieuwPersoon);
         trace(_appmodel.personen);
 
+        createSliders();
+    }
+
+    private function removePersoon_triggeredHandler(event:Event):void
+    {
+        trace("[procentueelmethode] remove persoon");
+        var target:PersoonView = event.currentTarget as PersoonView;
+        var oudPersoon:PersoonData = target.data;
+        //voorlopig: verwijderd de eerste persoon
+        _appmodel.removePersoon(oudPersoon);
         createSliders();
     }
 }
