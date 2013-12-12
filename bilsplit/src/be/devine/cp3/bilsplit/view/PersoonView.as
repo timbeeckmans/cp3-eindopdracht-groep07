@@ -36,6 +36,7 @@ public class PersoonView extends Sprite
     public function PersoonView(data:PersoonData, type:String)
     {
         _appmodel = Appmodel.getInstance();
+        _appmodel.totaalBedrag = 50;
         _data = data;
         _type = type;
 
@@ -51,13 +52,13 @@ public class PersoonView extends Sprite
         _slider.y = 50;
         _slider.x = 10;
         _slider.minimum = 0;
-        if(_type == PROCENTUEEL)_slider.maximum = 100;
-        if(_type == PROPORTIONEEL)_slider.maximum = _appmodel.totaalBedrag;
         _slider.step = 1;
         _slider.page = 10;
         _slider.value = data.procentTeBetalen;
         _slider.addEventListener( Event.CHANGE, slider_changeHandler );
         _layout.addChild( _slider );
+        if(_type == PROCENTUEEL)_slider.maximum = 100;
+        if(_type == PROPORTIONEEL && !_appmodel.totaalBedrag == 0)_slider.maximum = _appmodel.totaalBedrag;
 
         _deleteButton = new Button();
         _deleteButton.x = 200;
@@ -73,11 +74,15 @@ public class PersoonView extends Sprite
     private function slider_changeHandler(event:Event):void
     {
         if(_type == PROCENTUEEL)_data.procentTeBetalen = _slider.value;
+        if(_type == PROPORTIONEEL)_data.bedragTeBetalen = _slider.value;
     }
 
     private function appmodel_totaalBedragChangedHandler(event:Event):void
     {
-        if(_type == PROPORTIONEEL)_slider.maximum = _appmodel.totaalBedrag;
+        if(_type == PROPORTIONEEL){
+            _slider.maximum = _appmodel.totaalBedrag;
+            if(_slider.value > _appmodel.totaalBedrag)_slider.value = _appmodel.totaalBedrag;
+        }
     }
 
     private function deleteButton_triggeredHandler(event:Event):void

@@ -39,7 +39,21 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
         _addPersoon.addEventListener(Event.TRIGGERED, addPersoon_triggeredHandler);
 
         _sliders = createSliders();
+    }
 
+    private function createSliders():Array
+    {
+        var array:Array = [];
+
+        for each(var persoon:PersoonData in _appmodel.personen){
+            var persoonView:PersoonView = new PersoonView(persoon, PersoonView.PROCENTUEEL);
+            persoonView.addEventListener(PersoonView.PERSOON_DELETED, removePersoon_triggeredHandler);
+            array.push(persoonView);
+        }
+        _sliders = array;
+        if(w && h)setSize(w, h);
+
+        return array;
     }
 
     public function setSize(w:Number, h:Number):void{
@@ -81,22 +95,6 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
 
     }
 
-
-
-    private function createSliders():Array
-    {
-        var array:Array = [];
-        for each(var persoon:PersoonData in _appmodel.personen){
-            var persoonView:PersoonView = new PersoonView(persoon, PersoonView.PROCENTUEEL);
-            persoonView.addEventListener(PersoonView.PERSOON_DELETED, removePersoon_triggeredHandler);
-            array.push(persoonView);
-        }
-        _sliders = array;
-        if(w && h)setSize(w, h);
-
-        return array;
-    }
-
     private function addPersoon_triggeredHandler(e:Event):void
     {
         _panel = new Panel();
@@ -136,7 +134,6 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
         trace("[procentueelmethode] remove persoon");
         var target:PersoonView = event.currentTarget as PersoonView;
         var oudPersoon:PersoonData = target.data;
-        //voorlopig: verwijderd de eerste persoon
         _appmodel.removePersoon(oudPersoon);
         createSliders();
     }
