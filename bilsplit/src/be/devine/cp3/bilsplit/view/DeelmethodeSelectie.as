@@ -3,10 +3,8 @@ package be.devine.cp3.bilsplit.view
 
 
 import be.devine.cp3.bilsplit.model.Appmodel;
-import be.devine.cp3.bilsplit.view.GelijkMethode;
 
 import feathers.controls.ButtonGroup;
-import feathers.controls.NumericStepper;
 import feathers.data.ListCollection;
 import feathers.events.FeathersEventType;
 
@@ -36,16 +34,14 @@ public class DeelmethodeSelectie extends Sprite implements IcanBeViewed
     }
 
     public function setSize(w:Number, h:Number):void{
+
         this.h = h;
         this.w = w;
 
         _buttons.addEventListener(FeathersEventType.CREATION_COMPLETE, buttonCreatedHandler);
+
         this.addChild(_buttons);
     }
-
-
-
-
 
 
     function GelijkMethode_clickhandler( event:Event ):void
@@ -63,16 +59,13 @@ public class DeelmethodeSelectie extends Sprite implements IcanBeViewed
         _appmodel.huidigScherm = "proportioneelMethode";
     }
 
-    private function buttonCreatedHandler(event:starling.events.Event):void
+    private function buttonCreatedHandler(event:Event = null):void
     {
         _buttons.removeEventListener(FeathersEventType.CREATION_COMPLETE, buttonCreatedHandler);
+
         _buttons.x = w/2 - _buttons.width / 2;
         _buttons.y = h - (_buttons.height + 50);
 
-    }
-
-    function _clickhandler( event:Event ):void
-    {
     }
 
 }

@@ -9,6 +9,8 @@ import flash.events.Event;
 import flash.geom.Rectangle;
 
 import starling.core.Starling;
+import starling.events.Event;
+import starling.events.ResizeEvent;
 
 public class Main extends Sprite {
 
@@ -22,14 +24,14 @@ public class Main extends Sprite {
         app = new Starling(BillSplit, stage);
         app.start();
 
-        stage.addEventListener(Event.RESIZE, resizeHandler);
+        stage.addEventListener(flash.events.Event.RESIZE, resizeHandler);
     }
 
-    private function resizeHandler(event:Event):void {
-        trace("[Main] resize");
+    private function resizeHandler(event:flash.events.Event):void {
         app.viewPort = new Rectangle(0, 0, stage.stageWidth, stage.stageHeight);
         app.stage.stageWidth = stage.stageWidth;
         app.stage.stageHeight = stage.stageHeight;
+        app.stage.dispatchEvent(new starling.events.ResizeEvent(ResizeEvent.RESIZE, stage.stageWidth, stage.stageHeight));
     }
 }
 }

@@ -10,13 +10,9 @@ package be.devine.cp3.bilsplit
 import be.devine.cp3.bilsplit.view.*;
 import be.devine.cp3.bilsplit.model.Appmodel;
 
-import feathers.controls.LayoutGroup;
-
 import feathers.controls.ScreenNavigator;
 import feathers.controls.ScreenNavigatorItem;
-import feathers.themes.MinimalMobileTheme;
-
-import flash.events.MouseEvent;
+import feathers.themes.MetalWorksMobileTheme;
 
 import starling.display.Sprite;
 
@@ -74,13 +70,14 @@ public class BillSplit extends Sprite
     private function init(event:starling.events.Event):void
     {
         this.removeEventListener(starling.events.Event.ADDED_TO_STAGE, init);
-        new MinimalMobileTheme();
+        stage.addEventListener(ResizeEvent.RESIZE, resizeHandler);
+        new MetalWorksMobileTheme();
         _appmodel = Appmodel.getInstance();
         prepareNavigator();
         addChild(_hoofdMenu);
         _appmodel.addEventListener(Appmodel.HUIDIGSCHERM_CHANGED_EVENT, nieuwSchermHandler);
         _appmodel.huidigScherm = "start";
-        stage.addEventListener(ResizeEvent.RESIZE, resizeHandler);
+
     }
 
     private function resizeHandler(event:starling.events.Event = null):void

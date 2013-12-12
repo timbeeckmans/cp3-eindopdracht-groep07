@@ -25,9 +25,12 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
     private var _personenlabel:Label;
     private var stepper:NumericStepper;
 
+    private var _layout:LayoutGroup;
+
 
     public function GelijkMethode() {
         _appmodel = Appmodel.getInstance();
+        _layout = new LayoutGroup();
 
         _appmodel.totaalBedrag = 50;
         _appmodel.aantalPersonen = 1;
@@ -36,7 +39,8 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
 
         _buttonGroup = new LayoutGroup();
         _buttonGroup.addEventListener(FeathersEventType.CREATION_COMPLETE, buttonGroupCreationCompleteHandler);
-        addChild(_buttonGroup);
+        _layout.addChild(_buttonGroup);
+        addChild(_layout);
 
 
         stepper = new NumericStepper();
@@ -45,8 +49,7 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
         stepper.maximum = 99;
         stepper.value = _appmodel.aantalPersonen;
         stepper.step = 1;
-        //niet goed leesbaar... ander theme mss?
-        addChild( stepper );
+        _layout.addChild( stepper );
 
         stepper.addEventListener( Event.CHANGE, stepper_changeHandler );
 
@@ -68,7 +71,7 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
         _personenlabel = new Label();
         _personenlabel.nameList.add(Label.ALTERNATE_NAME_HEADING);
         _personenlabel.text = "Aantal personen: ";
-        addChild(_personenlabel);
+        _layout.addChild(_personenlabel);
 
         _personenlabel.x = 30;
         _personenlabel.y = 200;
@@ -77,6 +80,8 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
         _explicitHeight = h;
         //_buttonGroup.x = Math.round((_explicitWidth - _buttonGroup.width) * .5);
 
+        _layout.readjustLayout();
+        trace("[GelijkMethode] setSize");
 
     }
 
@@ -95,7 +100,7 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
         _totaalbedraglabel = new Label();
         _totaalbedraglabel.nameList.add(Label.ALTERNATE_NAME_HEADING);
         _totaalbedraglabel.text = "Totaalbedrag: ";
-        addChild(_totaalbedraglabel);
+        _layout.addChild(_totaalbedraglabel);
 
         _totaalbedraglabel.setSize(100,100);
         _totaalbedraglabel.x = 30;
@@ -107,7 +112,7 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
         _totaalbedragwaarde = new Label();
         _totaalbedragwaarde.nameList.add(Label.ALTERNATE_NAME_HEADING);
         _totaalbedragwaarde.text = _appmodel.totaalBedrag + " euro";
-        addChild(_totaalbedragwaarde);
+        _layout.addChild(_totaalbedragwaarde);
 
         _totaalbedragwaarde.setSize(100,100);
         _totaalbedragwaarde.x = 250;
@@ -116,7 +121,7 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
         _bedragperpersoonlabel = new Label();
         _bedragperpersoonlabel.nameList.add(Label.ALTERNATE_NAME_HEADING);
         _bedragperpersoonlabel.text = "Bedrag per persoon: ";
-        addChild(_bedragperpersoonlabel);
+        _layout.addChild(_bedragperpersoonlabel);
 
         _bedragperpersoonlabel.setSize(100,100);
         _bedragperpersoonlabel.x = 30;
@@ -124,7 +129,7 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
 
         _bedragperpersoon = new Label();
         _bedragperpersoon.nameList.add(Label.ALTERNATE_NAME_HEADING);
-        addChild(_bedragperpersoon);
+        _layout.addChild(_bedragperpersoon);
 
         _bedragperpersoon.setSize(100,100);
         _bedragperpersoon.x = 350;
