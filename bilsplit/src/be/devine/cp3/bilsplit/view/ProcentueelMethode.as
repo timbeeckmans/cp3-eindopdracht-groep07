@@ -112,7 +112,6 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
         trace("[procentueelmethode] remove persoon");
         var target:PersoonView = event.currentTarget as PersoonView;
         var oudPersoon:PersoonData = target.data;
-        //voorlopig: verwijderd de eerste persoon
         _appmodel.removePersoon(oudPersoon);
         createSliders();
     }

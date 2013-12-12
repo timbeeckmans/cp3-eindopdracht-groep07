@@ -11,16 +11,13 @@ public class PersoonData
 {
     private var _naam:String;
     private var _procentTeBetalen:Number;
+    private var _bedragTeBetalen:Number;
+    public static const PROCENTTEBETALEN_CHANGED_EVENT:String = "procentTeBetalenChanged";
 
     public function PersoonData(naam:String)
     {
         _naam = naam;
         _procentTeBetalen = 0;
-    }
-
-    public function toString():String
-    {
-        return "PersoonData{ naam = " + String(_naam) + " }";
     }
 
     public function get naam():String
@@ -33,6 +30,16 @@ public class PersoonData
         _naam = value;
     }
 
+    public function get bedragTeBetalen():Number
+    {
+        return _bedragTeBetalen;
+    }
+
+    public function set bedragTeBetalen(value:Number):void
+    {
+        _bedragTeBetalen = value;
+    }
+
     public function get procentTeBetalen():Number
     {
         return _procentTeBetalen;
@@ -40,6 +47,7 @@ public class PersoonData
 
     public function set procentTeBetalen(value:Number):void
     {
+        if (_procentTeBetalen == value) return;
         _procentTeBetalen = value;
     }
 }
