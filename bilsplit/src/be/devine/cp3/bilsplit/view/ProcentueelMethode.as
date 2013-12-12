@@ -46,14 +46,8 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
     {
         var array:Array = [];
         for each(var persoon:PersoonData in _appmodel.personen){
-            var slider:Slider = new Slider();
-            slider.minimum = 0;
-            slider.maximum = 100;
-            slider.step = 1;
-            slider.page = 10;
-            slider.value = persoon.procentTeBetalen;
-            slider.addEventListener( Event.CHANGE, slider_changeHandler );
-            array.push(slider);
+            var persoonView:PersoonView = new PersoonView(persoon, PersoonView.PROCENTUEEL);
+            array.push(persoonView);
         }
         _sliders = array;
         if(w && h)setSize(w, h);
@@ -72,11 +66,11 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
         _layout.addChild(_addPersoon);
         _layout.addChild(_removePersoon);
 
-        for each(var slider:Slider in _sliders){
-            slider.y = ypos;
-            slider.width = 200;
-            _layout.addChild(slider);
-            ypos += 70;
+        for each(var persoon:PersoonView in _sliders){
+            persoon.y = ypos;
+            persoon.width = 200;
+            _layout.addChild(persoon);
+            ypos += 120;
             trace(ypos);
         }
 
@@ -125,11 +119,6 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
         trace(_appmodel.personen);
 
         createSliders();
-    }
-
-    private function slider_changeHandler(event:Event):void
-    {
-
     }
 }
 }

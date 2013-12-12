@@ -36,7 +36,7 @@ public class Appmodel extends EventDispatcher
     public function Appmodel(e:Enforcer){
 
         if(e == null){
-            throw new Error("Appmodel is a Singleton");
+
         }
 
         _personen = [];

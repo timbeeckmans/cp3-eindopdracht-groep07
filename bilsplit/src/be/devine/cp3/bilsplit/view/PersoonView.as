@@ -7,27 +7,67 @@
  */
 package be.devine.cp3.bilsplit.view
 {
+import be.devine.cp3.bilsplit.model.Appmodel;
+import be.devine.cp3.bilsplit.model.PersoonData;
+
+import feathers.controls.Label;
+import feathers.controls.LayoutGroup;
+
 import feathers.controls.Slider;
 
-public class PersoonView extends Slider
+import starling.display.Sprite;
+import starling.events.Event;
+
+public class PersoonView extends Sprite
 {
     public static const PROCENTUEEL:String = "procentueel";
     public static const PROPORTIONEEL:String = "proportioneel"
 
+    private var _data:PersoonData;
     private var _type:String;
-    private var _label:String;
-    private var _waarde:Number;
+    private var _layout:LayoutGroup;
+    private var _slider:Slider;
+    private var _appmodel:Appmodel;
 
-    public function PersoonView(type:String, label:String, waarde:Number = 0)
+    public function PersoonView(data:PersoonData, type:String)
     {
+        _appmodel = Appmodel.getInstance();
+        _data = data;
         _type = type;
-        _label = label;
-        _waarde = waarde;
-        minimum = 0;
-        maximum = 100;
-        step = 1;
-        page = 10;
-        value = waarde;
+
+        _layout = new LayoutGroup();
+
+        var label:Label = new Label();
+        label.text = data.naam;
+        label.x = 10;
+        label.y = 10;
+        _layout.addChild(label);
+
+        _slider = new Slider();
+        _slider.y = 50;
+        _slider.x = 10;
+        _slider.minimum = 0;
+        if(_type == PROCENTUEEL)_slider.maximum = 100;
+        if(_type == PROPORTIONEEL)_slider.maximum = _appmodel.totaalBedrag;
+        _slider.step = 1;
+        _slider.page = 10;
+        _slider.value = data.procentTeBetalen;
+        _slider.addEventListener( Event.CHANGE, slider_changeHandler );
+        _layout.addChild( _slider );
+
+        addChild(_layout);
+
+        _appmodel.addEventListener(Appmodel.TOTAALBEDRAG_CHANGED_EVENT, appmodel_totaalBedragChangedHandler);
+    }
+
+    private function slider_changeHandler(event:Event):void
+    {
+        if(_type == PROCENTUEEL)_data.procentTeBetalen = _slider.value;
+    }
+
+    private function appmodel_totaalBedragChangedHandler(event:Event):void
+    {
+        if(_type == PROPORTIONEEL)_slider.maximum = _appmodel.totaalBedrag;
     }
 }
 }
