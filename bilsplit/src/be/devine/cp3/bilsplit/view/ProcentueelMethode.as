@@ -9,6 +9,8 @@ import feathers.controls.Slider;
 import feathers.controls.TextInput;
 import feathers.layout.HorizontalLayout;
 
+import starling.display.Quad;
+
 import starling.display.Sprite;
 import starling.events.Event;
 
@@ -41,6 +43,7 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
     private function createSliders():Array
     {
         var array:Array = [];
+
         for each(var persoon:PersoonData in _appmodel.personen){
             var persoonView:PersoonView = new PersoonView(persoon, PersoonView.PROCENTUEEL);
             persoonView.addEventListener(PersoonView.PERSOON_DELETED, removePersoon_triggeredHandler);

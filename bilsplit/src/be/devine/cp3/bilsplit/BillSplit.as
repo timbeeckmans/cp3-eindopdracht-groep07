@@ -7,6 +7,7 @@
  */
 package be.devine.cp3.bilsplit
 {
+import be.devine.cp3.bilsplit.model.BillService;
 import be.devine.cp3.bilsplit.view.*;
 import be.devine.cp3.bilsplit.model.Appmodel;
 
@@ -30,6 +31,7 @@ public class BillSplit extends Sprite
 
     public function BillSplit()
     {
+
         this.addEventListener(starling.events.Event.ADDED_TO_STAGE, init);
     }
 
