@@ -4,11 +4,12 @@ import be.devine.cp3.bilsplit.model.Appmodel;
 import feathers.controls.Button;
 
 import feathers.controls.Label;
-
 import feathers.controls.LayoutGroup;
 import feathers.controls.NumericStepper;
 import feathers.controls.TextInput;
 import feathers.events.FeathersEventType;
+import feathers.layout.AnchorLayout;
+import feathers.layout.AnchorLayoutData;
 
 import starling.display.Sprite;
 import starling.events.Event;
@@ -34,6 +35,7 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
     public function GelijkMethode() {
         _appmodel = Appmodel.getInstance();
         _layout = new LayoutGroup();
+
 
         _appmodel.aantalPersonen = 1;
 
@@ -67,7 +69,7 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
         this.w = w;
         this.h = h;
 
-        stepper.x = w - 150;
+        stepper.x = w - 213;
         stepper.y = 200;
 
         _personenlabel = new Label();
@@ -77,7 +79,7 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
         _layout.addChild(_personenlabel);
 
         _personenlabel.x = 30;
-        _personenlabel.y = 200;
+        _personenlabel.y = 205;
 
         _explicitWidth = w;
         _explicitHeight = h;
@@ -97,11 +99,11 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
         //geeft een getal terug met 2 decimalen
         //Totaal kan enkele centen verschillen met de som van de personen
 
-        _bedragperpersoon.text =  Math.round(100 * _appmodel.totaalBedrag / _appmodel.aantalPersonen) / 100 + " euro";
+        _bedragperpersoon.text = "€ " + Math.round(100 * _appmodel.totaalBedrag / _appmodel.aantalPersonen) / 100;
 
-        if(_bedragperpersoon.width > 80){
+        /*if(_bedragperpersoon.width > 80){
             _bedragperpersoon.x = w - ( _bedragperpersoon.width + 20);
-        }
+        }*/
     }
 
 
@@ -110,21 +112,21 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
 
         _totaalbedraglabel = new Label();
         _totaalbedraglabel.nameList.add(Label.ALTERNATE_NAME_HEADING);
-        _totaalbedraglabel.text = "Totaalbedrag: ";
+        _totaalbedraglabel.text = "Totaalbedrag:";
         _layout.addChild(_totaalbedraglabel);
 
         _totaalbedraglabel.x = 30;
-        _totaalbedraglabel.y = 100;
+        _totaalbedraglabel.y = 105;
 
-        _bedraginput = new TextInput();
-        _layout.addChild(_bedraginput);
-        _bedraginput.restrict = "0-9.";
-        _bedraginput.addEventListener(Event.CHANGE, bedragchangehandler);
 
-        //_totaalbedragwaarde = new Label();
-        //_totaalbedragwaarde.nameList.add(Label.ALTERNATE_NAME_HEADING);
 
-        //_layout.addChild(_totaalbedragwaarde);
+        this._bedraginput = new TextInput();
+        this._bedraginput.prompt = "15.90";
+        this._bedraginput.restrict = "0-9.";
+        const inputLayoutData:AnchorLayoutData = new AnchorLayoutData();
+        this._bedraginput.layoutData = inputLayoutData;
+        this.addChild(this._bedraginput);
+        this._bedraginput.addEventListener(Event.CHANGE, bedragchangehandler);
 
         _bedraginput.x = w - 215;
         _bedraginput.y = 100;
@@ -135,14 +137,16 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
         _layout.addChild(_bedragperpersoonlabel);
 
         _bedragperpersoonlabel.x = 30;
-        _bedragperpersoonlabel.y = 300;
+        _bedragperpersoonlabel.y = 305;
 
         _bedragperpersoon = new Label();
         _bedragperpersoon.nameList.add(Label.ALTERNATE_NAME_HEADING);
         _layout.addChild(_bedragperpersoon);
 
-        _bedragperpersoon.x = w - 100;
-        _bedragperpersoon.y = 300;
+        _bedragperpersoon.x = w - 214;
+        _bedragperpersoon.y = 305;
+
+        _bedragperpersoon.text = "€ 15.90"
 
     }
 
@@ -151,7 +155,6 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
         _appmodel.totaalBedrag = Number(_bedraginput.text);
         //_totaalbedragwaarde.text = _bedraginput.text + " euro";
         berekenPerPersoon();
-
 
 
     }
