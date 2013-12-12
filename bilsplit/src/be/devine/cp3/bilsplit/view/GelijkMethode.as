@@ -24,22 +24,22 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
     private var _bedragperpersoonlabel:Label;
     private var _personenlabel:Label;
     private var stepper:NumericStepper;
+    private var _bedraginput:TextInput;
 
     private var _layout:LayoutGroup;
 
+    private var w:Number;
+    private var h:Number;
 
     public function GelijkMethode() {
         _appmodel = Appmodel.getInstance();
         _layout = new LayoutGroup();
 
-        _appmodel.totaalBedrag = 50;
         _appmodel.aantalPersonen = 1;
 
         trace('[gelijkmethode]');
 
         _buttonGroup = new LayoutGroup();
-        _buttonGroup.addEventListener(FeathersEventType.CREATION_COMPLETE, buttonGroupCreationCompleteHandler);
-        _layout.addChild(_buttonGroup);
         addChild(_layout);
 
 
@@ -64,13 +64,16 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
     }
 
     public function setSize(w:Number, h:Number):void {
-        stepper.x = w/2;
-        stepper.x = 30;
-        stepper.y = 250;
+        this.w = w;
+        this.h = h;
+
+        stepper.x = w - 150;
+        stepper.y = 200;
 
         _personenlabel = new Label();
         _personenlabel.nameList.add(Label.ALTERNATE_NAME_HEADING);
         _personenlabel.text = "Aantal personen: ";
+
         _layout.addChild(_personenlabel);
 
         _personenlabel.x = 30;
@@ -81,6 +84,10 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
         //_buttonGroup.x = Math.round((_explicitWidth - _buttonGroup.width) * .5);
 
         _layout.readjustLayout();
+
+        _buttonGroup.addEventListener(FeathersEventType.CREATION_COMPLETE, buttonGroupCreationCompleteHandler);
+        _layout.addChild(_buttonGroup);
+
         trace("[GelijkMethode] setSize");
 
     }
@@ -91,6 +98,10 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
         //Totaal kan enkele centen verschillen met de som van de personen
 
         _bedragperpersoon.text =  Math.round(100 * _appmodel.totaalBedrag / _appmodel.aantalPersonen) / 100 + " euro";
+
+        if(_bedragperpersoon.width > 80){
+            _bedragperpersoon.x = w - ( _bedragperpersoon.width + 20);
+        }
     }
 
 
@@ -102,28 +113,27 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
         _totaalbedraglabel.text = "Totaalbedrag: ";
         _layout.addChild(_totaalbedraglabel);
 
-        _totaalbedraglabel.setSize(100,100);
         _totaalbedraglabel.x = 30;
         _totaalbedraglabel.y = 100;
 
-        //var myTextInput:TextInput = new TextInput();
-        //addChild(myTextInput);
+        _bedraginput = new TextInput();
+        _layout.addChild(_bedraginput);
+        _bedraginput.restrict = "0-9.";
+        _bedraginput.addEventListener(Event.CHANGE, bedragchangehandler);
 
-        _totaalbedragwaarde = new Label();
-        _totaalbedragwaarde.nameList.add(Label.ALTERNATE_NAME_HEADING);
-        _totaalbedragwaarde.text = _appmodel.totaalBedrag + " euro";
-        _layout.addChild(_totaalbedragwaarde);
+        //_totaalbedragwaarde = new Label();
+        //_totaalbedragwaarde.nameList.add(Label.ALTERNATE_NAME_HEADING);
 
-        _totaalbedragwaarde.setSize(100,100);
-        _totaalbedragwaarde.x = 250;
-        _totaalbedragwaarde.y = 100;
+        //_layout.addChild(_totaalbedragwaarde);
+
+        _bedraginput.x = w - 215;
+        _bedraginput.y = 100;
 
         _bedragperpersoonlabel = new Label();
         _bedragperpersoonlabel.nameList.add(Label.ALTERNATE_NAME_HEADING);
         _bedragperpersoonlabel.text = "Bedrag per persoon: ";
         _layout.addChild(_bedragperpersoonlabel);
 
-        _bedragperpersoonlabel.setSize(100,100);
         _bedragperpersoonlabel.x = 30;
         _bedragperpersoonlabel.y = 300;
 
@@ -131,11 +141,19 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
         _bedragperpersoon.nameList.add(Label.ALTERNATE_NAME_HEADING);
         _layout.addChild(_bedragperpersoon);
 
-        _bedragperpersoon.setSize(100,100);
-        _bedragperpersoon.x = 350;
+        _bedragperpersoon.x = w - 100;
         _bedragperpersoon.y = 300;
 
+    }
+
+    private function bedragchangehandler(event:Event):void {
+        trace(_bedraginput.text);
+        _appmodel.totaalBedrag = Number(_bedraginput.text);
+        //_totaalbedragwaarde.text = _bedraginput.text + " euro";
         berekenPerPersoon();
+
+
+
     }
 
 
