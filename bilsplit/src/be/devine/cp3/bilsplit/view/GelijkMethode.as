@@ -1,18 +1,18 @@
 package be.devine.cp3.bilsplit.view {
 import be.devine.cp3.bilsplit.model.Appmodel;
-
-import feathers.controls.Button;
-
 import feathers.controls.Label;
 import feathers.controls.LayoutGroup;
 import feathers.controls.NumericStepper;
 import feathers.controls.TextInput;
 import feathers.events.FeathersEventType;
-import feathers.layout.AnchorLayout;
 import feathers.layout.AnchorLayoutData;
+
+import starling.display.Quad;
 
 import starling.display.Sprite;
 import starling.events.Event;
+
+
 public class GelijkMethode extends Sprite implements IcanBeViewed{
 
     private var _appmodel:Appmodel;
@@ -45,15 +45,6 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
         addChild(_layout);
 
 
-        stepper = new NumericStepper();
-
-        stepper.minimum = 1;
-        stepper.maximum = 99;
-        stepper.value = _appmodel.aantalPersonen;
-        stepper.step = 1;
-        _layout.addChild( stepper );
-
-        stepper.addEventListener( Event.CHANGE, stepper_changeHandler );
 
 
     }
@@ -66,6 +57,29 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
     }
 
     public function setSize(w:Number, h:Number):void {
+
+
+        var topColor:uint = 0xbb670d; // blue
+        var bottomColor:uint = 0xf5c089; // red
+
+        var quad:Quad = new Quad(w, h);
+        quad.setVertexColor(0, topColor);
+        quad.setVertexColor(1, topColor);
+        quad.setVertexColor(2, bottomColor);
+        quad.setVertexColor(3, bottomColor);
+        _layout.addChild(quad);
+
+        stepper = new NumericStepper();
+
+        stepper.minimum = 1;
+        stepper.maximum = 99;
+        stepper.value = _appmodel.aantalPersonen;
+        stepper.step = 1;
+        _layout.addChild( stepper );
+
+        stepper.addEventListener( Event.CHANGE, stepper_changeHandler );
+
+
         this.w = w;
         this.h = h;
 
@@ -121,7 +135,7 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
 
 
         this._bedraginput = new TextInput();
-        this._bedraginput.prompt = "15.90";
+        this._bedraginput.prompt = "0";
         this._bedraginput.restrict = "0-9.";
         const inputLayoutData:AnchorLayoutData = new AnchorLayoutData();
         this._bedraginput.layoutData = inputLayoutData;
@@ -146,14 +160,14 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
         _bedragperpersoon.x = w - 214;
         _bedragperpersoon.y = 305;
 
-        _bedragperpersoon.text = "€ 15.90"
+        _bedragperpersoon.text = "€ 0"
 
     }
 
     private function bedragchangehandler(event:Event):void {
         trace(_bedraginput.text);
+        this._bedraginput.prompt = "";
         _appmodel.totaalBedrag = Number(_bedraginput.text);
-        //_totaalbedragwaarde.text = _bedraginput.text + " euro";
         berekenPerPersoon();
 
 

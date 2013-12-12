@@ -64,6 +64,7 @@ public class BillSplit extends Sprite
         _navigator.showScreen(_appmodel.huidigScherm);
         resizeHandler();
         addChild(_navigator);
+        addChild(_hoofdMenu);
 
     }
 

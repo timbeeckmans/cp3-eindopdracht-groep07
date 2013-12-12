@@ -9,6 +9,8 @@ import feathers.controls.Slider;
 import feathers.controls.TextInput;
 import feathers.layout.HorizontalLayout;
 
+import starling.display.Quad;
+
 import starling.display.Sprite;
 import starling.events.Event;
 
@@ -27,6 +29,7 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
     public function ProcentueelMethode() {
         _appmodel = Appmodel.getInstance();
         _appmodel.personen = [];
+
         var eerstePersoon:PersoonData = new PersoonData("ik");
         eerstePersoon.procentTeBetalen = 100;
         _appmodel.addPersoon(eerstePersoon);
@@ -36,7 +39,49 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
         _addPersoon.addEventListener(Event.TRIGGERED, addPersoon_triggeredHandler);
 
         _sliders = createSliders();
+
     }
+
+    public function setSize(w:Number, h:Number):void{
+        this.w = w;
+        this.h = h;
+        var ypos:Number = 100;
+
+        if(_layout)removeChild(_layout);
+        _layout = new LayoutGroup();
+
+
+        var topColor:uint = 0xbb670d; // blue
+        var bottomColor:uint = 0xf5c089; // red
+
+        var quad:Quad = new Quad(w, h);
+        quad.setVertexColor(0, topColor);
+        quad.setVertexColor(1, topColor);
+        quad.setVertexColor(2, bottomColor);
+        quad.setVertexColor(3, bottomColor);
+        _layout.addChild(quad);
+
+
+
+        _layout.addChild(_addPersoon);
+
+
+
+
+
+        for each(var persoon:PersoonView in _sliders){
+            persoon.y = ypos;
+            persoon.width = 200;
+            _layout.addChild(persoon);
+            ypos += 120;
+            trace(ypos);
+        }
+
+        addChild(_layout);
+
+    }
+
+
 
     private function createSliders():Array
     {
@@ -50,27 +95,6 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
         if(w && h)setSize(w, h);
 
         return array;
-    }
-
-    public function setSize(w:Number, h:Number):void{
-        this.w = w;
-        this.h = h;
-        var ypos:Number = 100;
-
-        if(_layout)removeChild(_layout);
-        _layout = new LayoutGroup();
-        _layout.addChild(_addPersoon);
-
-        for each(var persoon:PersoonView in _sliders){
-            persoon.y = ypos;
-            persoon.width = 200;
-            _layout.addChild(persoon);
-            ypos += 120;
-            trace(ypos);
-        }
-
-        addChild(_layout);
-
     }
 
     private function addPersoon_triggeredHandler(e:Event):void
