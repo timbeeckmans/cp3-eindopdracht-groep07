@@ -7,14 +7,18 @@
  */
 package be.devine.cp3.bilsplit.model
 {
+import be.devine.cp3.bilsplit.model.Billmodel;
+
 public class PersoonData
 {
     private var _naam:String;
     private var _procentTeBetalen:Number;
     private var _bedragTeBetalen:Number;
+    private var _billmodel:Billmodel;
 
-    public function PersoonData(naam:String)
+    public function PersoonData(billmodel:Billmodel, naam:String)
     {
+        _billmodel = billmodel;
         _naam = naam;
         _procentTeBetalen = 0;
         _bedragTeBetalen = 0;
@@ -49,6 +53,7 @@ public class PersoonData
     {
         if (_procentTeBetalen == value) return;
         _procentTeBetalen = value;
+        _bedragTeBetalen = _billmodel.totaalBedrag / 100 * _procentTeBetalen;
     }
 
     public function toString():String

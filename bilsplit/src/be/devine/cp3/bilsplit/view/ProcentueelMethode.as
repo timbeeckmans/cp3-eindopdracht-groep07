@@ -35,7 +35,7 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
         _appmodel.personen = [];
         _bs = new BillService();
 
-        var eerstePersoon:PersoonData = new PersoonData("ik");
+        var eerstePersoon:PersoonData = new PersoonData(_appmodel.huidigeBill, "ik");
         eerstePersoon.procentTeBetalen = 100;
         _appmodel.addPersoon(eerstePersoon);
 
@@ -131,7 +131,7 @@ _savebutton.y = 500;
         this.removeChild(_panel);
         trace("[procentueelmethode] add persoon");
 
-        var nieuwPersoon:PersoonData = new PersoonData(_txtInput.text);
+        var nieuwPersoon:PersoonData = new PersoonData(_appmodel.huidigeBill, _txtInput.text);
         _appmodel.addPersoon(nieuwPersoon);
         trace(_appmodel.personen);
 

@@ -34,6 +34,8 @@ public class PersoonView extends Sprite
     private var _slider:Slider;
     private var _appmodel:Appmodel;
     private var _deleteButton:Button;
+    private var _procent:Label;
+    private var _bedrag:Label;
 
     public function PersoonView(data:PersoonData, type:String)
     {
@@ -49,6 +51,21 @@ public class PersoonView extends Sprite
         label.x = 10;
         label.y = 10;
         _layout.addChild(label);
+
+
+        _bedrag = new Label();
+        _bedrag.text = _data.bedragTeBetalen + "";
+        _bedrag.y = 50;
+        _bedrag.x = 200;
+
+        if(_type == PROCENTUEEL){
+            _procent = new Label();
+            _procent.text = _data.procentTeBetalen + "";
+            _procent.y = 50;
+            _procent.x = 200;
+            _bedrag.x = 250;
+        }
+
 
         _slider = new Slider();
         _slider.y = 50;
@@ -68,6 +85,9 @@ public class PersoonView extends Sprite
         _deleteButton.addEventListener(starling.events.Event.TRIGGERED, deleteButton_triggeredHandler);
         _layout.addChild(_deleteButton);
 
+        _layout.addChild(_bedrag);
+        if(_type == PROCENTUEEL)_layout.addChild(_procent);
+
         addChild(_layout);
 
         _appmodel.addEventListener(Appmodel.TOTAALBEDRAG_CHANGED_EVENT, appmodel_totaalBedragChangedHandler);
@@ -75,8 +95,12 @@ public class PersoonView extends Sprite
 
     private function slider_changeHandler(event:starling.events.Event):void
     {
-        if(_type == PROCENTUEEL)_data.procentTeBetalen = _slider.value;
+        if(_type == PROCENTUEEL){
+            _data.procentTeBetalen = _slider.value;
+            _procent.text = _data.procentTeBetalen + "";
+        }
         if(_type == PROPORTIONEEL)_data.bedragTeBetalen = _slider.value;
+        _bedrag.text = _data.bedragTeBetalen + "";
     }
 
     private function appmodel_totaalBedragChangedHandler(event:flash.events.Event):void

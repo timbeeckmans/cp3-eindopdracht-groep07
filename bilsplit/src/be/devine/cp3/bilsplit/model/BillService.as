@@ -40,16 +40,17 @@ public class BillService extends EventDispatcher
 
             var billmodel:Billmodel = new Billmodel();
             billmodel.personen = [];
+            billmodel.aantalPersonen = bill.aantalPersonen;
+            billmodel.totaalBedrag = bill.totaalBedrag;
             for each(var persoon:Object in bill.personen){
 
-                var persoonData:PersoonData = new PersoonData(persoon.naam);
+                var persoonData:PersoonData = new PersoonData(billmodel, persoon.naam);
                 persoonData.bedragTeBetalen = persoon.bedragTeBetalen;
                 persoonData.procentTeBetalen = persoon.procentTeBetalen;
                 billmodel.personen.push(persoonData);
 
             }
-            billmodel.aantalPersonen = bill.aantalPersonen;
-            billmodel.totaalBedrag = bill.totaalBedrag;
+
             trace("[BillService]",billmodel);
             bills.push(billmodel);
         }
