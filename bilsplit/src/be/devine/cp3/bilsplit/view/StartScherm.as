@@ -30,8 +30,10 @@ public class StartScherm extends Sprite implements IcanBeViewed
     private var _buttons:ButtonGroup;
     private var _appmodel:Appmodel;
 
-    [Embed(source = "../../../../../../assets/images/billsplitterlogo.png")]
+    [Embed(source = "/../assets/images/billsplitterlogogroot.png")]
     private static const Background:Class;
+    [Embed(source = "/../assets/images/billsplitterlogoklein.png")]
+    private static const Logo:Class;
 
 
     public function StartScherm()
@@ -77,6 +79,11 @@ public class StartScherm extends Sprite implements IcanBeViewed
         var background:Image = Image.fromBitmap(new Background());
         background.x = ( w / 2 ) - ( background.width / 2 );
         _layout.addChild(background);
+
+        var logo:Image = Image.fromBitmap(new Logo());
+        logo.x = 10;
+        logo.y = 10;
+        _layout.addChild(logo);
 
         this.w = w;
         this.h = h;
