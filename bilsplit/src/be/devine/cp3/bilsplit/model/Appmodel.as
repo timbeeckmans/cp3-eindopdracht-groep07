@@ -11,12 +11,20 @@ package be.devine.cp3.bilsplit.model
 import flash.events.Event;
 import flash.events.EventDispatcher;
 
+
 public class Appmodel extends EventDispatcher
 {
+    private var _bills:Array;
+    private var _huidigeBill:Billmodel;
+    private var _bs:BillService;
+
+    /*
     private var _personen:Array;
     private var _aantalPersonen:uint;
     private var _voorwerpen:Array;
     private var _totaalBedrag:Number;
+    */
+
     private var _huidigScherm:String;
     private var _schermen:Array;
 
@@ -26,6 +34,7 @@ public class Appmodel extends EventDispatcher
     public static const HUIDIGSCHERM_CHANGED_EVENT:String = "huidigSchermChanged";
 
     static private var instance:Appmodel;
+    public static const BILLS_CHANGED_EVENT:String = "billsChanged";
     static public function getInstance():Appmodel{
         if (instance == null){
             instance = new Appmodel(new Enforcer());
@@ -36,25 +45,21 @@ public class Appmodel extends EventDispatcher
     public function Appmodel(e:Enforcer){
 
         if(e == null){
-
+            throw new Error("Appmodel is a singleton");
         }
-
-        _personen = [];
-        _aantalPersonen = 0;
-        _voorwerpen = [];
-        _totaalBedrag = 0;
+        _bs = new BillService()
     }
 
     [Bindable(event="personenChanged")]
     public function get personen():Array
     {
-        return _personen;
+        return _huidigeBill.personen;
     }
 
     public function set personen(value:Array):void
     {
-        if (_personen == value) return;
-        _personen = value;
+        if (_huidigeBill.personen == value) return;
+        _huidigeBill.personen = value;
         aantalPersonen = value.length;
         dispatchEvent(new Event(PERSONEN_CHANGED_EVENT));
     }
@@ -72,29 +77,16 @@ public class Appmodel extends EventDispatcher
         aantalPersonen --;
     }
 
-    [Bindable(event="voorwerpenChanged")]
-    public function get voorwerpen():Array
-    {
-        return _voorwerpen;
-    }
-
-    public function set voorwerpen(value:Array):void
-    {
-        if (_voorwerpen == value) return;
-        _voorwerpen = value;
-        dispatchEvent(new Event(VOORWERPEN_CHANGED_EVENT));
-    }
-
     [Bindable(event="totaalBedragChanged")]
     public function get totaalBedrag():Number
     {
-        return _totaalBedrag;
+        return _huidigeBill.totaalBedrag;
     }
 
     public function set totaalBedrag(value:Number):void
     {
-        if (_totaalBedrag == value) return;
-        _totaalBedrag = value;
+        if (_huidigeBill.totaalBedrag == value) return;
+        _huidigeBill.totaalBedrag = value;
         dispatchEvent(new Event(TOTAALBEDRAG_CHANGED_EVENT));
     }
 
@@ -124,12 +116,44 @@ public class Appmodel extends EventDispatcher
 
     public function get aantalPersonen():uint
     {
-        return _aantalPersonen;
+        return _huidigeBill.aantalPersonen;
     }
 
     public function set aantalPersonen(value:uint):void
     {
-        _aantalPersonen = value;
+        _huidigeBill.aantalPersonen = value;
+    }
+
+
+    [Bindable(event="billsChanged")]
+    public function get bills():Array
+    {
+        return _bills;
+    }
+
+    public function set bills(value:Array):void
+    {
+        if (_bills == value) return;
+        _bills = value;
+        trace("get in there");
+        dispatchEvent(new Event(BILLS_CHANGED_EVENT));
+    }
+
+    public function addBill(bill:Billmodel):void{
+        var array:Array = bills.concat();
+        array.push(bill);
+        bills = array;
+        _bs.save(bills);
+    }
+
+    public function get huidigeBill():Billmodel
+    {
+        return _huidigeBill;
+    }
+
+    public function set huidigeBill(value:Billmodel):void
+    {
+        _huidigeBill = value;
     }
 }
 }

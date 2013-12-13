@@ -8,6 +8,7 @@
 package be.devine.cp3.bilsplit.view
 {
 import be.devine.cp3.bilsplit.model.Appmodel;
+import be.devine.cp3.bilsplit.model.Billmodel;
 
 import feathers.controls.ButtonGroup;
 import feathers.controls.LayoutGroup;
@@ -21,7 +22,7 @@ import starling.display.Sprite;
 import starling.events.Event;
 import starling.textures.Texture;
 
-public class StartScherm extends Sprite implements IcanBeViewed
+    public class StartScherm extends Sprite implements IcanBeViewed
 {
     private var w:Number;
     private var h:Number;
@@ -63,6 +64,8 @@ public class StartScherm extends Sprite implements IcanBeViewed
 
     public function setSize(w:Number, h:Number):void{
 
+        this.w = w;
+        this.h = h;
 
         _layout = new LayoutGroup();
 
@@ -87,6 +90,7 @@ public class StartScherm extends Sprite implements IcanBeViewed
 
         this.w = w;
         this.h = h;
+
         _buttons.addEventListener(FeathersEventType.CREATION_COMPLETE, buttonCreatedHandler);
 
 
@@ -96,17 +100,18 @@ public class StartScherm extends Sprite implements IcanBeViewed
 
     }
 
-    function nieuw_clickhandler( event:Event ):void
+    private function nieuw_clickhandler( event:Event ):void
     {
+        _appmodel.huidigeBill = new Billmodel();
         _appmodel.huidigScherm = "deelMethode";
     }
 
-    function oud_clickhandler( event:Event ):void
+    private function oud_clickhandler( event:Event ):void
     {
-        //_appmodel.huidigScherm =
+        _appmodel.huidigScherm = "laden";
     }
 
-    function instructie_clickhandler( event:Event ):void
+    private function instructie_clickhandler( event:Event ):void
     {
         //_appmodel.huidigScherm =
     }

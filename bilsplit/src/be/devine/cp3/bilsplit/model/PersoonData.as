@@ -12,12 +12,12 @@ public class PersoonData
     private var _naam:String;
     private var _procentTeBetalen:Number;
     private var _bedragTeBetalen:Number;
-    public static const PROCENTTEBETALEN_CHANGED_EVENT:String = "procentTeBetalenChanged";
 
     public function PersoonData(naam:String)
     {
         _naam = naam;
         _procentTeBetalen = 0;
+        _bedragTeBetalen = 0;
     }
 
     public function get naam():String
@@ -49,6 +49,11 @@ public class PersoonData
     {
         if (_procentTeBetalen == value) return;
         _procentTeBetalen = value;
+    }
+
+    public function toString():String
+    {
+        return "PersoonData{_naam=" + String(_naam) + "}";
     }
 }
 }

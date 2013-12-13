@@ -17,6 +17,8 @@ import feathers.controls.LayoutGroup;
 
 import feathers.controls.Slider;
 
+import flash.events.Event;
+
 import starling.display.Sprite;
 import starling.events.Event;
 
@@ -55,7 +57,7 @@ public class PersoonView extends Sprite
         _slider.step = 1;
         _slider.page = 10;
         _slider.value = data.procentTeBetalen;
-        _slider.addEventListener( Event.CHANGE, slider_changeHandler );
+        _slider.addEventListener( starling.events.Event.CHANGE, slider_changeHandler );
         _layout.addChild( _slider );
         if(_type == PROCENTUEEL)_slider.maximum = 100;
         if(_type == PROPORTIONEEL && !_appmodel.totaalBedrag == 0)_slider.maximum = _appmodel.totaalBedrag;
@@ -63,7 +65,7 @@ public class PersoonView extends Sprite
         _deleteButton = new Button();
         _deleteButton.x = 200;
         _deleteButton.label = "X";
-        _deleteButton.addEventListener(Event.TRIGGERED, deleteButton_triggeredHandler);
+        _deleteButton.addEventListener(starling.events.Event.TRIGGERED, deleteButton_triggeredHandler);
         _layout.addChild(_deleteButton);
 
         addChild(_layout);
@@ -71,13 +73,13 @@ public class PersoonView extends Sprite
         _appmodel.addEventListener(Appmodel.TOTAALBEDRAG_CHANGED_EVENT, appmodel_totaalBedragChangedHandler);
     }
 
-    private function slider_changeHandler(event:Event):void
+    private function slider_changeHandler(event:starling.events.Event):void
     {
         if(_type == PROCENTUEEL)_data.procentTeBetalen = _slider.value;
         if(_type == PROPORTIONEEL)_data.bedragTeBetalen = _slider.value;
     }
 
-    private function appmodel_totaalBedragChangedHandler(event:Event):void
+    private function appmodel_totaalBedragChangedHandler(event:flash.events.Event):void
     {
         if(_type == PROPORTIONEEL){
             _slider.maximum = _appmodel.totaalBedrag;
@@ -85,9 +87,9 @@ public class PersoonView extends Sprite
         }
     }
 
-    private function deleteButton_triggeredHandler(event:Event):void
+    private function deleteButton_triggeredHandler(event:starling.events.Event):void
     {
-        dispatchEvent(new Event(PERSOON_DELETED))
+        dispatchEvent(new starling.events.Event(PERSOON_DELETED))
     }
 
     public function get data():PersoonData

@@ -16,9 +16,9 @@ import feathers.controls.ScreenNavigatorItem;
 import feathers.motion.transitions.ScreenSlidingStackTransitionManager;
 import feathers.themes.MetalWorksMobileTheme;
 
-import starling.display.Sprite;
-
 import flash.events.Event;
+
+import starling.display.Sprite;
 
 import starling.events.Event;
 import starling.events.ResizeEvent;
@@ -29,9 +29,15 @@ public class BillSplit extends Sprite
     private var _navigator:ScreenNavigator;
     private var _schermen:Array;
     private var _hoofdMenu:Menu;
+    private var _bs:BillService;
 
     public function BillSplit()
     {
+        _appmodel = Appmodel.getInstance();
+
+        _bs = new BillService();
+        _bs.addEventListener(starling.events.Event.COMPLETE, bs_completeHandler);
+        _bs.load();
 
         this.addEventListener(starling.events.Event.ADDED_TO_STAGE, init);
     }
@@ -46,9 +52,8 @@ public class BillSplit extends Sprite
                 ["deelMethode", new ScreenNavigatorItem(DeelmethodeSelectie)],
                 ["gelijkMethode", new ScreenNavigatorItem(GelijkMethode)],
                 ["procentueelMethode", new ScreenNavigatorItem(ProcentueelMethode)],
-                ["proportioneelMethode", new ScreenNavigatorItem(ProportioneelMethode)]
-
-                //["naam"], new ScreenNavigator(Klassenaam),
+                ["proportioneelMethode", new ScreenNavigatorItem(ProportioneelMethode)],
+                ["laden", new ScreenNavigatorItem(LaadScherm)]
 
         ];
 
@@ -79,7 +84,6 @@ public class BillSplit extends Sprite
         this.removeEventListener(starling.events.Event.ADDED_TO_STAGE, init);
         stage.addEventListener(ResizeEvent.RESIZE, resizeHandler);
         new MetalWorksMobileTheme();
-        _appmodel = Appmodel.getInstance();
         prepareNavigator();
         addChild(_hoofdMenu);
         _appmodel.addEventListener(Appmodel.HUIDIGSCHERM_CHANGED_EVENT, nieuwSchermHandler);
@@ -94,6 +98,12 @@ public class BillSplit extends Sprite
         var huidigScherm:IcanBeViewed = _navigator.activeScreen as IcanBeViewed;
         huidigScherm.setSize(w,h);
         _hoofdMenu.setSize(w, h);
+    }
+
+    private function bs_completeHandler(event:starling.events.Event):void
+    {
+        _appmodel.bills = _bs.bills;
+        trace("[yolo]",_appmodel.bills);
     }
 }
 }

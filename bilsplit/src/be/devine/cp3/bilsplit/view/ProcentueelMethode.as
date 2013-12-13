@@ -1,5 +1,6 @@
 package be.devine.cp3.bilsplit.view {
 import be.devine.cp3.bilsplit.model.Appmodel;
+import be.devine.cp3.bilsplit.model.BillService;
 import be.devine.cp3.bilsplit.model.PersoonData;
 
 import feathers.controls.Button;
@@ -23,12 +24,16 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
     private var _txtInput:TextInput;
     private var _sliders:Array;
 
+    private var _savebutton:Button;
+    private var _bs:BillService;
+
     private var w:Number;
     private var h:Number;
 
     public function ProcentueelMethode() {
         _appmodel = Appmodel.getInstance();
         _appmodel.personen = [];
+        _bs = new BillService();
 
         var eerstePersoon:PersoonData = new PersoonData("ik");
         eerstePersoon.procentTeBetalen = 100;
@@ -37,6 +42,10 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
         _addPersoon = new Button();
         _addPersoon.label = "voeg een persoon toe.";
         _addPersoon.addEventListener(Event.TRIGGERED, addPersoon_triggeredHandler);
+
+        _savebutton = new Button();
+        _savebutton.label = "save";
+        _savebutton.addEventListener(Event.TRIGGERED, savebutton_triggeredHandler);
 
         _sliders = createSliders();
     }
@@ -75,8 +84,8 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
         quad.setVertexColor(3, bottomColor);
         _layout.addChild(quad);
 
-
-
+_savebutton.y = 500;
+        _layout.addChild(_savebutton);
         _layout.addChild(_addPersoon);
 
 
@@ -136,6 +145,12 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
         var oudPersoon:PersoonData = target.data;
         _appmodel.removePersoon(oudPersoon);
         createSliders();
+    }
+
+    private function savebutton_triggeredHandler(event:Event):void
+    {
+        _appmodel.addBill(_appmodel.huidigeBill);
+        _appmodel.huidigScherm = "start";
     }
 }
 }

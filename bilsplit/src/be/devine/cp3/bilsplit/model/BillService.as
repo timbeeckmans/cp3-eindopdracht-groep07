@@ -27,31 +27,30 @@ public class BillService extends EventDispatcher
 
     public function load():void{
         if(!_billFile.exists) {
-            save([
-            "something",
-                    "something"
-
-            ]);
+            save([]);
         }
         var readStream:FileStream = new FileStream();
         readStream.open(_billFile, FileMode.READ);
         var str:String = readStream.readUTFBytes(readStream.bytesAvailable);
         var parsedJSON:Array = JSON.parse(str) as Array;
         readStream.close();
+
         var bills:Array = [];
-
-
-        trace("[BillService]",parsedJSON);
-
-
         for each(var bill:Object in parsedJSON) {
 
-            trace("[BillService]",bill);
-
             var billmodel:Billmodel = new Billmodel();
-            /*
-            billmodel.totaalbedrag = bill.totaalbedrag;
-            */
+            billmodel.personen = [];
+            for each(var persoon:Object in bill.personen){
+
+                var persoonData:PersoonData = new PersoonData(persoon.naam);
+                persoonData.bedragTeBetalen = persoon.bedragTeBetalen;
+                persoonData.procentTeBetalen = persoon.procentTeBetalen;
+                billmodel.personen.push(persoonData);
+
+            }
+            billmodel.aantalPersonen = bill.aantalPersonen;
+            billmodel.totaalBedrag = bill.totaalBedrag;
+            trace("[BillService]",billmodel);
             bills.push(billmodel);
         }
         this.bills = bills;
@@ -63,6 +62,8 @@ public class BillService extends EventDispatcher
         writeStream.open(_billFile, FileMode.WRITE);
         writeStream.writeUTFBytes(JSON.stringify(array));
         writeStream.close();
+
+        trace("saved");
     }
 }
 }
