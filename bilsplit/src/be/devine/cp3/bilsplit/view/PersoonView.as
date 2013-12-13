@@ -8,6 +8,7 @@
 package be.devine.cp3.bilsplit.view
 {
 import be.devine.cp3.bilsplit.model.Appmodel;
+import be.devine.cp3.bilsplit.model.Billmodel;
 import be.devine.cp3.bilsplit.model.PersoonData;
 
 import feathers.controls.Button;
@@ -40,9 +41,10 @@ public class PersoonView extends Sprite
     public function PersoonView(data:PersoonData, type:String)
     {
         _appmodel = Appmodel.getInstance();
-        _appmodel.totaalBedrag = 50;
         _data = data;
         _type = type;
+
+        _appmodel.huidigeBill.addEventListener(Billmodel.TOTAALBEDRAG_CHANGED_EVENT, billmodel_totaalBedragChangedHandler);
 
         _layout = new LayoutGroup();
 
@@ -54,30 +56,42 @@ public class PersoonView extends Sprite
 
 
         _bedrag = new Label();
-        _bedrag.text = _data.bedragTeBetalen + "";
+        _bedrag.text = "€ " + _data.bedragTeBetalen;
         _bedrag.y = 50;
         _bedrag.x = 200;
-
-        if(_type == PROCENTUEEL){
-            _procent = new Label();
-            _procent.text = _data.procentTeBetalen + "";
-            _procent.y = 50;
-            _procent.x = 200;
-            _bedrag.x = 250;
-        }
 
 
         _slider = new Slider();
         _slider.y = 50;
         _slider.x = 10;
         _slider.minimum = 0;
-        _slider.step = 1;
-        _slider.page = 10;
-        _slider.value = data.procentTeBetalen;
+        _slider.step = 0.1;
+        _slider.page = 0.1;
         _slider.addEventListener( starling.events.Event.CHANGE, slider_changeHandler );
         _layout.addChild( _slider );
-        if(_type == PROCENTUEEL)_slider.maximum = 100;
-        if(_type == PROPORTIONEEL && !_appmodel.totaalBedrag == 0)_slider.maximum = _appmodel.totaalBedrag;
+        if(_type == PROCENTUEEL){
+            _procent = new Label();
+            _procent.text = _data.procentTeBetalen + "%";
+            _procent.y = 50;
+            _procent.x = 200;
+            _bedrag.x = 250;
+
+            _slider.maximum = 100;
+            _slider.value = data.procentTeBetalen;
+            trace("[PersoonView] slidervalue:", _slider.value);
+            trace("[PersoonView] procent:", data.procentTeBetalen);
+
+            berekenProcentueel();
+
+
+        }
+
+
+        if(_type == PROPORTIONEEL){
+            if(_appmodel.huidigeBill.totaalBedrag <= 0) _appmodel.huidigeBill.totaalBedrag = 1;
+            _slider.maximum = _appmodel.totaalBedrag;
+            _slider.value = data.bedragTeBetalen;
+        }
 
         _deleteButton = new Button();
         _deleteButton.x = 200;
@@ -90,25 +104,30 @@ public class PersoonView extends Sprite
 
         addChild(_layout);
 
-        _appmodel.addEventListener(Appmodel.TOTAALBEDRAG_CHANGED_EVENT, appmodel_totaalBedragChangedHandler);
     }
 
     private function slider_changeHandler(event:starling.events.Event):void
     {
         if(_type == PROCENTUEEL){
             _data.procentTeBetalen = _slider.value;
-            _procent.text = _data.procentTeBetalen + "";
+            _procent.text = _slider.value + "%";
+            berekenProcentueel()
         }
         if(_type == PROPORTIONEEL)_data.bedragTeBetalen = _slider.value;
-        _bedrag.text = _data.bedragTeBetalen + "";
+        _bedrag.text = '€ ' + _data.bedragTeBetalen;
     }
 
-    private function appmodel_totaalBedragChangedHandler(event:flash.events.Event):void
+    private function billmodel_totaalBedragChangedHandler(event:flash.events.Event):void
     {
         if(_type == PROPORTIONEEL){
             _slider.maximum = _appmodel.totaalBedrag;
             if(_slider.value > _appmodel.totaalBedrag)_slider.value = _appmodel.totaalBedrag;
         }
+
+        if(_type == PROCENTUEEL){
+            berekenProcentueel()
+        }
+        _bedrag.text = '€ ' + _data.bedragTeBetalen;
     }
 
     private function deleteButton_triggeredHandler(event:starling.events.Event):void
@@ -119,6 +138,11 @@ public class PersoonView extends Sprite
     public function get data():PersoonData
     {
         return _data;
+    }
+
+    public function berekenProcentueel():void{
+        _data.bedragTeBetalen = Math.round(_appmodel.huidigeBill.totaalBedrag * _data.procentTeBetalen) / 100;
+
     }
 }
 }

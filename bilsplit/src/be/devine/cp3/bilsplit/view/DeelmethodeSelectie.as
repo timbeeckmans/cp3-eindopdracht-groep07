@@ -72,17 +72,17 @@ public class DeelmethodeSelectie extends Sprite implements IcanBeViewed
     }
 
 
-    function GelijkMethode_clickhandler( event:Event ):void
+    private function GelijkMethode_clickhandler( event:Event ):void
     {
         _appmodel.huidigScherm = "gelijkMethode";
     }
 
-    function ProcentueelMethode_clickhandler( event:Event ):void
+    private function ProcentueelMethode_clickhandler( event:Event ):void
     {
         _appmodel.huidigScherm = "procentueelMethode";
     }
 
-    function ProportioneelMethode_clickhandler( event:Event ):void
+    private function ProportioneelMethode_clickhandler( event:Event ):void
     {
         _appmodel.huidigScherm = "proportioneelMethode";
     }

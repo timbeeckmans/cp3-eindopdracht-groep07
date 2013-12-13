@@ -44,7 +44,7 @@ public class BillService extends EventDispatcher
             billmodel.totaalBedrag = bill.totaalBedrag;
             for each(var persoon:Object in bill.personen){
 
-                var persoonData:PersoonData = new PersoonData(billmodel, persoon.naam);
+                var persoonData:PersoonData = new PersoonData(persoon.naam);
                 persoonData.bedragTeBetalen = persoon.bedragTeBetalen;
                 persoonData.procentTeBetalen = persoon.procentTeBetalen;
                 billmodel.personen.push(persoonData);

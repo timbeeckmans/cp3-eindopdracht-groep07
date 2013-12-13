@@ -8,6 +8,7 @@ import feathers.controls.LayoutGroup;
 import feathers.controls.Panel;
 import feathers.controls.Slider;
 import feathers.controls.TextInput;
+import feathers.layout.AnchorLayoutData;
 import feathers.layout.HorizontalLayout;
 
 import starling.display.Quad;
@@ -23,6 +24,7 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
     private var _panel:Panel;
     private var _txtInput:TextInput;
     private var _sliders:Array;
+    private var _bedraginput:TextInput;
 
     private var _savebutton:Button;
     private var _bs:BillService;
@@ -35,7 +37,7 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
         _appmodel.personen = [];
         _bs = new BillService();
 
-        var eerstePersoon:PersoonData = new PersoonData(_appmodel.huidigeBill, "ik");
+        var eerstePersoon:PersoonData = new PersoonData("ik");
         eerstePersoon.procentTeBetalen = 100;
         _appmodel.addPersoon(eerstePersoon);
 
@@ -47,7 +49,25 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
         _savebutton.label = "save";
         _savebutton.addEventListener(Event.TRIGGERED, savebutton_triggeredHandler);
 
+        this._bedraginput = new TextInput();
+        this._bedraginput.prompt = "0";
+        this._bedraginput.restrict = "0-9.";
+        const inputLayoutData:AnchorLayoutData = new AnchorLayoutData();
+        this._bedraginput.layoutData = inputLayoutData;
+        this._bedraginput.addEventListener(Event.CHANGE, bedragchangehandler);
+
         _sliders = createSliders();
+
+
+    }
+
+    private function bedragchangehandler(event:Event):void {
+        trace(_bedraginput.text);
+        this._bedraginput.prompt = "";
+        _appmodel.totaalBedrag = Number(_bedraginput.text);
+        //berekenPerPersoon();
+
+
     }
 
     private function createSliders():Array
@@ -84,11 +104,15 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
         quad.setVertexColor(3, bottomColor);
         _layout.addChild(quad);
 
-_savebutton.y = 500;
+        _savebutton.y = 500;
         _layout.addChild(_savebutton);
         _layout.addChild(_addPersoon);
 
 
+
+        _bedraginput.x = w - 215;
+        _bedraginput.y = 100;
+        _layout.addChild(_bedraginput);
 
 
 
@@ -131,7 +155,7 @@ _savebutton.y = 500;
         this.removeChild(_panel);
         trace("[procentueelmethode] add persoon");
 
-        var nieuwPersoon:PersoonData = new PersoonData(_appmodel.huidigeBill, _txtInput.text);
+        var nieuwPersoon:PersoonData = new PersoonData(_txtInput.text);
         _appmodel.addPersoon(nieuwPersoon);
         trace(_appmodel.personen);
 
