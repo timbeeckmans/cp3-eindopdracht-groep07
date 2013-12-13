@@ -7,6 +7,7 @@ import feathers.controls.Button;
 import feathers.controls.LayoutGroup;
 import feathers.controls.Panel;
 import feathers.controls.TextInput;
+import feathers.layout.AnchorLayoutData;
 import feathers.layout.HorizontalLayout;
 
 import starling.display.Quad;
@@ -22,6 +23,7 @@ public class ProportioneelMethode extends Sprite implements IcanBeViewed {
     private var _panel:Panel;
     private var _txtInput:TextInput;
     private var _sliders:Array;
+    private var _bedraginput:TextInput;
 
     private var w:Number;
     private var h:Number;
@@ -38,7 +40,24 @@ public class ProportioneelMethode extends Sprite implements IcanBeViewed {
         _addPersoon.label = "voeg een persoon toe.";
         _addPersoon.addEventListener(Event.TRIGGERED, addPersoon_triggeredHandler);
 
+        _bedraginput = new TextInput();
+        _bedraginput.prompt = "0";
+        _bedraginput.restrict = "0-9.";
+        const inputLayoutData:AnchorLayoutData = new AnchorLayoutData();
+        _bedraginput.layoutData = inputLayoutData;
+        _bedraginput.addEventListener(Event.CHANGE, bedragchangehandler);
+
+
         _sliders = createSliders();
+
+    }
+
+    private function bedragchangehandler(event:Event):void {
+        trace(_bedraginput.text);
+        this._bedraginput.prompt = "";
+        _appmodel.totaalBedrag = Number(_bedraginput.text);
+        //berekenPerPersoon();
+
 
     }
 
@@ -76,6 +95,11 @@ public class ProportioneelMethode extends Sprite implements IcanBeViewed {
 
         _layout.addChild(_addPersoon);
 
+        _bedraginput.x = w - 215;
+        _bedraginput.y = 100;
+        _layout.addChild(_bedraginput);
+
+
         for each(var persoon:PersoonView in _sliders){
             persoon.y = ypos;
             persoon.width = 200;
@@ -83,6 +107,8 @@ public class ProportioneelMethode extends Sprite implements IcanBeViewed {
             ypos += 120;
             trace(ypos);
         }
+
+
 
         addChild(_layout);
 

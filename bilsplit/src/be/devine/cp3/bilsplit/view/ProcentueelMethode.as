@@ -49,12 +49,12 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
         _savebutton.label = "save";
         _savebutton.addEventListener(Event.TRIGGERED, savebutton_triggeredHandler);
 
-        this._bedraginput = new TextInput();
-        this._bedraginput.prompt = "0";
-        this._bedraginput.restrict = "0-9.";
+        _bedraginput = new TextInput();
+        _bedraginput.prompt = "0";
+        _bedraginput.restrict = "0-9.";
         const inputLayoutData:AnchorLayoutData = new AnchorLayoutData();
-        this._bedraginput.layoutData = inputLayoutData;
-        this._bedraginput.addEventListener(Event.CHANGE, bedragchangehandler);
+        _bedraginput.layoutData = inputLayoutData;
+        _bedraginput.addEventListener(Event.CHANGE, bedragchangehandler);
 
         _sliders = createSliders();
 
@@ -121,7 +121,6 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
             persoon.width = 200;
             _layout.addChild(persoon);
             ypos += 120;
-            trace(ypos);
         }
 
         addChild(_layout);
