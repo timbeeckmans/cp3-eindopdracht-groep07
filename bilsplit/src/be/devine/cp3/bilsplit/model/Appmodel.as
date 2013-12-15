@@ -146,6 +146,14 @@ public class Appmodel extends EventDispatcher
         _bs.save(bills);
     }
 
+    public function deleteBill(bill:Billmodel):void{
+        if(bills.length == 0) return;
+        var newarray:Array = bills.concat();
+        newarray.splice(newarray.indexOf(bill),1);
+        bills = newarray;
+        _bs.save(bills);
+    }
+
     public function get huidigeBill():Billmodel
     {
         return _huidigeBill;
