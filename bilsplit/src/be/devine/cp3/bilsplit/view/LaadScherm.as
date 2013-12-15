@@ -93,7 +93,6 @@ public class LaadScherm extends Sprite implements IcanBeViewed
     private function contentButton_deleteButtonPressedHandler(event:starling.events.Event):void
     {
         var button:ContentButton = event.currentTarget as ContentButton;
-        trace("delete:", button.content);
         _appmodel.deleteBill(_appmodel.bills[uint(button.content)]);
 
     }
@@ -101,7 +100,10 @@ public class LaadScherm extends Sprite implements IcanBeViewed
     private function contentButton_loadButtonPressedHandler(event:starling.events.Event):void
     {
         var button:ContentButton = event.currentTarget as ContentButton;
-        trace("load:", button.content);
+        _appmodel.huidigeBill = _appmodel.bills[uint(button.content)];
+        trace("[LaadScherm]",_appmodel.huidigeBill);
+        _appmodel.huidigScherm = "procentueelMethode";
+        trace("[LaadScherm]",_appmodel.huidigeBill);
 
     }
 }

@@ -31,10 +31,6 @@ public class ProportioneelMethode extends Sprite implements IcanBeViewed {
     public function ProportioneelMethode() {
 
         _appmodel = Appmodel.getInstance();
-        _appmodel.personen = [];
-        var eerstePersoon:PersoonData = new PersoonData("ik");
-        eerstePersoon.procentTeBetalen = 100;
-        _appmodel.addPersoon(eerstePersoon);
 
         _addPersoon = new Button();
         _addPersoon.label = "voeg een persoon toe.";

@@ -37,7 +37,7 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
         _layout = new LayoutGroup();
 
 
-        _appmodel.aantalPersonen = 1;
+
 
         trace('[gelijkmethode]');
 

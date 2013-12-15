@@ -17,14 +17,16 @@ public class Billmodel extends EventDispatcher
     private var _totaalBedrag:Number;
     public static const PERSONEN_CHANGED_EVENT:String = "personenChanged";
     public static const AANTALPERSONEN_CHANGED_EVENT:String = "aantalPersonenChanged";
-    public static const VOORWERPEN_CHANGED_EVENT:String = "voorwerpenChanged";
     public static const TOTAALBEDRAG_CHANGED_EVENT:String = "totaalBedragChanged";
 
     public function Billmodel()
     {
-        personen = [];
         aantalPersonen = 0;
         totaalBedrag = 0;
+
+        var eerstePersoon:PersoonData = new PersoonData("ik");
+        eerstePersoon.procentTeBetalen = 100;
+        personen = [eerstePersoon];
     }
 
 
@@ -38,6 +40,7 @@ public class Billmodel extends EventDispatcher
     {
         if (_personen == value) return;
         _personen = value;
+        _aantalPersonen = _personen.length;
         dispatchEvent(new Event(PERSONEN_CHANGED_EVENT));
     }
 
