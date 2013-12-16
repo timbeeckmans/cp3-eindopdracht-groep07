@@ -10,6 +10,8 @@ import feathers.controls.TextInput;
 import feathers.layout.AnchorLayoutData;
 import feathers.layout.HorizontalLayout;
 
+import starling.display.Image;
+
 import starling.display.Quad;
 
 import starling.display.Sprite;
@@ -27,6 +29,8 @@ public class ProportioneelMethode extends Sprite implements IcanBeViewed {
 
     private var w:Number;
     private var h:Number;
+    [Embed(source = "/../assets/images/billsplitterlogoklein.png")]
+    private static const Logo:Class;
 
     public function ProportioneelMethode() {
 
@@ -45,6 +49,7 @@ public class ProportioneelMethode extends Sprite implements IcanBeViewed {
 
 
         _sliders = createSliders();
+
 
     }
 
@@ -105,6 +110,10 @@ public class ProportioneelMethode extends Sprite implements IcanBeViewed {
         }
 
 
+        var logo:Image = Image.fromBitmap(new Logo());
+        logo.x = 10;
+        logo.y = 10;
+        _layout.addChild(logo);
 
         addChild(_layout);
 

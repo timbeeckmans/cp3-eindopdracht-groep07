@@ -83,10 +83,6 @@ import starling.textures.Texture;
         background.x = ( w / 2 ) - ( background.width / 2 );
         _layout.addChild(background);
 
-        var logo:Image = Image.fromBitmap(new Logo());
-        logo.x = 10;
-        logo.y = 10;
-        _layout.addChild(logo);
 
         this.w = w;
         this.h = h;

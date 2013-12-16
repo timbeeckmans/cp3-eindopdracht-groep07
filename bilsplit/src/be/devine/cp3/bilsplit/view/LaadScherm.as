@@ -11,11 +11,15 @@ import be.devine.cp3.bilsplit.model.Appmodel;
 import be.devine.cp3.bilsplit.model.BillService;
 import be.devine.cp3.bilsplit.model.Billmodel;
 
+import feathers.controls.LayoutGroup;
+
 import feathers.controls.ScrollContainer;
 import feathers.layout.HorizontalLayout;
 import feathers.layout.VerticalLayout;
 
 import flash.events.Event;
+
+import starling.display.Image;
 import starling.events.Event;
 
 import starling.display.Sprite;
@@ -28,12 +32,16 @@ public class LaadScherm extends Sprite implements IcanBeViewed
     private var h:Number;
     private var bills:Array;
     private var _container:ScrollContainer;
+    private var _layout:LayoutGroup;
+
+    [Embed(source = "/../assets/images/billsplitterlogoklein.png")]
+    private static const Logo:Class;
 
     public function LaadScherm()
     {
         _appmodel = Appmodel.getInstance();
         _appmodel.addEventListener(Appmodel.BILLS_CHANGED_EVENT, appmodel_billsChangedHandler);
-
+        _layout = new LayoutGroup();
         var i:uint = 0;
         bills = [];
 
@@ -47,6 +55,7 @@ public class LaadScherm extends Sprite implements IcanBeViewed
             bills.push(contentButton);
             i++;
         }
+
     }
 
     public function setSize(w:Number, h:Number):void{
@@ -69,6 +78,12 @@ public class LaadScherm extends Sprite implements IcanBeViewed
         }
         _container.x = _container.y = 0;
         addChild(_container);
+
+        var logo:Image = Image.fromBitmap(new Logo());
+        logo.x = 10;
+        logo.y = 10;
+        _layout.addChild(logo);
+        addChild(_layout);
     }
 
     private function appmodel_billsChangedHandler(event:flash.events.Event):void

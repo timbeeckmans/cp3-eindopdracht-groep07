@@ -11,6 +11,7 @@ import be.devine.cp3.bilsplit.model.Appmodel;
 
 import feathers.controls.Button;
 import feathers.events.FeathersEventType;
+import feathers.motion.transitions.ScreenSlidingStackTransitionManager;
 
 import starling.display.Sprite;
 import starling.events.Event;
@@ -47,11 +48,43 @@ public class Menu extends Sprite
         _backButton.removeEventListener(FeathersEventType.CREATION_COMPLETE, buttonCreatedHandler);
         _backButton.x = w -(_backButton.width + 10);
         _backButton.y = 10;
+
+        if(_appmodel.huidigScherm = 'start'){
+            removeChild(_backButton);
+        }
     }
 
     private function triggerHandler(event:Event):void
     {
-        _appmodel.huidigScherm = "start";
+        switch (_appmodel.huidigScherm){
+
+
+            case 'start':
+                trace('[menu] start');
+                break;
+
+            case 'deelMethode':
+                _appmodel.huidigScherm = 'start';
+                break;
+
+            case 'gelijkMethode':
+                _appmodel.huidigScherm = 'deelMethode';
+                break;
+
+            case 'procentueelMethode':
+                _appmodel.huidigScherm = 'deelMethode';
+                break;
+
+            case 'proportioneelMethode':
+                _appmodel.huidigScherm = 'deelMethode';
+                break;
+
+            case 'laden':
+                _appmodel.huidigScherm = 'start';
+                break;
+
+        }
+
     }
 }
 }

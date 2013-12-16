@@ -11,6 +11,8 @@ import feathers.controls.TextInput;
 import feathers.layout.AnchorLayoutData;
 import feathers.layout.HorizontalLayout;
 
+import starling.display.Image;
+
 import starling.display.Quad;
 
 import starling.display.Sprite;
@@ -31,6 +33,9 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
 
     private var w:Number;
     private var h:Number;
+
+    [Embed(source = "/../assets/images/billsplitterlogoklein.png")]
+    private static const Logo:Class;
 
     public function ProcentueelMethode() {
         _appmodel = Appmodel.getInstance();
@@ -55,6 +60,7 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
         _bedraginput.addEventListener(Event.CHANGE, bedragchangehandler);
 
         _sliders = createSliders();
+
 
 
     }
@@ -120,6 +126,12 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
             _layout.addChild(persoon);
             ypos += 120;
         }
+
+
+        var logo:Image = Image.fromBitmap(new Logo());
+        logo.x = 10;
+        logo.y = 10;
+        _layout.addChild(logo);
 
         addChild(_layout);
 

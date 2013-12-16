@@ -7,6 +7,8 @@ import feathers.controls.TextInput;
 import feathers.events.FeathersEventType;
 import feathers.layout.AnchorLayoutData;
 
+import starling.display.Image;
+
 import starling.display.Quad;
 
 import starling.display.Sprite;
@@ -27,6 +29,9 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
     private var stepper:NumericStepper;
     private var _bedraginput:TextInput;
 
+    [Embed(source = "/../assets/images/billsplitterlogoklein.png")]
+    private static const Logo:Class;
+
     private var _layout:LayoutGroup;
 
     private var w:Number;
@@ -36,14 +41,10 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
         _appmodel = Appmodel.getInstance();
         _layout = new LayoutGroup();
 
-
-
-
         trace('[gelijkmethode]');
 
         _buttonGroup = new LayoutGroup();
         addChild(_layout);
-
 
 
 
@@ -105,6 +106,12 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
         _layout.addChild(_buttonGroup);
 
         trace("[GelijkMethode] setSize");
+
+        var logo:Image = Image.fromBitmap(new Logo());
+        logo.x = 10;
+        logo.y = 10;
+        _layout.addChild(logo);
+        addChild(_layout);
 
     }
 
