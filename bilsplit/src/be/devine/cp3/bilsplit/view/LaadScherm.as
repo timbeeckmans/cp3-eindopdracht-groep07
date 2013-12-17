@@ -1,10 +1,3 @@
-/**
- * Created with IntelliJ IDEA.
- * User: Tim
- * Date: 12/12/13
- * Time: 20:49
- * To change this template use File | Settings | File Templates.
- */
 package be.devine.cp3.bilsplit.view
 {
 import be.devine.cp3.bilsplit.model.Appmodel;
@@ -14,8 +7,6 @@ import be.devine.cp3.bilsplit.model.Billmodel;
 import feathers.controls.LayoutGroup;
 
 import feathers.controls.ScrollContainer;
-import feathers.layout.HorizontalLayout;
-import feathers.layout.VerticalLayout;
 
 import flash.events.Event;
 
@@ -94,6 +85,7 @@ public class LaadScherm extends Sprite implements IcanBeViewed
 
         for each(var bill:ContentButton in bills){
             bill.y = i;
+            bill.x = 20;
             _container.addChild(bill);
             i += 100;
         }
