@@ -50,32 +50,26 @@ public class PersoonView extends Sprite
 
         var label:Label = new Label();
         label.text = data.naam;
-        label.x = 10;
-        label.y = 10;
         _layout.addChild(label);
 
 
         _bedrag = new Label();
         _bedrag.text = "€ " + _data.bedragTeBetalen;
-        _bedrag.y = 50;
-        _bedrag.x = 200;
-
+        _bedrag.y = 60;
 
         _slider = new Slider();
-        _slider.y = 50;
-        _slider.x = 10;
         _slider.minimum = 0;
         _slider.step = 0.1;
         _slider.page = 0.1;
         _slider.addEventListener( starling.events.Event.CHANGE, slider_changeHandler );
         _layout.addChild( _slider );
+        _slider.y = 40;
+        _slider.x = 100;
+
         if(_type == PROCENTUEEL){
             _procent = new Label();
             _procent.text = _data.procentTeBetalen + "%";
-            _procent.y = 50;
-            _procent.x = 200;
-            _bedrag.x = 250;
-
+            _procent.y = 40;
             _slider.maximum = 100;
             _slider.value = data.procentTeBetalen;
             trace("[PersoonView] slidervalue:", _slider.value);
@@ -94,11 +88,11 @@ public class PersoonView extends Sprite
         }
 
         _deleteButton = new Button();
-        _deleteButton.x = 200;
+        _deleteButton.x = 300;
         _deleteButton.label = "X";
         _deleteButton.addEventListener(starling.events.Event.TRIGGERED, deleteButton_triggeredHandler);
         _layout.addChild(_deleteButton);
-
+        _deleteButton.y = 40;
         _layout.addChild(_bedrag);
         if(_type == PROCENTUEEL)_layout.addChild(_procent);
 

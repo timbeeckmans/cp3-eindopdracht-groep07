@@ -85,7 +85,7 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
         this.h = h;
 
         stepper.x = w - 213;
-        stepper.y = 200;
+        stepper.y = 300;
 
         _personenlabel = new Label();
         _personenlabel.nameList.add(Label.ALTERNATE_NAME_HEADING);
@@ -94,7 +94,7 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
         _layout.addChild(_personenlabel);
 
         _personenlabel.x = 30;
-        _personenlabel.y = 205;
+        _personenlabel.y = 305;
 
         _explicitWidth = w;
         _explicitHeight = h;
@@ -122,9 +122,6 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
 
         _bedragperpersoon.text = "€ " + Math.round(100 * _appmodel.totaalBedrag / _appmodel.aantalPersonen) / 100;
 
-        /*if(_bedragperpersoon.width > 80){
-            _bedragperpersoon.x = w - ( _bedragperpersoon.width + 20);
-        }*/
     }
 
 
@@ -137,7 +134,7 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
         _layout.addChild(_totaalbedraglabel);
 
         _totaalbedraglabel.x = 30;
-        _totaalbedraglabel.y = 105;
+        _totaalbedraglabel.y = 205;
 
 
 
@@ -150,7 +147,7 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
         this._bedraginput.addEventListener(Event.CHANGE, bedragchangehandler);
 
         _bedraginput.x = w - 215;
-        _bedraginput.y = 100;
+        _bedraginput.y = 200;
 
         _bedragperpersoonlabel = new Label();
         _bedragperpersoonlabel.nameList.add(Label.ALTERNATE_NAME_HEADING);
@@ -158,14 +155,14 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
         _layout.addChild(_bedragperpersoonlabel);
 
         _bedragperpersoonlabel.x = 30;
-        _bedragperpersoonlabel.y = 305;
+        _bedragperpersoonlabel.y = 405;
 
         _bedragperpersoon = new Label();
         _bedragperpersoon.nameList.add(Label.ALTERNATE_NAME_HEADING);
         _layout.addChild(_bedragperpersoon);
 
         _bedragperpersoon.x = w - 214;
-        _bedragperpersoon.y = 305;
+        _bedragperpersoon.y = 405;
 
         _bedragperpersoon.text = "€ 0"
 

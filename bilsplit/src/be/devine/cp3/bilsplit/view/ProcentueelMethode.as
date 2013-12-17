@@ -4,8 +4,10 @@ import be.devine.cp3.bilsplit.model.BillService;
 import be.devine.cp3.bilsplit.model.PersoonData;
 
 import feathers.controls.Button;
+import feathers.controls.Label;
 import feathers.controls.LayoutGroup;
 import feathers.controls.Panel;
+import feathers.controls.ScrollContainer;
 import feathers.controls.Slider;
 import feathers.controls.TextInput;
 import feathers.layout.AnchorLayoutData;
@@ -22,12 +24,13 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
 
     private var _appmodel:Appmodel;
     private var _addPersoon:Button;
+    private var _totaalbedraglabel:Label;
     private var _layout:LayoutGroup;
     private var _panel:Panel;
     private var _txtInput:TextInput;
     private var _sliders:Array;
     private var _bedraginput:TextInput;
-
+    private var container:ScrollContainer;
     private var _savebutton:Button;
     private var _bs:BillService;
 
@@ -61,6 +64,10 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
 
         _sliders = createSliders();
 
+        _totaalbedraglabel = new Label();
+        _totaalbedraglabel.nameList.add(Label.ALTERNATE_NAME_HEADING);
+        _totaalbedraglabel.text = "Totaal bedrag: ";
+
 
 
     }
@@ -92,7 +99,7 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
     public function setSize(w:Number, h:Number):void{
         this.w = w;
         this.h = h;
-        var ypos:Number = 100;
+        var ypos:Number = 0;
 
         if(_layout)removeChild(_layout);
         _layout = new LayoutGroup();
@@ -106,34 +113,49 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
         quad.setVertexColor(1, topColor);
         quad.setVertexColor(2, bottomColor);
         quad.setVertexColor(3, bottomColor);
-        _layout.addChild(quad);
+        addChild(quad);
 
-        _savebutton.y = 500;
+        _savebutton.x = 27;
+        _savebutton.y = 600;
         _layout.addChild(_savebutton);
+        _addPersoon.x = 27;
+        _addPersoon.y = 100;
         _layout.addChild(_addPersoon);
+        _layout.y = 100;
+
+        _layout.addChild(_totaalbedraglabel);
+        _totaalbedraglabel.x = 25;
+        _totaalbedraglabel.y = 0;
 
 
-
-        _bedraginput.x = w - 215;
-        _bedraginput.y = 100;
+        _bedraginput.x = 25;
+        _bedraginput.y = 40;
         _layout.addChild(_bedraginput);
 
+        container = new ScrollContainer();
+        container.width = 500;
+        container.height = 380;
+        container.y = 270;
+        addChild( container );
 
 
         for each(var persoon:PersoonView in _sliders){
+            persoon.x = 20;
             persoon.y = ypos;
             persoon.width = 200;
-            _layout.addChild(persoon);
-            ypos += 120;
+            container.addChild(persoon);
+            ypos += 100;
         }
 
 
         var logo:Image = Image.fromBitmap(new Logo());
-        logo.x = 10;
+        logo.x = 25;
         logo.y = 10;
-        _layout.addChild(logo);
+        addChild(logo);
 
         addChild(_layout);
+
+
 
     }
 
@@ -157,6 +179,10 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
         confirmButton.label = "Ok";
         confirmButton.addEventListener(Event.TRIGGERED, personConfirmed);
         _panel.addChild( confirmButton );
+
+
+        _panel.x = 80;
+        _panel.y = 200;
     }
 
     private function personConfirmed(event:Event):void
