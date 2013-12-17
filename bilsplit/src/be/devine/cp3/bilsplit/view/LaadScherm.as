@@ -20,6 +20,7 @@ import feathers.layout.VerticalLayout;
 import flash.events.Event;
 
 import starling.display.Image;
+import starling.display.Quad;
 import starling.events.Event;
 
 import starling.display.Sprite;
@@ -62,28 +63,50 @@ public class LaadScherm extends Sprite implements IcanBeViewed
         this.w = w;
         this.h = h;
 
+        var topColor:uint = 0xbb670d;
+        var bottomColor:uint = 0xf5c089;
+        var quad:Quad = new Quad(w, h);
+        quad.setVertexColor(0, topColor);
+        quad.setVertexColor(1, topColor);
+        quad.setVertexColor(2, bottomColor);
+        quad.setVertexColor(3, bottomColor);
+        addChild(quad);
+
         var i:uint = 0;
         if(_container){
             removeChild(_container);
         }
 
+
         _container = new ScrollContainer();
+        _container.elasticity = 0.5;
         _container.width = w;
-        _container.height = h;
+        _container.height = 850;
+        _container.y = 80;
+
+        var quad1:Quad = new Quad(_container.width, _container.height);
+        quad1.setVertexColor(0, bottomColor);
+        quad1.setVertexColor(1, bottomColor);
+        quad1.setVertexColor(2, topColor);
+        quad1.setVertexColor(3, topColor);
+        addChild(quad);
+
 
         for each(var bill:ContentButton in bills){
             bill.y = i;
             _container.addChild(bill);
             i += 100;
         }
-        _container.x = _container.y = 0;
-        addChild(_container);
 
         var logo:Image = Image.fromBitmap(new Logo());
         logo.x = 10;
         logo.y = 10;
         _layout.addChild(logo);
         addChild(_layout);
+
+
+        _container.backgroundSkin = quad1;
+        addChild( _container );
     }
 
     private function appmodel_billsChangedHandler(event:flash.events.Event):void
@@ -91,17 +114,19 @@ public class LaadScherm extends Sprite implements IcanBeViewed
         var i:uint = 0;
         bills = [];
 
+
         for each(var item:Billmodel in _appmodel.bills){
             var contentButton:ContentButton = new ContentButton();
             contentButton.contentText = "bill " + i;
             contentButton.content = i;
             contentButton.addEventListener(ContentButton.DELETEBUTTON_PRESSED, contentButton_deleteButtonPressedHandler);
             contentButton.addEventListener(ContentButton.LOADBUTTON_PRESSED, contentButton_loadButtonPressedHandler);
-
             bills.push(contentButton);
             i++;
         }
+
         setSize(w,h);
+
 
     }
 

@@ -71,8 +71,8 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
     public function setSize(w:Number, h:Number):void {
 
 
-        var topColor:uint = 0xbb670d; // blue
-        var bottomColor:uint = 0xf5c089; // red
+        var topColor:uint = 0xbb670d;
+        var bottomColor:uint = 0xf5c089;
 
         var quad:Quad = new Quad(w, h);
         quad.setVertexColor(0, topColor);

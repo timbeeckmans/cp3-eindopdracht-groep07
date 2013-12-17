@@ -13,9 +13,11 @@ import be.devine.cp3.bilsplit.model.Appmodel;
 
 import feathers.controls.ScreenNavigator;
 import feathers.controls.ScreenNavigatorItem;
+import feathers.controls.popups.DropDownPopUpContentManager;
 import feathers.motion.transitions.OldFadeNewSlideTransitionManager;
 import feathers.motion.transitions.ScreenFadeTransitionManager;
 import feathers.motion.transitions.ScreenSlidingStackTransitionManager;
+import feathers.motion.transitions.TabBarSlideTransitionManager;
 import feathers.themes.MetalWorksMobileTheme;
 
 import flash.events.Event;
@@ -77,7 +79,7 @@ public class BillSplit extends Sprite
         addChild(_navigator);
         addChild(_hoofdMenu);
 
-        var transition:ScreenFadeTransitionManager = new ScreenFadeTransitionManager(_navigator);
+        var transition:ScreenSlidingStackTransitionManager = new ScreenSlidingStackTransitionManager (_navigator);
 
     }
 

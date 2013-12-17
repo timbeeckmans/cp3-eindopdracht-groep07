@@ -105,8 +105,8 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
         _layout = new LayoutGroup();
 
 
-        var topColor:uint = 0xbb670d; // blue
-        var bottomColor:uint = 0xf5c089; // red
+        var topColor:uint = 0xbb670d;
+        var bottomColor:uint = 0xf5c089;
 
         var quad:Quad = new Quad(w, h);
         quad.setVertexColor(0, topColor);
@@ -133,9 +133,18 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
         _layout.addChild(_bedraginput);
 
         container = new ScrollContainer();
+        container.elasticity = 0.5;
         container.width = 500;
-        container.height = 380;
+        container.height = 400;
         container.y = 270;
+        var quad1:Quad = new Quad(container.width, container.height);
+        quad1.setVertexColor(0, topColor);
+        quad1.setVertexColor(1, topColor);
+        quad1.setVertexColor(2, bottomColor);
+        quad1.setVertexColor(3, bottomColor);
+        addChild(quad);
+
+        container.backgroundSkin = quad1;
         addChild( container );
 
 

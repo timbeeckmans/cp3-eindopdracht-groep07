@@ -59,12 +59,12 @@ public class PersoonView extends Sprite
 
         _slider = new Slider();
         _slider.minimum = 0;
-        _slider.step = 0.1;
-        _slider.page = 0.1;
+        _slider.step = 1;
+        _slider.page = 10;
         _slider.addEventListener( starling.events.Event.CHANGE, slider_changeHandler );
         _layout.addChild( _slider );
         _slider.y = 40;
-        _slider.x = 100;
+        _slider.x = 140;
 
         if(_type == PROCENTUEEL){
             _procent = new Label();
@@ -88,7 +88,7 @@ public class PersoonView extends Sprite
         }
 
         _deleteButton = new Button();
-        _deleteButton.x = 300;
+        _deleteButton.x = 380;
         _deleteButton.label = "X";
         _deleteButton.addEventListener(starling.events.Event.TRIGGERED, deleteButton_triggeredHandler);
         _layout.addChild(_deleteButton);

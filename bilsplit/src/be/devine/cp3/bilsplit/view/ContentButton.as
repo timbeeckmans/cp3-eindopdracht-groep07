@@ -46,7 +46,7 @@ public class ContentButton extends FeathersControl implements IFocusDisplayObjec
     {
         //default
         deleteButtonLabel = "X";
-        loadButtonLabel = "load";
+        loadButtonLabel = "Bekijken";
 
     }
 
@@ -58,7 +58,7 @@ public class ContentButton extends FeathersControl implements IFocusDisplayObjec
 
     private var _contentText:String;
 
-    private var _padding:Number = 20;
+    private var _padding:Number = 30;
 
     public function get padding():Number
     {
@@ -205,6 +205,8 @@ public class ContentButton extends FeathersControl implements IFocusDisplayObjec
 
         this.loadButton = Button(defaultLoadButtonFactory());
         this.loadButton.label = loadButtonLabel;
+        this.loadButton.padding = 50;
+        this.loadButton.width = 300;
         this.loadButton.addEventListener(Event.TRIGGERED, loadButton_touchHandler);
         this.addChild(this.loadButton);
 
