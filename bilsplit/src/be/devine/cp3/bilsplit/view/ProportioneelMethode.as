@@ -7,6 +7,7 @@ import feathers.controls.Button;
 
 import feathers.controls.LayoutGroup;
 import feathers.controls.Panel;
+import feathers.controls.ScrollContainer;
 import feathers.controls.TextInput;
 import feathers.layout.AnchorLayoutData;
 import feathers.layout.HorizontalLayout;
@@ -29,6 +30,7 @@ public class ProportioneelMethode extends Sprite implements IcanBeViewed {
     private var _bedraginput:TextInput;
     private var _savebutton:Button;
     private var _bs:BillService;
+    private var container:ScrollContainer;
 
     private var w:Number;
     private var h:Number;
@@ -86,13 +88,13 @@ public class ProportioneelMethode extends Sprite implements IcanBeViewed {
     public function setSize(w:Number, h:Number):void{
         this.w = w;
         this.h = h;
-        var ypos:Number = 100;
+        var ypos:Number = 0;
 
         if(_layout)removeChild(_layout);
         _layout = new LayoutGroup();
 
-        var topColor:uint = 0xbb670d; // blue
-        var bottomColor:uint = 0xf5c089; // red
+        var topColor:uint = 0xbb670d;
+        var bottomColor:uint = 0xf5c089;
 
         var quad:Quad = new Quad(w, h);
         quad.setVertexColor(0, topColor);
@@ -104,29 +106,48 @@ public class ProportioneelMethode extends Sprite implements IcanBeViewed {
         _savebutton.x = 27;
         _savebutton.y = 600;
         _layout.addChild(_savebutton);
-
+        _addPersoon.x = 27;
+        _addPersoon.y = 100;
         _layout.addChild(_addPersoon);
+        _layout.y = 100;
 
-        _bedraginput.x = w - 215;
-        _bedraginput.y = 100;
+        _bedraginput.x = 25;
+        _bedraginput.y = 40;
         _layout.addChild(_bedraginput);
+
+        container = new ScrollContainer();
+        container.elasticity = 0.5;
+        container.width = 500;
+        container.height = 400;
+        container.y = 270;
+        var quad1:Quad = new Quad(container.width, container.height);
+        quad1.setVertexColor(0, topColor);
+        quad1.setVertexColor(1, topColor);
+        quad1.setVertexColor(2, bottomColor);
+        quad1.setVertexColor(3, bottomColor);
+        addChild(quad);
+
+        container.backgroundSkin = quad1;
+        addChild( container );
+
 
 
         for each(var persoon:PersoonView in _sliders){
+            persoon.x = 20;
             persoon.y = ypos;
             persoon.width = 200;
-            _layout.addChild(persoon);
-            ypos += 120;
-            trace(ypos);
+            container.addChild(persoon);
+            ypos += 100;
         }
 
 
         var logo:Image = Image.fromBitmap(new Logo());
-        logo.x = 10;
+        logo.x = 25;
         logo.y = 10;
-        _layout.addChild(logo);
+        addChild(logo);
 
         addChild(_layout);
+
 
     }
 
@@ -150,6 +171,9 @@ public class ProportioneelMethode extends Sprite implements IcanBeViewed {
         confirmButton.label = "Ok";
         confirmButton.addEventListener(Event.TRIGGERED, personConfirmed);
         _panel.addChild( confirmButton );
+
+        _panel.x = 80;
+        _panel.y = 200;
     }
 
     private function personConfirmed(event:Event):void

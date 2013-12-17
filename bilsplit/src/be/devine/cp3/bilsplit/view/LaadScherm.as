@@ -85,10 +85,10 @@ public class LaadScherm extends Sprite implements IcanBeViewed
         _container.y = 80;
 
         var quad1:Quad = new Quad(_container.width, _container.height);
-        quad1.setVertexColor(0, bottomColor);
-        quad1.setVertexColor(1, bottomColor);
-        quad1.setVertexColor(2, topColor);
-        quad1.setVertexColor(3, topColor);
+        quad1.setVertexColor(0, topColor);
+        quad1.setVertexColor(1, topColor);
+        quad1.setVertexColor(2, bottomColor);
+        quad1.setVertexColor(3, bottomColor);
         addChild(quad);
 
 
