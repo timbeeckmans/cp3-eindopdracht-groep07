@@ -42,6 +42,7 @@ public class BillService extends EventDispatcher
             billmodel.personen = [];
             billmodel.aantalPersonen = bill.aantalPersonen;
             billmodel.totaalBedrag = bill.totaalBedrag;
+            billmodel.type = bill.type;
             for each(var persoon:Object in bill.personen){
 
                 var persoonData:PersoonData = new PersoonData(persoon.naam);

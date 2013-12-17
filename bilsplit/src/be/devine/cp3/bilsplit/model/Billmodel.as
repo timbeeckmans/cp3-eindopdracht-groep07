@@ -12,6 +12,7 @@ import flash.events.EventDispatcher;
 
 public class Billmodel extends EventDispatcher
 {
+    private var _type:String;
     private var _personen:Array;
     private var _aantalPersonen:uint;
     private var _totaalBedrag:Number;
@@ -34,6 +35,16 @@ public class Billmodel extends EventDispatcher
     public function get personen():Array
     {
         return _personen;
+    }
+
+    public function get type():String
+    {
+        return _type;
+    }
+
+    public function set type(value:String):void
+    {
+        _type = value;
     }
 
     public function set personen(value:Array):void

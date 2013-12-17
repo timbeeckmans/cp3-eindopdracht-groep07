@@ -117,7 +117,7 @@ public class LaadScherm extends Sprite implements IcanBeViewed
         var button:ContentButton = event.currentTarget as ContentButton;
         _appmodel.huidigeBill = _appmodel.bills[uint(button.content)];
         trace("[LaadScherm]",_appmodel.huidigeBill);
-        _appmodel.huidigScherm = "procentueelMethode";
+        _appmodel.huidigScherm = _appmodel.huidigeBill.type;
         trace("[LaadScherm]",_appmodel.huidigeBill);
 
     }

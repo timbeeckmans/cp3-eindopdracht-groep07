@@ -1,5 +1,9 @@
 package be.devine.cp3.bilsplit.view {
 import be.devine.cp3.bilsplit.model.Appmodel;
+import be.devine.cp3.bilsplit.model.BillService;
+
+import feathers.controls.Button;
+
 import feathers.controls.Label;
 import feathers.controls.LayoutGroup;
 import feathers.controls.NumericStepper;
@@ -28,6 +32,8 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
     private var _personenlabel:Label;
     private var stepper:NumericStepper;
     private var _bedraginput:TextInput;
+    private var _savebutton:Button;
+    private var _bs:BillService;
 
     [Embed(source = "/../assets/images/billsplitterlogoklein.png")]
     private static const Logo:Class;
@@ -39,7 +45,12 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
 
     public function GelijkMethode() {
         _appmodel = Appmodel.getInstance();
+        _bs = new BillService();
         _layout = new LayoutGroup();
+
+        _savebutton = new Button();
+        _savebutton.label = "save";
+        _savebutton.addEventListener(Event.TRIGGERED, savebutton_triggeredHandler);
 
         trace('[gelijkmethode]');
 
@@ -69,6 +80,10 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
         quad.setVertexColor(2, bottomColor);
         quad.setVertexColor(3, bottomColor);
         _layout.addChild(quad);
+
+        _savebutton.x = 27;
+        _savebutton.y = 600;
+        _layout.addChild(_savebutton);
 
         stepper = new NumericStepper();
 
@@ -139,7 +154,7 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
 
 
         this._bedraginput = new TextInput();
-        this._bedraginput.prompt = "0";
+        this._bedraginput.prompt = _appmodel.huidigeBill.totaalBedrag + "";
         this._bedraginput.restrict = "0-9.";
         const inputLayoutData:AnchorLayoutData = new AnchorLayoutData();
         this._bedraginput.layoutData = inputLayoutData;
@@ -164,17 +179,21 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
         _bedragperpersoon.x = w - 214;
         _bedragperpersoon.y = 405;
 
-        _bedragperpersoon.text = "€ 0"
+        _bedragperpersoon.text = "€ 0";
 
+        berekenPerPersoon();
     }
 
     private function bedragchangehandler(event:Event):void {
         trace(_bedraginput.text);
-        this._bedraginput.prompt = "";
         _appmodel.totaalBedrag = Number(_bedraginput.text);
         berekenPerPersoon();
+    }
 
-
+    private function savebutton_triggeredHandler(event:Event):void
+    {
+        _appmodel.addBill(_appmodel.huidigeBill);
+        _appmodel.huidigScherm = "start";
     }
 
 

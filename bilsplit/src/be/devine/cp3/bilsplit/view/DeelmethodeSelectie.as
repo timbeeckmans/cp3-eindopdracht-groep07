@@ -3,6 +3,7 @@ package be.devine.cp3.bilsplit.view
 
 
 import be.devine.cp3.bilsplit.model.Appmodel;
+import be.devine.cp3.bilsplit.model.Billmodel;
 
 import feathers.controls.ButtonGroup;
 import feathers.controls.LayoutGroup;
@@ -74,16 +75,22 @@ public class DeelmethodeSelectie extends Sprite implements IcanBeViewed
 
     private function GelijkMethode_clickhandler( event:Event ):void
     {
+        _appmodel.huidigeBill = new Billmodel();
+        _appmodel.huidigeBill.type = "gelijkMethode";
         _appmodel.huidigScherm = "gelijkMethode";
     }
 
     private function ProcentueelMethode_clickhandler( event:Event ):void
     {
+        _appmodel.huidigeBill = new Billmodel();
+        _appmodel.huidigeBill.type = "procentueelMethode";
         _appmodel.huidigScherm = "procentueelMethode";
     }
 
     private function ProportioneelMethode_clickhandler( event:Event ):void
     {
+        _appmodel.huidigeBill = new Billmodel();
+        _appmodel.huidigeBill.type = "proportioneelMethode";
         _appmodel.huidigScherm = "proportioneelMethode";
     }
 

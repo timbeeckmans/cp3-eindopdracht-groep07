@@ -100,7 +100,6 @@ import starling.textures.Texture;
 
     private function nieuw_clickhandler( event:Event ):void
     {
-        _appmodel.huidigeBill = new Billmodel();
         _appmodel.huidigScherm = "deelMethode";
     }
 
