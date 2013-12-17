@@ -43,6 +43,8 @@ import starling.textures.Texture;
         _layout = new LayoutGroup();
 
 
+
+
         _appmodel = Appmodel.getInstance();
         _buttons = new ButtonGroup();
         _buttons.dataProvider = new ListCollection(

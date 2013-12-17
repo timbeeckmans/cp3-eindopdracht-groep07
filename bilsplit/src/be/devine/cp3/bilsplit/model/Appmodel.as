@@ -32,9 +32,9 @@ public class Appmodel extends EventDispatcher
     public static const VOORWERPEN_CHANGED_EVENT:String = "voorwerpenChanged";
     public static const TOTAALBEDRAG_CHANGED_EVENT:String = "totaalBedragChanged";
     public static const HUIDIGSCHERM_CHANGED_EVENT:String = "huidigSchermChanged";
+    public static const BILLS_CHANGED_EVENT:String = "billsChanged";
 
     static private var instance:Appmodel;
-    public static const BILLS_CHANGED_EVENT:String = "billsChanged";
     static public function getInstance():Appmodel{
         if (instance == null){
             instance = new Appmodel(new Enforcer());

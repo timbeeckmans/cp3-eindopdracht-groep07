@@ -58,7 +58,6 @@ public class Menu extends Sprite
     {
         switch (_appmodel.huidigScherm){
 
-
             case 'start':
                 trace('[menu] start');
                 break;
@@ -84,6 +83,13 @@ public class Menu extends Sprite
                 break;
 
         }
+
+    }
+
+    public function checkVisible():void{
+        _backButton.visible = !(_appmodel.huidigScherm == 'start');
+        trace(_appmodel.huidigScherm);
+        trace(_backButton.visible);
 
     }
 }

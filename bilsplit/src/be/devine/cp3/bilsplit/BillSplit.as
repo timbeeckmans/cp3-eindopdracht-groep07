@@ -71,6 +71,7 @@ public class BillSplit extends Sprite
     {
         _navigator.showScreen(_appmodel.huidigScherm);
         resizeHandler();
+        _hoofdMenu.checkVisible();
         addChild(_navigator);
         addChild(_hoofdMenu);
 
@@ -102,7 +103,6 @@ public class BillSplit extends Sprite
     private function bs_completeHandler(event:starling.events.Event):void
     {
         _appmodel.bills = _bs.bills;
-        trace("[yolo]",_appmodel.bills);
     }
 }
 }
