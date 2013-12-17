@@ -50,8 +50,7 @@ import starling.textures.Texture;
         _buttons.dataProvider = new ListCollection(
                 [
                     { label: "Nieuwe rekening", triggered: nieuw_clickhandler},
-                    { label: "Oude rekening laden", triggered: oud_clickhandler},
-                    { label: "Instructies", triggered: instructie_clickhandler}
+                    { label: "Oude rekening laden", triggered: oud_clickhandler}
                 ]);
 
     }
@@ -83,6 +82,7 @@ import starling.textures.Texture;
 
         var background:Image = Image.fromBitmap(new Background());
         background.x = ( w / 2 ) - ( background.width / 2 );
+        background.y = 200;
         _layout.addChild(background);
 
 

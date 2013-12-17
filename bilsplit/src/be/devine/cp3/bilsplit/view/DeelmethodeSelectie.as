@@ -61,6 +61,7 @@ public class DeelmethodeSelectie extends Sprite implements IcanBeViewed
 
         var background:Image = Image.fromBitmap(new Background());
         background.x = ( w / 2 ) - ( background.width / 2 );
+        background.y = 200;
         _layout.addChild(background);
 
         this.h = h;
