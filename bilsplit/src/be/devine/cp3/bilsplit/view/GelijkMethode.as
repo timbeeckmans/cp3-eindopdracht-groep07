@@ -35,7 +35,7 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
     private var _savebutton:Button;
     private var _bs:BillService;
 
-    [Embed(source = "/../assets/images/billsplitterlogoklein.png")]
+    [Embed(source = "/../assets/images/billsplitterlogokleingelijk.png")]
     private static const Logo:Class;
 
     private var _layout:LayoutGroup;

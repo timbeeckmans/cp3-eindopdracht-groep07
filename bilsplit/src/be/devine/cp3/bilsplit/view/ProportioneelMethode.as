@@ -34,7 +34,7 @@ public class ProportioneelMethode extends Sprite implements IcanBeViewed {
 
     private var w:Number;
     private var h:Number;
-    [Embed(source = "/../assets/images/billsplitterlogoklein.png")]
+    [Embed(source = "/../assets/images/billsplitterlogokleinproportioneel.png")]
     private static const Logo:Class;
 
     public function ProportioneelMethode() {
