@@ -113,7 +113,6 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
 
         _explicitWidth = w;
         _explicitHeight = h;
-        //_buttonGroup.x = Math.round((_explicitWidth - _buttonGroup.width) * .5);
 
         _layout.readjustLayout();
 
@@ -150,7 +149,6 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
 
         _totaalbedraglabel.x = 30;
         _totaalbedraglabel.y = 205;
-
 
 
         this._bedraginput = new TextInput();

@@ -8,7 +8,6 @@ import feathers.controls.Label;
 import feathers.controls.LayoutGroup;
 import feathers.controls.Panel;
 import feathers.controls.ScrollContainer;
-import feathers.controls.Slider;
 import feathers.controls.TextInput;
 import feathers.layout.AnchorLayoutData;
 import feathers.layout.HorizontalLayout;
@@ -44,8 +43,6 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
         _appmodel = Appmodel.getInstance();
 
         _bs = new BillService();
-
-
 
         _addPersoon = new Button();
         _addPersoon.label = "voeg een persoon toe.";
