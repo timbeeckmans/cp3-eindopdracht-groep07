@@ -4,6 +4,8 @@ import be.devine.cp3.bilsplit.model.BillService;
 import be.devine.cp3.bilsplit.model.PersoonData;
 
 import feathers.controls.Button;
+import feathers.controls.Callout;
+import feathers.controls.Label;
 
 import feathers.controls.LayoutGroup;
 import feathers.controls.Panel;
@@ -201,8 +203,26 @@ public class ProportioneelMethode extends Sprite implements IcanBeViewed {
 
     private function savebutton_triggeredHandler(event:Event):void
     {
-        _appmodel.addBill(_appmodel.huidigeBill);
-        _appmodel.huidigScherm = "start";
+        if(totaalKlopt()){
+            _appmodel.addBill(_appmodel.huidigeBill);
+            _appmodel.huidigScherm = "start";
+        }else{
+            var button:Button = Button( event.currentTarget );
+            var content:Label = new Label();
+            content.text = "Het totaal klopt niet";
+            var callout:Callout = Callout.show( content, button, Callout.DIRECTION_RIGHT );
+            callout.height = 50;
+        }
+
+
+    }
+    private function totaalKlopt():Boolean{
+        var totaal:Number = 0;
+        for each(var persoon:PersoonData in _appmodel.huidigeBill.personen){
+            totaal += persoon.bedragTeBetalen;
+        }
+
+        return (_appmodel.huidigeBill.totaalBedrag == totaal);
     }
 }
 }
