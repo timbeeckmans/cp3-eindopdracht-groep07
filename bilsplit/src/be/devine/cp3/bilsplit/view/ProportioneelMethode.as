@@ -132,6 +132,7 @@ public class ProportioneelMethode extends Sprite implements IcanBeViewed {
         container.padding = 5;
         container.y = 270;
         container.verticalScrollPolicy = ScrollContainer.SCROLL_POLICY_ON;
+
         var quad1:Quad = new Quad(container.width, container.height);
         quad1.setVertexColor(0, topColor);
         quad1.setVertexColor(1, topColor);
@@ -239,12 +240,26 @@ public class ProportioneelMethode extends Sprite implements IcanBeViewed {
         }else{
             var button:Button = Button( event.currentTarget );
             var content:Label = new Label();
-            content.text = "Het totaal klopt niet";
+            content.text = createFoutmelding();
             var callout:Callout = Callout.show( content, button, Callout.DIRECTION_RIGHT );
             callout.height = 50;
         }
 
 
+    }
+
+    private function createFoutmelding():String
+    {
+        var verschil:Number = berekenTotaal() - _appmodel.huidigeBill.totaalBedrag;
+        var melding:String = 'je hebt €' + Math.abs(verschil);
+
+        if(verschil > 0){
+            melding = melding + ' te veel.';
+        }else{
+            melding = melding + ' te weinig.';
+        }
+
+        return melding;
     }
 
     private function berekenTotaal():Number{

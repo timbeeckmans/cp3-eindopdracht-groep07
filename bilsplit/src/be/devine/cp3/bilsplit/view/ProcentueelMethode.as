@@ -4,6 +4,7 @@ import be.devine.cp3.bilsplit.model.BillService;
 import be.devine.cp3.bilsplit.model.PersoonData;
 
 import feathers.controls.Button;
+import feathers.controls.Callout;
 import feathers.controls.Label;
 import feathers.controls.LayoutGroup;
 import feathers.controls.Panel;
@@ -39,6 +40,7 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
 
     [Embed(source = "/../assets/images/billsplitterlogokleinprocen.png")]
     private static const Logo:Class;
+    private var _totaalLabel:Label;
 
     public function ProcentueelMethode() {
         _appmodel = Appmodel.getInstance();
@@ -60,6 +62,8 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
         _bedraginput.layoutData = inputLayoutData;
         _bedraginput.addEventListener(Event.CHANGE, bedragchangehandler);
 
+
+        _totaalLabel = new Label();
         _sliders = createSliders();
 
         _totaalbedraglabel = new Label();
@@ -74,7 +78,7 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
         trace(_bedraginput.text);
         this._bedraginput.prompt = "";
         _appmodel.totaalBedrag = Number(_bedraginput.text);
-        //berekenPerPersoon();
+        persoonView_persoonWaardeChangedHandler();
 
     }
 
@@ -85,6 +89,7 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
         for each(var persoon:PersoonData in _appmodel.personen){
             var persoonView:PersoonView = new PersoonView(persoon, PersoonView.PROCENTUEEL);
             persoonView.addEventListener(PersoonView.PERSOON_DELETED, removePersoon_triggeredHandler);
+            persoonView.addEventListener(PersoonView.PERSOON_WAARDE_CHANGED, persoonView_persoonWaardeChangedHandler);
             array.push(persoonView);
             var _bedragpersoon:Number = persoonView.data.bedragTeBetalen;
         }
@@ -132,6 +137,11 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
         _bedraginput.x = 25;
         _bedraginput.y = 40;
         _layout.addChild(_bedraginput);
+
+        _totaalLabel.x = w - 150;
+        _totaalLabel.y = h - 190;
+        _totaalLabel.text = "Totaal: " + berekenTotaalBedrag();
+        _layout.addChild(_totaalLabel);
 
         container = new ScrollContainer();
         container.elasticity = 0.5;
@@ -220,6 +230,7 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
 
     private function savebutton_triggeredHandler(event:Event):void
     {
+        if(_appmodel.huidigeBill.totaalBedrag == berekenTotaalBedrag()){
 
             _panel = new Panel();
             _panel.headerProperties.title = "Hoe heet deze bill?";
@@ -244,6 +255,45 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
             _panel.x = 80;
             _panel.y = 200;
 
+        }else{
+            var button:Button = Button( event.currentTarget );
+            var content:Label = new Label();
+            content.text = createFoutmelding();
+            var callout:Callout = Callout.show( content, button, Callout.DIRECTION_RIGHT );
+            callout.height = 50;
+        }
+
+
+    }
+
+    private function berekenTotaalBedrag():Number{
+        var totaal:Number = 0;
+        for each(var persoon:PersoonData in _appmodel.huidigeBill.personen){
+            totaal += persoon.bedragTeBetalen;
+        }
+        return Math.round(totaal*100)/100;
+    }
+
+    private function berekenTotaalProcent():Number{
+        var totaal:Number = 0;
+        for each(var persoon:PersoonData in _appmodel.huidigeBill.personen){
+            totaal += persoon.procentTeBetalen;
+        }
+        return totaal;
+    }
+
+    private function createFoutmelding():String
+    {
+        var verschil:Number = 100 - berekenTotaalProcent();
+        var melding:String = 'je hebt ' + Math.abs(verschil);
+
+        if(verschil < 0){
+            melding = melding + '% te veel.';
+        }else{
+            melding = melding + '% te weinig.';
+        }
+
+        return melding;
     }
 
     private function billconfirmed(event:Event):void {
@@ -251,6 +301,12 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
         _appmodel.huidigeBill.naam = this._txtInput.text;
         _appmodel.addBill(_appmodel.huidigeBill);
         _appmodel.huidigScherm = "start";
+    }
+
+    private function persoonView_persoonWaardeChangedHandler(event:Event = null):void
+    {
+        trace("[proportioneelMethode] persoonwaardechanged");
+        _totaalLabel.text = "Totaal: " + berekenTotaalBedrag();
     }
 }
 }
