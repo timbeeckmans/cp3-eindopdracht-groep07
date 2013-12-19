@@ -37,9 +37,9 @@ public class BillService extends EventDispatcher
 
         var bills:Array = [];
         for each(var bill:Object in parsedJSON) {
-
             var billmodel:Billmodel = new Billmodel();
             billmodel.personen = [];
+            billmodel.naam = bill.naam;
             billmodel.aantalPersonen = bill.aantalPersonen;
             billmodel.totaalBedrag = bill.totaalBedrag;
             billmodel.type = bill.type;

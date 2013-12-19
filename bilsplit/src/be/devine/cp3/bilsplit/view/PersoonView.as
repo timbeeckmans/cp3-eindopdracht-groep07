@@ -136,6 +136,8 @@ public class PersoonView extends Sprite
 
     public function berekenProcentueel():void{
         _data.bedragTeBetalen = Math.round(_appmodel.huidigeBill.totaalBedrag * _data.procentTeBetalen) / 100;
+
+
     }
 }
 }

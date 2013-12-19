@@ -12,6 +12,7 @@ import feathers.controls.TextInput;
 import feathers.layout.AnchorLayoutData;
 import feathers.layout.HorizontalLayout;
 
+
 import starling.display.Image;
 
 import starling.display.Quad;
@@ -85,11 +86,15 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
             var persoonView:PersoonView = new PersoonView(persoon, PersoonView.PROCENTUEEL);
             persoonView.addEventListener(PersoonView.PERSOON_DELETED, removePersoon_triggeredHandler);
             array.push(persoonView);
+            var _bedragpersoon:Number = persoonView.data.bedragTeBetalen;
         }
         _sliders = array;
         if(w && h)setSize(w, h);
 
         return array;
+
+
+
     }
 
     public function setSize(w:Number, h:Number):void{
@@ -215,6 +220,35 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
 
     private function savebutton_triggeredHandler(event:Event):void
     {
+
+            _panel = new Panel();
+            _panel.headerProperties.title = "Hoe heet deze bill?";
+
+            var layout:HorizontalLayout = new HorizontalLayout();
+            layout.gap = 20;
+            layout.padding = 20;
+            _panel.layout = layout;
+
+            this.addChild( _panel );
+
+            _txtInput = new TextInput();
+            _txtInput.text = "Bill";
+            _panel.addChild( _txtInput );
+
+            var confirmButton:Button = new Button();
+            confirmButton.label = "Ok";
+            confirmButton.addEventListener(Event.TRIGGERED, billconfirmed);
+            _panel.addChild( confirmButton );
+
+
+            _panel.x = 80;
+            _panel.y = 200;
+
+    }
+
+    private function billconfirmed(event:Event):void {
+        this.removeChild(_panel);
+        _appmodel.huidigeBill.naam = this._txtInput.text;
         _appmodel.addBill(_appmodel.huidigeBill);
         _appmodel.huidigScherm = "start";
     }

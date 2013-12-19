@@ -223,6 +223,37 @@ public class ProportioneelMethode extends Sprite implements IcanBeViewed {
         }
 
         return (_appmodel.huidigeBill.totaalBedrag == totaal);
+
+        _panel = new Panel();
+        _panel.headerProperties.title = "Hoe heet deze bill?";
+
+        var layout:HorizontalLayout = new HorizontalLayout();
+        layout.gap = 20;
+        layout.padding = 20;
+        _panel.layout = layout;
+
+        this.addChild( _panel );
+
+        _txtInput = new TextInput();
+        _txtInput.text = "Bill";
+        _panel.addChild( _txtInput );
+
+        var confirmButton:Button = new Button();
+        confirmButton.label = "Ok";
+        confirmButton.addEventListener(Event.TRIGGERED, billconfirmed);
+        _panel.addChild( confirmButton );
+
+
+        _panel.x = 80;
+        _panel.y = 200;
+
+    }
+
+    private function billconfirmed(event:Event):void {
+        this.removeChild(_panel);
+        _appmodel.huidigeBill.naam = this._txtInput.text;
+        _appmodel.addBill(_appmodel.huidigeBill);
+        _appmodel.huidigScherm = "start";
     }
 }
 }

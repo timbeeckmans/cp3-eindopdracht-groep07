@@ -15,6 +15,7 @@ public class Billmodel extends EventDispatcher
     private var _type:String;
     private var _personen:Array;
     private var _aantalPersonen:uint;
+    private var _naam:String;
     private var _totaalBedrag:Number;
     public static const PERSONEN_CHANGED_EVENT:String = "personenChanged";
     public static const AANTALPERSONEN_CHANGED_EVENT:String = "aantalPersonenChanged";
@@ -24,6 +25,7 @@ public class Billmodel extends EventDispatcher
     {
         aantalPersonen = 0;
         totaalBedrag = 0;
+
 
         var eerstePersoon:PersoonData = new PersoonData("ik");
         eerstePersoon.procentTeBetalen = 100;
@@ -85,6 +87,14 @@ public class Billmodel extends EventDispatcher
     public override function toString():String
     {
         return super.toString() + "{_personen=" + String(_personen) + ",_aantalPersonen=" + String(_aantalPersonen) + ",_totaalBedrag=" + String(_totaalBedrag) + "}";
+    }
+
+    public function get naam():String {
+        return _naam;
+    }
+
+    public function set naam(value:String):void {
+        _naam = value;
     }
 }
 }

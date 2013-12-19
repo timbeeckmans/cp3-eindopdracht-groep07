@@ -39,7 +39,8 @@ public class LaadScherm extends Sprite implements IcanBeViewed
 
         for each(var item:Billmodel in _appmodel.bills){
             var contentButton:ContentButton = new ContentButton();
-            contentButton.contentText = "bill " + i;
+            contentButton.contentText = item.naam;
+            trace(item.naam);
             contentButton.content = i;
             contentButton.addEventListener(ContentButton.DELETEBUTTON_PRESSED, contentButton_deleteButtonPressedHandler);
             contentButton.addEventListener(ContentButton.LOADBUTTON_PRESSED, contentButton_loadButtonPressedHandler);
@@ -112,7 +113,8 @@ public class LaadScherm extends Sprite implements IcanBeViewed
 
         for each(var item:Billmodel in _appmodel.bills){
             var contentButton:ContentButton = new ContentButton();
-            contentButton.contentText = "bill " + i;
+            contentButton.contentText = item.naam;
+            trace(item.naam);
             contentButton.content = i;
             contentButton.addEventListener(ContentButton.DELETEBUTTON_PRESSED, contentButton_deleteButtonPressedHandler);
             contentButton.addEventListener(ContentButton.LOADBUTTON_PRESSED, contentButton_loadButtonPressedHandler);
