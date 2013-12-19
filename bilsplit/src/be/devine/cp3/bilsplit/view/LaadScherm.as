@@ -64,7 +64,6 @@ public class LaadScherm extends Sprite implements IcanBeViewed
         quad.setVertexColor(3, bottomColor);
         addChild(quad);
 
-        var i:uint = 0;
         if(_container){
             removeChild(_container);
         }
@@ -73,7 +72,6 @@ public class LaadScherm extends Sprite implements IcanBeViewed
         _container = new ScrollContainer();
         _container.elasticity = 0.5;
         _container.width = w;
-        _container.height = 400;
         _container.height = h - 100;
         _container.y = 80;
         _container.padding = 10;
@@ -86,10 +84,10 @@ public class LaadScherm extends Sprite implements IcanBeViewed
         quad1.setVertexColor(3, bottomColor);
         addChild(quad);
 
-
+        var i:uint = 0;
         for each(var bill:ContentButton in bills){
             bill.y = i;
-            bill.x = 20;
+            bill.x = 45;
             _container.addChild(bill);
             i += 100;
         }

@@ -245,6 +245,9 @@ public class ContentButton extends FeathersControl implements IFocusDisplayObjec
         this.deleteButton.x = loadButton.width + padding;
         this.loadButton.x = 0;
 
+        this.setSizeInternal(deleteButton.width + padding + loadButton.width,
+                contentLabel.height + loadButton.height + padding/2, false);
+
     }
 
     protected function deleteButton_touchHandler(event:Event):void
