@@ -1,7 +1,6 @@
 package be.devine.cp3.bilsplit.view
 {
 
-
 import be.devine.cp3.bilsplit.model.Appmodel;
 import be.devine.cp3.bilsplit.model.Billmodel;
 

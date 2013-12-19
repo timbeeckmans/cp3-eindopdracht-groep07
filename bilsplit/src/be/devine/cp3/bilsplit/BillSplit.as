@@ -1,10 +1,3 @@
-/**
- * Created with IntelliJ IDEA.
- * User: Tim
- * Date: 28/11/13
- * Time: 15:49
- * To change this template use File | Settings | File Templates.
- */
 package be.devine.cp3.bilsplit
 {
 import be.devine.cp3.bilsplit.model.BillService;
@@ -13,11 +6,7 @@ import be.devine.cp3.bilsplit.model.Appmodel;
 
 import feathers.controls.ScreenNavigator;
 import feathers.controls.ScreenNavigatorItem;
-import feathers.controls.popups.DropDownPopUpContentManager;
-import feathers.motion.transitions.OldFadeNewSlideTransitionManager;
 import feathers.motion.transitions.ScreenFadeTransitionManager;
-import feathers.motion.transitions.ScreenSlidingStackTransitionManager;
-import feathers.motion.transitions.TabBarSlideTransitionManager;
 import feathers.themes.MetalWorksMobileTheme;
 
 import flash.events.Event;
