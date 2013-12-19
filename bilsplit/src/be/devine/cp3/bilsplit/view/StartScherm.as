@@ -108,10 +108,5 @@ import starling.textures.Texture;
         _appmodel.huidigScherm = "laden";
     }
 
-    private function instructie_clickhandler( event:Event ):void
-    {
-        //_appmodel.huidigScherm =
-    }
-
 }
 }

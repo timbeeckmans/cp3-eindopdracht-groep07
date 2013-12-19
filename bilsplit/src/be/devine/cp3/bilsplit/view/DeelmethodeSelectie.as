@@ -25,7 +25,7 @@ public class DeelmethodeSelectie extends Sprite implements IcanBeViewed
     private var _appmodel:Appmodel;
     private var _buttons:ButtonGroup;
 
-    [Embed(source = "/../assets/images/billsplitterlogogroot.png")]
+    [Embed(source = "/../assets/images/billsplitterlogogrootmethodesel.png")]
     private static const Background:Class;
 
 

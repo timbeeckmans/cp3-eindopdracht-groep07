@@ -79,7 +79,7 @@ public class BillSplit extends Sprite
         addChild(_navigator);
         addChild(_hoofdMenu);
 
-        var transition:ScreenSlidingStackTransitionManager = new ScreenSlidingStackTransitionManager (_navigator);
+        var transition:ScreenFadeTransitionManager = new ScreenFadeTransitionManager (_navigator);
 
     }
 
