@@ -20,6 +20,8 @@ import feathers.controls.Slider;
 
 import flash.events.Event;
 
+import flash.events.Event;
+
 import starling.display.Sprite;
 import starling.events.Event;
 
@@ -28,6 +30,7 @@ public class PersoonView extends Sprite
     public static const PROCENTUEEL:String = "procentueel";
     public static const PROPORTIONEEL:String = "proportioneel";
     public static const PERSOON_DELETED:String = "persoonDeleted";
+    public static const PERSOON_WAARDE_CHANGED:String = "persoonWaardeChanged";
 
     private var _data:PersoonData;
     private var _type:String;
@@ -109,6 +112,7 @@ public class PersoonView extends Sprite
         }
         if(_type == PROPORTIONEEL)_data.bedragTeBetalen = _slider.value;
         _bedrag.text = '€ ' + _data.bedragTeBetalen;
+        dispatchEvent(new starling.events.Event(PERSOON_WAARDE_CHANGED));
     }
 
     private function billmodel_totaalBedragChangedHandler(event:flash.events.Event):void

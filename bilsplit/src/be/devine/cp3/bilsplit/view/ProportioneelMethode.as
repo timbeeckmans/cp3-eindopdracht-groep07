@@ -33,6 +33,7 @@ public class ProportioneelMethode extends Sprite implements IcanBeViewed {
     private var _savebutton:Button;
     private var _bs:BillService;
     private var container:ScrollContainer;
+    private var _totaalLabel:Label;
 
     private var w:Number;
     private var h:Number;
@@ -58,6 +59,8 @@ public class ProportioneelMethode extends Sprite implements IcanBeViewed {
         _bedraginput.layoutData = inputLayoutData;
         _bedraginput.addEventListener(Event.CHANGE, bedragchangehandler);
 
+        _totaalLabel = new Label();
+
 
         _sliders = createSliders();
 
@@ -68,7 +71,6 @@ public class ProportioneelMethode extends Sprite implements IcanBeViewed {
         trace(_bedraginput.text);
         this._bedraginput.prompt = "";
         _appmodel.totaalBedrag = Number(_bedraginput.text);
-        //berekenPerPersoon();
 
 
     }
@@ -79,6 +81,7 @@ public class ProportioneelMethode extends Sprite implements IcanBeViewed {
         for each(var persoon:PersoonData in _appmodel.personen){
             var persoonView:PersoonView = new PersoonView(persoon, PersoonView.PROPORTIONEEL);
             persoonView.addEventListener(PersoonView.PERSOON_DELETED, removePersoon_triggeredHandler);
+            persoonView.addEventListener(PersoonView.PERSOON_WAARDE_CHANGED, persoonView_persoonWaardeChangedHandler);
             array.push(persoonView);
         }
         _sliders = array;
@@ -116,6 +119,11 @@ public class ProportioneelMethode extends Sprite implements IcanBeViewed {
         _bedraginput.x = 25;
         _bedraginput.y = 40;
         _layout.addChild(_bedraginput);
+
+        _totaalLabel.x = w - 150;
+        _totaalLabel.y = h - 190;
+        _totaalLabel.text = "Totaal: " + berekenTotaal();
+        _layout.addChild(_totaalLabel);
 
         container = new ScrollContainer();
         container.elasticity = 0.5;
@@ -203,9 +211,31 @@ public class ProportioneelMethode extends Sprite implements IcanBeViewed {
 
     private function savebutton_triggeredHandler(event:Event):void
     {
-        if(totaalKlopt()){
-            _appmodel.addBill(_appmodel.huidigeBill);
-            _appmodel.huidigScherm = "start";
+        if(_appmodel.huidigeBill.totaalBedrag == berekenTotaal()){
+
+            _panel = new Panel();
+            _panel.headerProperties.title = "Hoe heet deze bill?";
+
+            var layout:HorizontalLayout = new HorizontalLayout();
+            layout.gap = 20;
+            layout.padding = 20;
+            _panel.layout = layout;
+
+            this.addChild( _panel );
+
+            _txtInput = new TextInput();
+            _txtInput.text = "Bill";
+            _panel.addChild( _txtInput );
+
+            var confirmButton:Button = new Button();
+            confirmButton.label = "Ok";
+            confirmButton.addEventListener(Event.TRIGGERED, billconfirmed);
+            _panel.addChild( confirmButton );
+
+
+            _panel.x = 80;
+            _panel.y = 200;
+
         }else{
             var button:Button = Button( event.currentTarget );
             var content:Label = new Label();
@@ -216,44 +246,28 @@ public class ProportioneelMethode extends Sprite implements IcanBeViewed {
 
 
     }
-    private function totaalKlopt():Boolean{
+
+    private function berekenTotaal():Number{
         var totaal:Number = 0;
         for each(var persoon:PersoonData in _appmodel.huidigeBill.personen){
             totaal += persoon.bedragTeBetalen;
         }
-
-        return (_appmodel.huidigeBill.totaalBedrag == totaal);
-
-        _panel = new Panel();
-        _panel.headerProperties.title = "Hoe heet deze bill?";
-
-        var layout:HorizontalLayout = new HorizontalLayout();
-        layout.gap = 20;
-        layout.padding = 20;
-        _panel.layout = layout;
-
-        this.addChild( _panel );
-
-        _txtInput = new TextInput();
-        _txtInput.text = "Bill";
-        _panel.addChild( _txtInput );
-
-        var confirmButton:Button = new Button();
-        confirmButton.label = "Ok";
-        confirmButton.addEventListener(Event.TRIGGERED, billconfirmed);
-        _panel.addChild( confirmButton );
-
-
-        _panel.x = 80;
-        _panel.y = 200;
-
+        return totaal;
     }
+
+
 
     private function billconfirmed(event:Event):void {
         this.removeChild(_panel);
         _appmodel.huidigeBill.naam = this._txtInput.text;
         _appmodel.addBill(_appmodel.huidigeBill);
         _appmodel.huidigScherm = "start";
+    }
+
+    private function persoonView_persoonWaardeChangedHandler(event:Event = null):void
+    {
+        trace("[proportioneelMethode] persoonwaardechanged");
+        _totaalLabel.text = "Totaal: " + berekenTotaal();
     }
 }
 }
