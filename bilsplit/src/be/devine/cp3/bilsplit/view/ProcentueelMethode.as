@@ -75,7 +75,6 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
         _appmodel.totaalBedrag = Number(_bedraginput.text);
         //berekenPerPersoon();
 
-
     }
 
     private function createSliders():Array
