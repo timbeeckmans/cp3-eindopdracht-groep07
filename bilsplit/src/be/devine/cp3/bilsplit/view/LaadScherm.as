@@ -72,8 +72,10 @@ public class LaadScherm extends Sprite implements IcanBeViewed
         _container = new ScrollContainer();
         _container.elasticity = 0.5;
         _container.width = w;
-        _container.height = 850;
+        _container.height = 400;
         _container.y = 80;
+        _container.padding = 10;
+        _container.verticalScrollPolicy = ScrollContainer.SCROLL_POLICY_ON;
 
         var quad1:Quad = new Quad(_container.width, _container.height);
         quad1.setVertexColor(0, topColor);

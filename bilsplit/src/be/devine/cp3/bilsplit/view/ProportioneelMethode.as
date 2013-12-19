@@ -118,8 +118,10 @@ public class ProportioneelMethode extends Sprite implements IcanBeViewed {
         container = new ScrollContainer();
         container.elasticity = 0.5;
         container.width = 500;
-        container.height = 400;
+        container.height = h - 400;
+        container.padding = 5;
         container.y = 270;
+        container.verticalScrollPolicy = ScrollContainer.SCROLL_POLICY_ON;
         var quad1:Quad = new Quad(container.width, container.height);
         quad1.setVertexColor(0, topColor);
         quad1.setVertexColor(1, topColor);
