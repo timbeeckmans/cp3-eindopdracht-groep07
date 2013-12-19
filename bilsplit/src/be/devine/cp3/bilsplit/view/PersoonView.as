@@ -63,7 +63,7 @@ public class PersoonView extends Sprite
         _slider = new Slider();
         _slider.minimum = 0;
         _slider.step = 1;
-        _slider.page = 10;
+        _slider.page = 1;
         _slider.addEventListener( starling.events.Event.CHANGE, slider_changeHandler );
         _layout.addChild( _slider );
         _slider.y = 40;
