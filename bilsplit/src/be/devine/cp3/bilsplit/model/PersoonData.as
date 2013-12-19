@@ -7,12 +7,8 @@
  */
 package be.devine.cp3.bilsplit.model
 {
-import be.devine.cp3.bilsplit.model.Billmodel;
 
-import flash.events.Event;
-import flash.events.EventDispatcher;
-
-public class PersoonData extends EventDispatcher
+public class PersoonData
 {
     private var _naam:String;
     private var _procentTeBetalen:Number;
@@ -20,7 +16,7 @@ public class PersoonData extends EventDispatcher
 
     public function PersoonData(naam:String)
     {
-        _naam = naam;
+        this.naam = naam;
         _procentTeBetalen = 0;
         _bedragTeBetalen = 0;
     }

@@ -68,7 +68,6 @@ public class ProportioneelMethode extends Sprite implements IcanBeViewed {
     }
 
     private function bedragchangehandler(event:Event):void {
-        trace(_bedraginput.text);
         this._bedraginput.prompt = "";
         _appmodel.totaalBedrag = Number(_bedraginput.text);
 
@@ -98,16 +97,6 @@ public class ProportioneelMethode extends Sprite implements IcanBeViewed {
         if(_layout)removeChild(_layout);
         _layout = new LayoutGroup();
 
-        var topColor:uint = 0xbb670d;
-        var bottomColor:uint = 0xf5c089;
-
-        var quad:Quad = new Quad(w, h);
-        quad.setVertexColor(0, topColor);
-        quad.setVertexColor(1, topColor);
-        quad.setVertexColor(2, bottomColor);
-        quad.setVertexColor(3, bottomColor);
-        _layout.addChild(quad);
-
         _savebutton.x = 27;
         _savebutton.y = 600;
         _layout.addChild(_savebutton);
@@ -133,17 +122,16 @@ public class ProportioneelMethode extends Sprite implements IcanBeViewed {
         container.y = 270;
         container.verticalScrollPolicy = ScrollContainer.SCROLL_POLICY_ON;
 
+        var topColor:uint = 0xbb670d;
+        var bottomColor:uint = 0xf5c089;
         var quad1:Quad = new Quad(container.width, container.height);
         quad1.setVertexColor(0, topColor);
         quad1.setVertexColor(1, topColor);
         quad1.setVertexColor(2, bottomColor);
         quad1.setVertexColor(3, bottomColor);
-        addChild(quad);
 
         container.backgroundSkin = quad1;
         addChild( container );
-
-
 
         for each(var persoon:PersoonView in _sliders){
             persoon.x = 20;
@@ -152,7 +140,6 @@ public class ProportioneelMethode extends Sprite implements IcanBeViewed {
             container.addChild(persoon);
             ypos += 100;
         }
-
 
         var logo:Image = Image.fromBitmap(new Logo());
         logo.x = 25;
@@ -192,18 +179,15 @@ public class ProportioneelMethode extends Sprite implements IcanBeViewed {
     private function personConfirmed(event:Event):void
     {
         this.removeChild(_panel);
-        trace("[procentueelmethode] add persoon");
 
         var nieuwPersoon:PersoonData = new PersoonData(_txtInput.text);
         _appmodel.addPersoon(nieuwPersoon);
-        trace(_appmodel.personen);
 
         createSliders();
     }
 
     private function removePersoon_triggeredHandler(event:Event):void
     {
-        trace("[procentueelmethode] remove persoon");
         var target:PersoonView = event.currentTarget as PersoonView;
         var oudPersoon:PersoonData = target.data;
         _appmodel.removePersoon(oudPersoon);

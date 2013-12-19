@@ -20,8 +20,6 @@ import feathers.controls.Slider;
 
 import flash.events.Event;
 
-import flash.events.Event;
-
 import starling.display.Sprite;
 import starling.events.Event;
 
@@ -75,12 +73,7 @@ public class PersoonView extends Sprite
             _procent.y = 40;
             _slider.maximum = 100;
             _slider.value = data.procentTeBetalen;
-            trace("[PersoonView] slidervalue:", _slider.value);
-            trace("[PersoonView] procent:", data.procentTeBetalen);
-
             berekenProcentueel();
-
-
         }
 
 
@@ -108,7 +101,7 @@ public class PersoonView extends Sprite
         if(_type == PROCENTUEEL){
             _data.procentTeBetalen = _slider.value;
             _procent.text = _slider.value + "%";
-            berekenProcentueel()
+            berekenProcentueel();
         }
         if(_type == PROPORTIONEEL)_data.bedragTeBetalen = _slider.value;
         _bedrag.text = '€ ' + _data.bedragTeBetalen;
@@ -140,8 +133,6 @@ public class PersoonView extends Sprite
 
     public function berekenProcentueel():void{
         _data.bedragTeBetalen = Math.round(_appmodel.huidigeBill.totaalBedrag * _data.procentTeBetalen) / 100;
-
-
     }
 }
 }

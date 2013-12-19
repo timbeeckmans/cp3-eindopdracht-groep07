@@ -230,8 +230,6 @@ public class ContentButton extends FeathersControl implements IFocusDisplayObjec
     protected function layoutChildren():void
     {
 
-        //TODO: layouting
-
         this.contentLabel.x = 0;
         this.contentLabel.y = 0;
         this.contentLabel.validate();

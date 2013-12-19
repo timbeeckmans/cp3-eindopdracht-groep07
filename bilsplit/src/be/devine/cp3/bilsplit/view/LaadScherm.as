@@ -19,7 +19,6 @@ import starling.display.Sprite;
 public class LaadScherm extends Sprite implements IcanBeViewed
 {
     private var _appmodel:Appmodel;
-    private var _bs:BillService;
     private var w:Number;
     private var h:Number;
     private var bills:Array;
@@ -112,7 +111,6 @@ public class LaadScherm extends Sprite implements IcanBeViewed
         for each(var item:Billmodel in _appmodel.bills){
             var contentButton:ContentButton = new ContentButton();
             contentButton.contentText = item.naam;
-            trace(item.naam);
             contentButton.content = i;
             contentButton.addEventListener(ContentButton.DELETEBUTTON_PRESSED, contentButton_deleteButtonPressedHandler);
             contentButton.addEventListener(ContentButton.LOADBUTTON_PRESSED, contentButton_loadButtonPressedHandler);
@@ -136,10 +134,7 @@ public class LaadScherm extends Sprite implements IcanBeViewed
     {
         var button:ContentButton = event.currentTarget as ContentButton;
         _appmodel.huidigeBill = _appmodel.bills[uint(button.content)];
-        trace("[LaadScherm]",_appmodel.huidigeBill);
         _appmodel.huidigScherm = _appmodel.huidigeBill.type;
-        trace("[LaadScherm]",_appmodel.huidigeBill);
-
     }
 }
 }

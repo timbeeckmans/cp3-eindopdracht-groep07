@@ -11,6 +11,8 @@ import feathers.themes.MetalWorksMobileTheme;
 
 import flash.events.Event;
 
+import starling.display.Quad;
+
 import starling.display.Sprite;
 
 import starling.events.Event;
@@ -23,6 +25,7 @@ public class BillSplit extends Sprite
     private var _schermen:Array;
     private var _hoofdMenu:Menu;
     private var _bs:BillService;
+    private var quad:Quad;
 
     public function BillSplit()
     {
@@ -31,6 +34,7 @@ public class BillSplit extends Sprite
         _bs = new BillService();
         _bs.addEventListener(starling.events.Event.COMPLETE, bs_completeHandler);
         _bs.load();
+
 
         this.addEventListener(starling.events.Event.ADDED_TO_STAGE, init);
     }
@@ -88,6 +92,18 @@ public class BillSplit extends Sprite
     {
         var w:Number = stage.stageWidth;
         var h:Number = stage.stageHeight;
+
+        var topColor:uint = 0xbb670d;
+        var bottomColor:uint = 0xf5c089;
+
+
+        if(!quad)quad = new Quad(w, h);
+        quad.setVertexColor(0, topColor);
+        quad.setVertexColor(1, topColor);
+        quad.setVertexColor(2, bottomColor);
+        quad.setVertexColor(3, bottomColor);
+        addChild(quad);
+
         var huidigScherm:IcanBeViewed = _navigator.activeScreen as IcanBeViewed;
         huidigScherm.setSize(w,h);
         _hoofdMenu.setSize(w, h);

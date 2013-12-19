@@ -11,7 +11,6 @@ import be.devine.cp3.bilsplit.model.Appmodel;
 
 import feathers.controls.Button;
 import feathers.events.FeathersEventType;
-import feathers.motion.transitions.ScreenSlidingStackTransitionManager;
 
 import starling.display.Sprite;
 import starling.events.Event;
@@ -59,7 +58,6 @@ public class Menu extends Sprite
         switch (_appmodel.huidigScherm){
 
             case 'start':
-                trace('[menu] start');
                 break;
 
             case 'deelMethode':
@@ -79,6 +77,10 @@ public class Menu extends Sprite
                 break;
 
             case 'laden':
+                _appmodel.huidigScherm = 'start';
+                break;
+
+            default:
                 _appmodel.huidigScherm = 'start';
                 break;
 

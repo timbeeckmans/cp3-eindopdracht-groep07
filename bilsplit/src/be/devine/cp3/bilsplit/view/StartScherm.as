@@ -8,7 +8,6 @@
 package be.devine.cp3.bilsplit.view
 {
 import be.devine.cp3.bilsplit.model.Appmodel;
-import be.devine.cp3.bilsplit.model.Billmodel;
 
 import feathers.controls.ButtonGroup;
 import feathers.controls.LayoutGroup;
@@ -20,7 +19,6 @@ import starling.display.Quad;
 
 import starling.display.Sprite;
 import starling.events.Event;
-import starling.textures.Texture;
 
     public class StartScherm extends Sprite implements IcanBeViewed
 {
@@ -41,9 +39,6 @@ import starling.textures.Texture;
     {
 
         _layout = new LayoutGroup();
-
-
-
 
         _appmodel = Appmodel.getInstance();
         _buttons = new ButtonGroup();
@@ -70,28 +65,12 @@ import starling.textures.Texture;
 
         _layout = new LayoutGroup();
 
-        var topColor:uint = 0xbb670d;
-        var bottomColor:uint = 0xf5c089;
-
-        var quad:Quad = new Quad(w, h);
-        quad.setVertexColor(0, topColor);
-        quad.setVertexColor(1, topColor);
-        quad.setVertexColor(2, bottomColor);
-        quad.setVertexColor(3, bottomColor);
-        _layout.addChild(quad);
-
         var background:Image = Image.fromBitmap(new Background());
         background.x = ( w / 2 ) - ( background.width / 2 );
         background.y = 200;
         _layout.addChild(background);
 
-
-        this.w = w;
-        this.h = h;
-
         _buttons.addEventListener(FeathersEventType.CREATION_COMPLETE, buttonCreatedHandler);
-
-
 
         _layout.addChild(_buttons);
         addChild(_layout);

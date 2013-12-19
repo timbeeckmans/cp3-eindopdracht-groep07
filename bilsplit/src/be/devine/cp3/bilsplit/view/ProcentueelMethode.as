@@ -58,8 +58,7 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
         _bedraginput = new TextInput();
         _bedraginput.prompt = "0";
         _bedraginput.restrict = "0-9.";
-        const inputLayoutData:AnchorLayoutData = new AnchorLayoutData();
-        _bedraginput.layoutData = inputLayoutData;
+        _bedraginput.layoutData = new AnchorLayoutData();
         _bedraginput.addEventListener(Event.CHANGE, bedragchangehandler);
 
 
@@ -75,7 +74,6 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
     }
 
     private function bedragchangehandler(event:Event):void {
-        trace(_bedraginput.text);
         this._bedraginput.prompt = "";
         _appmodel.totaalBedrag = Number(_bedraginput.text);
         persoonView_persoonWaardeChangedHandler();
@@ -91,15 +89,11 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
             persoonView.addEventListener(PersoonView.PERSOON_DELETED, removePersoon_triggeredHandler);
             persoonView.addEventListener(PersoonView.PERSOON_WAARDE_CHANGED, persoonView_persoonWaardeChangedHandler);
             array.push(persoonView);
-            var _bedragpersoon:Number = persoonView.data.bedragTeBetalen;
         }
         _sliders = array;
         if(w && h)setSize(w, h);
 
         return array;
-
-
-
     }
 
     public function setSize(w:Number, h:Number):void{
@@ -110,16 +104,6 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
         if(_layout)removeChild(_layout);
         _layout = new LayoutGroup();
 
-
-        var topColor:uint = 0xbb670d;
-        var bottomColor:uint = 0xf5c089;
-
-        var quad:Quad = new Quad(w, h);
-        quad.setVertexColor(0, topColor);
-        quad.setVertexColor(1, topColor);
-        quad.setVertexColor(2, bottomColor);
-        quad.setVertexColor(3, bottomColor);
-        addChild(quad);
 
         _savebutton.x = 27;
         _savebutton.y = 600;
@@ -151,13 +135,14 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
         container.y = 270;
         container.verticalScrollPolicy = ScrollContainer.SCROLL_POLICY_ON;
 
+
+        var topColor:uint = 0xbb670d;
+        var bottomColor:uint = 0xf5c089;
         var quad1:Quad = new Quad(container.width, container.height);
         quad1.setVertexColor(0, topColor);
         quad1.setVertexColor(1, topColor);
         quad1.setVertexColor(2, bottomColor);
         quad1.setVertexColor(3, bottomColor);
-        addChild(quad);
-
         container.backgroundSkin = quad1;
         addChild( container );
 
@@ -177,9 +162,6 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
         addChild(logo);
 
         addChild(_layout);
-
-
-
     }
 
     private function addPersoon_triggeredHandler(e:Event):void
@@ -211,18 +193,15 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
     private function personConfirmed(event:Event):void
     {
         this.removeChild(_panel);
-        trace("[procentueelmethode] add persoon");
 
         var nieuwPersoon:PersoonData = new PersoonData(_txtInput.text);
         _appmodel.addPersoon(nieuwPersoon);
-        trace(_appmodel.personen);
 
         createSliders();
     }
 
     private function removePersoon_triggeredHandler(event:Event):void
     {
-        trace("[procentueelmethode] remove persoon");
         var target:PersoonView = event.currentTarget as PersoonView;
         var oudPersoon:PersoonData = target.data;
         _appmodel.removePersoon(oudPersoon);
@@ -251,7 +230,6 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
             confirmButton.label = "Ok";
             confirmButton.addEventListener(Event.TRIGGERED, billconfirmed);
             _panel.addChild( confirmButton );
-
 
             _panel.x = 80;
             _panel.y = 200;
@@ -306,7 +284,6 @@ public class ProcentueelMethode extends Sprite implements IcanBeViewed {
 
     private function persoonView_persoonWaardeChangedHandler(event:Event = null):void
     {
-        trace("[proportioneelMethode] persoonwaardechanged");
         _totaalLabel.text = "Totaal: " + berekenTotaalBedrag();
     }
 }

@@ -18,13 +18,6 @@ public class Appmodel extends EventDispatcher
     private var _huidigeBill:Billmodel;
     private var _bs:BillService;
 
-    /*
-    private var _personen:Array;
-    private var _aantalPersonen:uint;
-    private var _voorwerpen:Array;
-    private var _totaalBedrag:Number;
-    */
-
     private var _huidigScherm:String;
     private var _schermen:Array;
 
@@ -135,7 +128,6 @@ public class Appmodel extends EventDispatcher
     {
         if (_bills == value) return;
         _bills = value;
-        trace("get in there");
         dispatchEvent(new Event(BILLS_CHANGED_EVENT));
     }
 

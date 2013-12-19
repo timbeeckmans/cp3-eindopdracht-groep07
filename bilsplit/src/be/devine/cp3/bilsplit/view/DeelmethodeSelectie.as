@@ -10,7 +10,6 @@ import feathers.data.ListCollection;
 import feathers.events.FeathersEventType;
 
 import starling.display.Image;
-import starling.display.Quad;
 
 import starling.display.Sprite;
 import starling.events.Event;
@@ -47,16 +46,6 @@ public class DeelmethodeSelectie extends Sprite implements IcanBeViewed
     public function setSize(w:Number, h:Number):void{
 
         _layout = new LayoutGroup();
-
-        var topColor:uint = 0xbb670d; // blue
-        var bottomColor:uint = 0xf5c089; // red
-
-        var quad:Quad = new Quad(w, h);
-        quad.setVertexColor(0, topColor);
-        quad.setVertexColor(1, topColor);
-        quad.setVertexColor(2, bottomColor);
-        quad.setVertexColor(3, bottomColor);
-        _layout.addChild(quad);
 
         var background:Image = Image.fromBitmap(new Background());
         background.x = ( w / 2 ) - ( background.width / 2 );

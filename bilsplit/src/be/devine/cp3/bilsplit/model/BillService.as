@@ -64,8 +64,6 @@ public class BillService extends EventDispatcher
         writeStream.open(_billFile, FileMode.WRITE);
         writeStream.writeUTFBytes(JSON.stringify(array));
         writeStream.close();
-
-        trace("saved");
     }
 }
 }

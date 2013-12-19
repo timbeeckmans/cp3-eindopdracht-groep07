@@ -15,8 +15,6 @@ import feathers.layout.HorizontalLayout;
 
 import starling.display.Image;
 
-import starling.display.Quad;
-
 import starling.display.Sprite;
 import starling.events.Event;
 
@@ -28,7 +26,6 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
     private var _explicitWidth:Number = 0;
     private var _explicitHeight:Number = 0;
     private var _totaalbedraglabel:Label;
-    private var _totaalbedragwaarde:Label;
     private var _bedragperpersoon:Label;
     private var _bedragperpersoonlabel:Label;
     private var _personenlabel:Label;
@@ -48,6 +45,8 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
     private var h:Number;
 
     public function GelijkMethode() {
+        trace('[gelijkmethode] constructor');
+
         _appmodel = Appmodel.getInstance();
         _bs = new BillService();
         _layout = new LayoutGroup();
@@ -56,13 +55,8 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
         _savebutton.label = "save";
         _savebutton.addEventListener(Event.TRIGGERED, savebutton_triggeredHandler);
 
-        trace('[gelijkmethode]');
-
         _buttonGroup = new LayoutGroup();
         addChild(_layout);
-
-
-
     }
 
     private function stepper_changeHandler(event:Event):void {
@@ -73,17 +67,7 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
     }
 
     public function setSize(w:Number, h:Number):void {
-
-
-        var topColor:uint = 0xbb670d;
-        var bottomColor:uint = 0xf5c089;
-
-        var quad:Quad = new Quad(w, h);
-        quad.setVertexColor(0, topColor);
-        quad.setVertexColor(1, topColor);
-        quad.setVertexColor(2, bottomColor);
-        quad.setVertexColor(3, bottomColor);
-        _layout.addChild(quad);
+        trace("[GelijkMethode] setSize");
 
         _savebutton.x = 27;
         _savebutton.y = 600;
@@ -123,8 +107,6 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
         _buttonGroup.addEventListener(FeathersEventType.CREATION_COMPLETE, buttonGroupCreationCompleteHandler);
         _layout.addChild(_buttonGroup);
 
-        trace("[GelijkMethode] setSize");
-
         var logo:Image = Image.fromBitmap(new Logo());
         logo.x = 10;
         logo.y = 10;
@@ -137,7 +119,6 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
 
         //geeft een getal terug met 2 decimalen
         //Totaal kan enkele centen verschillen met de som van de personen
-
         _bedragperpersoon.text = "€ " + Math.round(100 * _appmodel.totaalBedrag / _appmodel.aantalPersonen) / 100;
 
     }
@@ -158,8 +139,7 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
         this._bedraginput = new TextInput();
         this._bedraginput.prompt = _appmodel.huidigeBill.totaalBedrag + "";
         this._bedraginput.restrict = "0-9.";
-        const inputLayoutData:AnchorLayoutData = new AnchorLayoutData();
-        this._bedraginput.layoutData = inputLayoutData;
+        this._bedraginput.layoutData = new AnchorLayoutData();
         this.addChild(this._bedraginput);
         this._bedraginput.addEventListener(Event.CHANGE, bedragchangehandler);
 
@@ -187,7 +167,6 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
     }
 
     private function bedragchangehandler(event:Event):void {
-        trace(_bedraginput.text);
         _appmodel.totaalBedrag = Number(_bedraginput.text);
         berekenPerPersoon();
     }
@@ -195,7 +174,6 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
 
     private function savebutton_triggeredHandler(event:Event):void
     {
-
         _panel = new Panel();
         _panel.headerProperties.title = "Hoe heet deze bill?";
 
@@ -227,8 +205,5 @@ public class GelijkMethode extends Sprite implements IcanBeViewed{
         _appmodel.addBill(_appmodel.huidigeBill);
         _appmodel.huidigScherm = "start";
     }
-
-
-
 }
 }
